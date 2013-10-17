@@ -1,0 +1,815 @@
+package engine.erp.produce;
+
+import engine.dataset.EngineDataSet;
+import engine.dataset.EngineRow;
+import engine.dataset.SequenceDescriptor;
+import engine.dataset.RowMap;
+import engine.action.BaseAction;
+import engine.action.Operate;
+import engine.web.observer.Obactioner;
+import engine.web.observer.Obationable;
+import engine.web.observer.RunData;
+import engine.project.*;
+import engine.html.*;
+import engine.common.LoginBean;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Hashtable;
+import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSession;
+
+import com.borland.dx.dataset.*;
+/**
+ * <p>Title: 工艺路线</p>
+ * <p>Description: 工艺路线</p>
+ * <p>Copyright: Copyright (c) 2003</p>
+ * <p>Company: </p>
+ * @author 李建华
+ * @version 1.0
+ */
+
+public final class B_TechnicsRoute extends BaseAction implements Operate
+{
+  public static final int GDJG_ONCHANGE = 10093;
+  public static final int MASTER_COPY = 10593;
+  //public static final int TECHNICS_CHANGE = 16593;
+
+  private static final String MASTER_STRUT_SQL = "SELECT * FROM sc_gylx WHERE 1<>1";
+  //工艺路线主表SQL语句，与库存代码关联，使得页面可以按产品编码排序
+  private static final String MASTER_SQL   =
+      "SELECT * FROM sc_gylx, kc_dm, sc_gylxlx WHERE sc_gylx.cpid = kc_dm.cpid AND sc_gylx.gylxlxid = sc_gylxlx.gylxlxid ? ORDER BY kc_dm.cpbm, sc_gylxlx.gylxlxbh ";
+  //根据工艺路线主表ID得到明细信息
+  private static final String DETAIL_SQL    = "SELECT * FROM sc_gylxmx WHERE gylxid=? ORDER BY gylxmxid";//
+  //private static final String TECHNICS_CHANGE_SQL = "SELECT * FROM sc_gylx WHERE cpid=? AND gylxlxid=? ";//在同一个产品中选择不同工艺路线类型的SQl
+
+  private static final String MASTER_COPY_SQL = "SELECT * FROM sc_gylx WHERE cpid IN(?) and gylxlxid=? ";//工艺路线复制给别的产品，别的产品的此工艺路线类型在工艺路线中是否已经存在
+  private static final String DETAIL_COPY_SQL = "SELECT * FROM sc_gylxmx WHERE gylxid IN(?)";//打开要复制给产品（即所选择产品）工艺路线类型存在于工艺路线中的从表数据
+
+  private EngineDataSet dsMasterTable  = new EngineDataSet();//主表
+  private EngineDataSet dsDetailTable  = new EngineDataSet();//从表
+
+  public boolean isMasterAdd = true;    //是否在添加状态
+  private long    masterRow = 0;         //保存主表修改操作的行记录指针
+  private RowMap  m_RowInfo    = new RowMap(); //主表添加行或修改行的引用
+  public  ArrayList d_RowInfos = null; //从表多行记录的引用
+
+  private boolean isInitQuery = false; //是否已经初始化查询条件
+  private QueryBasic fixedQuery = new QueryFixedItem();//查询类
+  public  String retuUrl = null;
+  private String qtyFormat = null, priceFormat = null, sumFormat = null;
+  public String SYS_PRODUCT_SPEC_PROP = null;//生产用位换算的相关规格属性名称 得到的值为“宽度”……
+  /**
+   * 工艺路线的实例
+   * @param request jsp请求
+   * @return 返回工艺路线的实例
+   */
+  public static B_TechnicsRoute getInstance(HttpServletRequest request)
+  {
+    B_TechnicsRoute b_TechnicsRouteBean = null;
+    HttpSession session = request.getSession(true);
+    synchronized (session)
+    {
+      String beanName = "b_TechnicsRouteBean";
+      b_TechnicsRouteBean = (B_TechnicsRoute)session.getAttribute(beanName);
+      if(b_TechnicsRouteBean == null)
+      {
+        //引用LoginBean
+        LoginBean loginBean = LoginBean.getInstance(request);
+
+        b_TechnicsRouteBean = new B_TechnicsRoute();
+        b_TechnicsRouteBean.qtyFormat = loginBean.getQtyFormat();
+        b_TechnicsRouteBean.priceFormat = loginBean.getPriceFormat();
+        b_TechnicsRouteBean.sumFormat = loginBean.getSumFormat();
+        b_TechnicsRouteBean.SYS_PRODUCT_SPEC_PROP = loginBean.getSystemParam("SYS_PRODUCT_SPEC_PROP");//生产用位换算的相关规格属性名称 得到的值为“宽度”……
+
+        //设置格式化的字段
+        //b_TechnicsRouteBean.dsDetailTable.setColumnFormat("desl", b_TechnicsRouteBean.qtyFormat);
+        b_TechnicsRouteBean.dsDetailTable.setColumnFormat("lbjj", b_TechnicsRouteBean.priceFormat);
+        b_TechnicsRouteBean.dsDetailTable.setColumnFormat("hsj", b_TechnicsRouteBean.priceFormat);
+        b_TechnicsRouteBean.dsDetailTable.setColumnFormat("gdjg", b_TechnicsRouteBean.priceFormat);
+        b_TechnicsRouteBean.dsDetailTable.setColumnFormat("wxjg", b_TechnicsRouteBean.priceFormat);
+        //b_TechnicsRouteBean.dsDetailTable.setColumnFormat("deje", b_TechnicsRouteBean.priceFormat);
+        session.setAttribute(beanName, b_TechnicsRouteBean);
+      }
+    }
+    return b_TechnicsRouteBean;
+  }
+
+  /**
+   * 构造函数
+   */
+  private B_TechnicsRoute()
+  {
+    try {
+      jbInit();
+    }
+    catch (Exception ex) {
+      log.error("jbInit", ex);
+    }
+  }
+
+  /**
+   * 初始化函数
+   * @throws Exception 异常信息
+   */
+  private final void jbInit() throws java.lang.Exception
+  {
+    setDataSetProperty(dsMasterTable, null);
+    setDataSetProperty(dsDetailTable, null);
+
+    dsMasterTable.setSequence(new SequenceDescriptor(new String[]{"gylxid"}, new String[]{"s_sc_gylx"}));
+    //dsMasterTable.setSort(new SortDescriptor("", new String[]{"cpid","gylxlxid"}, new boolean[]{false,false}, null, 0));
+    dsMasterTable.setTableName("sc_gylx");
+
+    dsDetailTable.setSequence(new SequenceDescriptor(new String[]{"gylxmxid"}, new String[]{"s_sc_gylxmx"}));
+    dsDetailTable.setSort(new SortDescriptor("", new String[]{"gylxmxid"}, new boolean[]{false}, null, 0));
+
+    Master_Add_Edit masterAddEdit = new Master_Add_Edit();
+    Master_Post masterPost = new Master_Post();
+    addObactioner(String.valueOf(INIT), new Init());
+    addObactioner(String.valueOf(FIXED_SEARCH), new Master_Search());
+    addObactioner(String.valueOf(ADD), masterAddEdit);
+    addObactioner(String.valueOf(EDIT), masterAddEdit);
+    addObactioner(String.valueOf(DEL), new Master_Delete());
+    addObactioner(String.valueOf(POST), masterPost);
+    addObactioner(String.valueOf(POST_CONTINUE), masterPost);
+    addObactioner(String.valueOf(GDJG_ONCHANGE), new Gdjg_Onchange());//选择工段触发事件
+    addObactioner(String.valueOf(DETAIL_ADD), new Detail_Add());
+    addObactioner(String.valueOf(DETAIL_DEL), new Detail_Delete());
+    addObactioner(String.valueOf(MASTER_COPY), new Master_Copy());//工艺路线复制给别的产品操作
+    //addObactioner(String.valueOf(TECHNICS_CHANGE), new Technics_Change());
+  }
+
+  //----Implementation of the BaseAction abstract class
+  /**
+   * JSP调用的函数
+   * @param request 网页的请求对象
+   * @param response 网页的响应对象
+   * @return 返回HTML或javascipt的语句
+   * @throws Exception 异常
+   */
+  public String doService(HttpServletRequest request, HttpServletResponse response)
+  {
+    try{
+      String operate = request.getParameter(OPERATE_KEY);//得到页面operate的值
+      if(operate != null && operate.trim().length() > 0)
+      {
+        RunData data = notifyObactioners(operate, request, response, null);
+        if(data == null)
+          return showMessage("无效操作", false);
+        if(data.hasMessage())
+          return data.getMessage();
+      }
+      return "";
+    }
+    catch(Exception ex){
+      if(dsMasterTable.isOpen() && dsMasterTable.changesPending())
+        dsMasterTable.reset();
+      log.error("doService", ex);
+      return showMessage(ex.getMessage(), true);
+    }
+  }
+
+  /**
+   * Session失效时，调用的函数
+   */
+  public final void valueUnbound(HttpSessionBindingEvent event)
+  {
+    if(dsMasterTable != null){
+      dsMasterTable.close();
+      dsMasterTable = null;
+    }
+    if(dsDetailTable != null){
+      dsDetailTable.close();
+      dsDetailTable = null;
+    }
+    log = null;
+    m_RowInfo = null;
+    d_RowInfos = null;
+  }
+
+  /**
+   * 得到子类的类名
+   * @return 返回子类的类名
+   */
+  protected final Class childClassName()
+  {
+    return getClass();
+  }
+
+  /**
+   * 得到选中的行的行数
+   * @return 若返回-1，表示没有选中的行
+   */
+  public final int getSelectedRow()
+  {
+    if(masterRow < 0)
+      return -1;
+
+    dsMasterTable.goToInternalRow(masterRow);
+    return dsMasterTable.getRow();
+  }
+
+  /**
+   * 初始化行信息
+   * @param isAdd 是否时添加
+   * @param isInit 是否从新初始化
+   * @throws java.lang.Exception 异常
+   */
+  private final void initRowInfo(boolean isMaster, boolean isAdd, boolean isInit) throws java.lang.Exception
+  {
+    //是否是主表
+    if(isMaster){
+      if(isInit && m_RowInfo.size() > 0)
+        m_RowInfo.clear();
+
+      if(!isAdd)
+        m_RowInfo.put(getMaterTable());
+      else
+      {
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        m_RowInfo.put("sxsj", today);
+      }
+    }
+    else
+    {
+      EngineDataSet dsDetail = dsDetailTable;
+      if(d_RowInfos == null)
+        d_RowInfos = new ArrayList(dsDetail.getRowCount());
+      else if(isInit)
+        d_RowInfos.clear();
+
+      dsDetail.first();
+      for(int i=0; i<dsDetail.getRowCount(); i++)
+      {
+        RowMap row = new RowMap(dsDetail);
+        d_RowInfos.add(row);
+        dsDetail.next();
+      }
+    }
+  }
+
+  /**
+   * 从表保存操作
+   * @param request 网页的请求对象
+   * @param response 网页的响应对象
+   * @return 返回HTML或javascipt的语句
+   * @throws Exception 异常
+   */
+  private final void putDetailInfo(HttpServletRequest request)
+  {
+    RowMap rowInfo = getMasterRowinfo();
+    //保存网页的所有信息
+    rowInfo.put(request);
+
+    int rownum = d_RowInfos.size();
+    RowMap detailRow = null;
+    //页面从表多行纪录推入到ArrayList里面
+    for(int i=0; i<rownum; i++)
+    {
+      detailRow = (RowMap)d_RowInfos.get(i);
+      detailRow.put("gymcid", rowInfo.get("gymcid_"+i));//工序名称
+      detailRow.put("gzzxid", rowInfo.get("gzzxid_"+i));//工作中心ID
+      detailRow.put("jjff", rowInfo.get("jjff_"+i));//计件单价的方法。0=计量单位计算1=生产单位计算2=换算单位计算3=领料的生产单位除参数(参数指系统参数的宽度)
+      detailRow.put("desl", rowInfo.get("desl_"+i));//定额数量
+      detailRow.put("deje", rowInfo.get("deje_"+i));//定额金额
+      detailRow.put("lbjj", formatNumber(rowInfo.get("lbjj_"+i), priceFormat));//零部件价
+      detailRow.put("hsj", formatNumber(rowInfo.get("hsj_"+i), priceFormat));//回收价
+      detailRow.put("gxfdid", rowInfo.get("gxfdid_"+i));//工序分段ID
+      detailRow.put("gdjg", formatNumber(rowInfo.get("gdjg_"+i), priceFormat));//工段价格
+      detailRow.put("scgs", rowInfo.get("scgs_"+i));//生产工时
+      detailRow.put("ddgs", rowInfo.get("ddgs_"+i));//等待工时
+      detailRow.put("sfwx", rowInfo.get("sfwx_"+i));//是否外协
+      detailRow.put("wxjg", formatNumber(rowInfo.get("wxjg_"+i), priceFormat));//外协价格
+      detailRow.put("bz", rowInfo.get("bz_"+i));//备注
+    }
+  }
+
+  /*得到主表对象*/
+  public final EngineDataSet getMaterTable()
+  {
+    return dsMasterTable;
+  }
+
+  /*得到从表表对象*/
+  public final EngineDataSet getDetailTable(){return dsDetailTable;}
+
+  /*打开从表*/
+  private final void openDetailTable()
+  {
+    String gylxid = dsMasterTable.getValue("gylxid");
+    dsDetailTable.setQueryString(combineSQL(DETAIL_SQL, "?", new String[]{isMasterAdd ? "-1" : gylxid}));
+
+    if(dsDetailTable.isOpen())
+      dsDetailTable.refresh();
+    else
+      dsDetailTable.open();
+  }
+
+  /*得到主表一行的信息*/
+  public final RowMap getMasterRowinfo() { return m_RowInfo; }
+
+  /*得到从表多列的信息*/
+  public final RowMap[] getDetailRowinfos() {
+    RowMap[] rows = new RowMap[d_RowInfos.size()];
+    d_RowInfos.toArray(rows);
+    return rows;
+  }
+
+  /**
+   * 主表是否在添加状态
+   * @return 是否在添加状态
+   */
+  public final boolean masterIsAdd() {return isMasterAdd; }
+
+  /**
+   * 得到固定查询的用户输入的值
+   * @param col 查询项名称
+   * @return 用户输入的值
+   */
+  public final String getFixedQueryValue(String col)
+  {
+    return fixedQuery.getSearchRow().get(col);
+  }
+
+  /**
+   * 初始化操作的触发类
+   */
+  class Init implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      retuUrl = data.getParameter("src");
+      retuUrl = retuUrl!= null ? retuUrl.trim() : retuUrl;
+      //初始化查询信息
+      RowMap row = fixedQuery.getSearchRow();
+      row.clear();
+      d_RowInfos = null;
+      dsMasterTable.setQueryString(combineSQL(MASTER_SQL, "?", new String[]{""}));
+      dsMasterTable.setRowMax(null);
+    }
+  }
+
+  /**
+   * 主表添加或修改操作的触发类
+   */
+  class Master_Add_Edit implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      isMasterAdd = String.valueOf(ADD).equals(action);
+      if(!isMasterAdd)
+      {
+        dsMasterTable.goToRow(Integer.parseInt(data.getParameter("rownum")));
+        masterRow = dsMasterTable.getInternalRow();
+      }
+      //打开从表
+      openDetailTable();
+      initRowInfo(true, isMasterAdd, true);
+      initRowInfo(false, isMasterAdd, true);
+    }
+  }
+  /**
+   * 选择工段触发时间
+   * 工段相同，工段价格等于定额金额叠加
+     */
+  class Gdjg_Onchange implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      putDetailInfo(data.getRequest());
+      Hashtable table = new Hashtable(d_RowInfos.size()+1, 1);//Hash表
+      for(int j=0; j<d_RowInfos.size();j++)
+      {
+        RowMap detailrow = (RowMap)d_RowInfos.get(j);
+        String gxfdid = detailrow.get("gxfdid");
+        String deje = detailrow.get("deje");
+        BigDecimal curValue = isDouble(deje) ? new BigDecimal(deje) : new BigDecimal(0);
+        BigDecimal total = (BigDecimal)table.get(gxfdid);//J=0时Hash表中没有数据
+        if(total == null)//J=0时total等于null
+          total = curValue;
+        else
+          total = total.add(curValue);
+        detailrow.put("gdjg", total.toString());
+        table.put(gxfdid, total);//推入Hash表中。key为工序分段Id,value等于total
+      }
+    }
+  }
+
+
+  /**
+   * 主表保存操作的触发类
+   */
+  class Master_Post implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      putDetailInfo(data.getRequest());
+
+      EngineDataSet ds = getMaterTable();
+      RowMap rowInfo = getMasterRowinfo();
+      //校验表单数据
+      String temp = checkMasterInfo();
+      if(temp != null)
+      {
+        data.setMessage(temp);
+        return;
+      }
+      temp = checkDetailInfo();
+      if(temp != null)
+      {
+        data.setMessage(temp);
+        return;
+      }
+      if(!isMasterAdd)
+        ds.goToInternalRow(masterRow);
+      String gylxid = null;
+
+      if(isMasterAdd){
+        ds.insertRow(false);
+        gylxid = dataSetProvider.getSequence("s_sc_gylx");
+        ds.setValue("gylxid", gylxid);
+      }
+      //保存从表的数据
+      RowMap detailrow = null;
+      EngineDataSet detail = getDetailTable();
+      detail.first();
+      for(int i=0; i<detail.getRowCount(); i++)
+      {
+        detailrow = (RowMap)d_RowInfos.get(i);
+        //新添的记录
+        if(isMasterAdd)
+          detail.setValue("gylxid", gylxid);
+
+        //detail.setValue("cpid", detailrow.get("cpid"));
+        detail.setValue("gymcid", detailrow.get("gymcid"));//工序名称
+        detail.setValue("gzzxid", detailrow.get("gzzxid"));//工作中心ID
+        detail.setValue("desl", formatNumber(detailrow.get("desl"), qtyFormat));//定额数量
+        detail.setValue("deje", detailrow.get("deje"));//定额金额
+        detail.setValue("jjff", detailrow.get("jjff"));//0=计量单位计算1=生产单位计算2=换算单位计算3=领料的生产单位除参数(参数指系统参数的宽度)
+        detail.setValue("lbjj", formatNumber(detailrow.get("lbjj"), priceFormat));//零部件价
+        detail.setValue("hsj", formatNumber(detailrow.get("hsj"), priceFormat));//回收价
+        detail.setValue("gxfdid", detailrow.get("gxfdid"));//工序分段ID
+        detail.setValue("gdjg", formatNumber(detailrow.get("gdjg"), priceFormat));//工段价格
+        detail.setValue("scgs", detailrow.get("scgs"));//生产工时
+        detail.setValue("ddgs", detailrow.get("ddgs"));//等待工时
+        detail.setValue("sfwx", detailrow.get("sfwx"));//是否外协
+        detail.setValue("wxjg", formatNumber(detailrow.get("wxjg"), priceFormat));//外协价格
+        detail.setValue("bz", detailrow.get("bz"));//备注
+        //保存用户自定义的字段
+        detail.post();
+        detail.next();
+      }
+
+      //保存主表数据
+      //ds.setValue("deptid", rowInfo.get("deptid"));//部门id
+      ds.setValue("cpid", rowInfo.get("cpid"));//部门ID
+      ds.setValue("sxsj", rowInfo.get("sxsj"));//生效时间
+      ds.setValue("gylxlxid", rowInfo.get("gylxlxid"));//工艺路线类型ID
+
+      //保存用户自定义的字段
+      ds.post();
+      try{
+        ds.saveDataSets(new EngineDataSet[]{ds, detail}, null);
+      }
+      catch(Exception ex){
+        log.warn("post",ex);
+        if(dsDetailTable.isOpen() && dsDetailTable.changesPending())
+          dsDetailTable.reset();
+        data.setMessage(showJavaScript("alert('该工艺路线已存在')"));
+        return;
+      }
+      LookupBeanFacade.refreshLookup(SysConstant.BEAN_STORE);
+      if(String.valueOf(POST_CONTINUE).equals(action)){
+        isMasterAdd = true;
+        initRowInfo(true, true, true);
+        detail.empty();//清空从表数据集
+        initRowInfo(false, true, true);//重新初始化从表的各行信息
+      }
+      if(String.valueOf(POST).equals(action))
+      {
+        isMasterAdd = false;
+        initRowInfo(false, false, true);//重新初始化从表的各行信息
+        data.setMessage(showJavaScript("refresh();"));
+        d_RowInfos = null;
+      }
+    }
+
+    /**
+     * 校验从表表单信息从表输入的信息的正确性
+     * @return null 表示没有信息
+     */
+    private String checkDetailInfo()
+    {
+      String temp = null;
+      RowMap detailrow = null;
+      if(d_RowInfos.size()<1)
+        return showJavaScript("alert('不能保存空的数据')");
+      ArrayList list = new ArrayList(d_RowInfos.size());
+      for(int i=0; i<d_RowInfos.size(); i++)
+      {
+        int row = i+1;
+        detailrow = (RowMap)d_RowInfos.get(i);
+        String gymcid = detailrow.get("gymcid");
+        if(gymcid.equals(""))
+          return showJavaScript("alert('工序不能为空')");
+        if(list.contains(gymcid))
+          return showJavaScript("alert('工序不能重复')");
+        else
+          list.add(gymcid);
+        String desl = detailrow.get("desl");
+        if(desl.length() > 0 &&(temp = checkNumber(desl, "第"+row+"行定额数量")) != null)
+          return temp;
+        String deje = detailrow.get("deje");
+        if((temp = checkNumber(deje, "第"+row+"行计件价格")) != null)
+          return temp;
+        if(deje.equals("0"))
+          return showJavaScript("alert('计件价格不能为零')");
+        String lbjj = detailrow.get("lbjj");
+        if(lbjj.length() > 0 &&(temp = checkNumber(lbjj, "第"+row+"行零部件价")) != null)
+          return temp;
+        String hsj = detailrow.get("hsj");
+        if(hsj.length() > 0 &&(temp = checkNumber(hsj, "第"+row+"行回收价")) != null)
+          return temp;
+        String gdjg = detailrow.get("gdjg");
+        if(gdjg.length() > 0 &&(temp = checkNumber(gdjg, "第"+row+"行工段价格")) != null)
+          return temp;
+        String wxj = detailrow.get("wxj");
+        if(wxj.length() > 0 &&(temp = checkNumber(wxj, "第"+row+"行外协价")) != null)
+          return temp;
+      }
+      return null;
+    }
+
+    /**
+     * 校验主表表表单信息从表输入的信息的正确性
+     * @return null 表示没有信息,校验通过
+     */
+    private String checkMasterInfo() throws Exception
+    {
+      RowMap rowInfo = getMasterRowinfo();
+      String cpid = rowInfo.get("cpid");
+      if(cpid.equals(""))
+        return showJavaScript("alert('产品不能为空！');");
+      String gylxlxid = rowInfo.get("gylxlxid");
+      if(gylxlxid.equals(""))
+        return showJavaScript("alert('工艺路线类型不能为空！');");
+      String count = dataSetProvider.getSequence("select count(*) FROM sc_gylx WHERE cpid="+cpid+" AND gylxlxid="+gylxlxid);
+      if(!count.equals("0") && isMasterAdd)
+        return showJavaScript("alert('该产品的本条工艺路线类型已存在')");
+      return null;
+    }
+  }
+  /**
+   * 选择不同工艺路线类型触发的事件
+  class Technics_Change implements Obactioner
+  {
+    private EngineDataSet lsMasterData = null;//零时主表数据集
+
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      HttpServletRequest req = data.getRequest();
+      //保存输入的明细信息
+      putDetailInfo(data.getRequest());
+      m_RowInfo.put(req);
+      RowMap rowInfo = getMasterRowinfo();
+      String cpid = rowInfo.get("cpid");
+      String gylxlxid = rowInfo.get("gylxlxid");
+      if(gylxlxid.equals(""))
+        return;
+      String sql = combineSQL(TECHNICS_CHANGE_SQL, "?", new String[]{cpid,gylxlxid});
+      if(lsMasterData == null)
+      {
+        lsMasterData = new EngineDataSet();
+        setDataSetProperty(lsMasterData, null);
+      }
+      lsMasterData.setQueryString(sql);
+      if(!lsMasterData.isOpen())
+        lsMasterData.openDataSet();
+      else
+        lsMasterData.refresh();
+      if(lsMasterData.getRowCount()<1)
+        return;
+      String gylxid = lsMasterData.getValue("gylxid");
+      if(gylxid.equals(""))
+        return;
+      dsDetailTable.setQueryString(DETAIL_SQL+gylxid);
+      if(dsDetailTable.isOpen())
+        dsDetailTable.refresh();
+      else
+        dsDetailTable.open();
+      initRowInfo(true, isMasterAdd, true);
+      initRowInfo(false, isMasterAdd, true);
+    }
+  }
+     */
+  /**
+   * 主从表同时添加（从表数据复制给别的产品）操作的触发类
+   */
+  class Master_Copy implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      HttpServletRequest req = data.getRequest();
+      EngineDataSet ds = getMaterTable();
+      RowMap rowinfo =getMasterRowinfo();
+      rowinfo.put(req);
+      String gylxid = rowinfo.get("gylxid");//工艺路线ID
+      String sxsj = rowinfo.get("sxsj");//生效时间
+      String gylxlxid = rowinfo.get("gylxlxid");//工艺路线类型ID
+      putDetailInfo(data.getRequest());
+
+      String multiIdInput = req.getParameter("multiIdInput");//得到所要复制给的产品字符串，用逗号分割
+      if(multiIdInput.length() == 0)
+        return;
+      String[] cpIDs = parseString(multiIdInput,",");//得到所要复制给的产品数组
+
+      EngineDataSet masterData = new EngineDataSet();//new一个新的主表数据集
+      EngineDataSet detailData = new EngineDataSet();//new一个新的从表数据集
+      //工艺路线复制给别的产品，判断别的产品的此工艺路线类型在工艺路线中是否已经存在
+      setDataSetProperty(masterData, combineSQL(MASTER_COPY_SQL, "?", new String[]{multiIdInput, gylxlxid}));
+      masterData.openDataSet();
+      EngineRow locateGoodsRow = new EngineRow(masterData, "cpid");//定位数据集
+
+      setDataSetProperty(detailData, combineSQL(DETAIL_COPY_SQL, "?" , new String[]{getWhereIn(masterData,"gylxid", "-2")}));
+      detailData.setSequence(new SequenceDescriptor(new String[]{"gylxmxid"}, new String[]{"s_sc_gylxmx"}));
+      detailData.openDataSet();
+      detailData.deleteAllRows();//打开要复制给产品（即所选择产品）工艺路线类型存在于工艺路线中的从表数据并删除
+
+      for(int j=0; j<cpIDs.length; j++)
+      {
+        if(cpIDs[j].equals("-1"))
+           continue;
+        locateGoodsRow.setValue(0, cpIDs[j]);
+        boolean isFind = masterData.locate(locateGoodsRow, Locate.FIRST);//判断是否在工艺路线主表中定位到了该选择产品并且工艺路线类型也和复制的相同
+        String gylxidNew = isFind ? masterData.getValue("gylxid") : dataSetProvider.getSequence("s_sc_gylx");//如果定为到了工艺路线ID直接从数据集中取
+        if(!isFind)//如果没有定位到在工艺路线主表中插入一行信息
+        {
+          masterData.insertRow(false);
+          masterData.setValue("gylxid", gylxidNew);
+          masterData.setValue("cpid", cpIDs[j]);
+        }
+        masterData.setValue("sxsj",sxsj);//设置生效时间
+        masterData.setValue("gylxlxid",gylxlxid);//设置工艺路线类型
+        masterData.post();
+
+        dsDetailTable.first();
+        for(int i=0; i<dsDetailTable.getRowCount(); i++)
+        {
+          detailData.insertRow(false);
+          detailData.setValue("gylxmxid", "-1");
+          detailData.setValue("gylxid", gylxidNew);
+          detailData.setValue("gxfdid", dsDetailTable.getValue("gxfdid"));
+          detailData.setValue("gzzxid", dsDetailTable.getValue("gzzxid"));
+          detailData.setValue("gymcid", dsDetailTable.getValue("gymcid"));
+          detailData.setValue("desl", dsDetailTable.getValue("desl"));
+          detailData.setValue("deje", dsDetailTable.getValue("deje"));
+          detailData.setValue("lbjj", dsDetailTable.getValue("lbjj"));
+          detailData.setValue("hsj", dsDetailTable.getValue("hsj"));
+          detailData.setValue("gdjg", dsDetailTable.getValue("gdjg"));
+          detailData.setValue("scgs", dsDetailTable.getValue("scgs"));
+          detailData.setValue("ddgs", dsDetailTable.getValue("ddgs"));
+          detailData.setValue("sfwx", dsDetailTable.getValue("sfwx"));
+          detailData.setValue("wxjg", dsDetailTable.getValue("wxjg"));
+          detailData.setValue("bz", dsDetailTable.getValue("bz"));
+          detailData.post();
+          dsDetailTable.next();
+        }
+      }
+      masterData.saveDataSets(new EngineDataSet[]{masterData, detailData}, null);//主表信息和从表信息同时保存到数据库中
+      detailData.closeDataSet();
+      masterData.closeDataSet();
+      data.setMessage(showJavaScript("refresh();"));
+    }
+  }
+  /**
+   * 主表删除操作
+   */
+  class Master_Delete implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      if(isMasterAdd){
+        data.setMessage(showJavaScript("refresh();"));
+        return;
+      }
+      EngineDataSet ds = getMaterTable();
+      ds.goToInternalRow(masterRow);
+      String gylxid = ds.getValue("gylxid");
+      String countA = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_jhmx WHERE gylxid="+gylxid);
+      String countB = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_wlxqjhmx WHERE gylxid="+gylxid);
+      //String countC = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_rwdmx WHERE gylxid="+gylxid);
+      //String countD = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_jgdmx WHERE gylxid="+gylxid);
+      //String countE = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_grgzlmx WHERE gylxid="+gylxid);
+      //String countF = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_bmgzlmx WHERE gylxid="+gylxid);
+      //String countG = dataSetProvider.getSequence("SELECT COUNT(*) FROM sc_gzzgzlmx WHERE gylxid="+gylxid);
+      if(!countA.equals("0") || !countB.equals("0")){
+        data.setMessage(showJavaScript("alert('该工艺路线已被引用不能删除！');"));
+        return;
+      }
+      else{
+      dsDetailTable.deleteAllRows();
+      ds.deleteRow();
+      ds.saveDataSets(new EngineDataSet[]{ds, dsDetailTable}, null);
+      LookupBeanFacade.refreshLookup(SysConstant.BEAN_STORE);
+      //
+      d_RowInfos.clear();
+      m_RowInfo.clear();
+      data.setMessage(showJavaScript("refresh();"));
+      d_RowInfos = null;
+      }
+    }
+  }
+
+  /**
+   *  查询操作
+   */
+  class Master_Search implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      initQueryItem(data.getRequest());
+      fixedQuery.setSearchValue(data.getRequest());
+      String SQL = fixedQuery.getWhereQuery();
+      if(SQL.length() > 0)
+        SQL = " AND "+SQL;
+      SQL = combineSQL(MASTER_SQL, "?", new String[]{SQL});
+      if(!dsMasterTable.getQueryString().equals(SQL))
+      {
+        dsMasterTable.setQueryString(SQL);
+        dsMasterTable.setRowMax(null);
+      }
+    }
+
+    /**
+     * 初始化查询的各个列
+     * @param request web请求对象
+     */
+    private void initQueryItem(HttpServletRequest request)
+    {
+      if(isInitQuery)
+        return;
+      EngineDataSet master = dsMasterTable;
+      //EngineDataSet detail = dsDetailTable;
+      if(!master.isOpen())
+        master.open();
+      //初始化固定的查询项目
+      fixedQuery = new QueryFixedItem();
+      fixedQuery.addShowColumn("sc_gylx", new QueryColumn[]{
+        new QueryColumn(master.getColumn("sxsj"), null, null, null, null, ">="),
+        new QueryColumn(master.getColumn("gylxlxid"), null, null, null, null, "="),
+        new QueryColumn(master.getColumn("gylxid"), "VW_SC_GYLXQUERY", "gylxid", "product","product","like"),
+        new QueryColumn(master.getColumn("gylxid"), "VW_SC_GYLXQUERY", "gylxid", "cpbm","cpbm","like"),
+        new QueryColumn(master.getColumn("cpid"), null, null, null, null, "="),//品名
+      });
+      isInitQuery = true;
+    }
+  }
+
+  /**
+   *  从表增加操作
+   */
+  class Detail_Add implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      HttpServletRequest req = data.getRequest();
+      //保存输入的明细信息
+      putDetailInfo(data.getRequest());
+      EngineDataSet detail = getDetailTable();
+      EngineDataSet ds = getMaterTable();
+      if(!isMasterAdd)
+        ds.goToInternalRow(masterRow);
+      String gylxid = dsMasterTable.getValue("gylxid");
+      detail.insertRow(false);
+      detail.setValue("gylxid", isMasterAdd ? "" : gylxid);
+      detail.post();
+      RowMap detailrow = new RowMap();
+      detailrow.put("jjff", "0");
+      detailrow.put("sfwx","0");
+      d_RowInfos.add(detailrow);
+    }
+  }
+
+  /**
+   *  从表删除操作
+   */
+  class Detail_Delete implements Obactioner
+  {
+    public void execute(String action, Obationable o, RunData data, Object arg) throws Exception
+    {
+      putDetailInfo(data.getRequest());
+      EngineDataSet ds = getDetailTable();
+      int rownum = Integer.parseInt(data.getParameter("rownum"));
+      //删除临时数组的一列数据
+      d_RowInfos.remove(rownum);
+      ds.goToRow(rownum);
+      ds.deleteRow();
+    }
+  }
+}

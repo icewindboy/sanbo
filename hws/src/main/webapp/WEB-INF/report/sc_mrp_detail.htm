@@ -1,0 +1,85 @@
+<html>
+<title name="物料需求明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_MRP_DETAIL" type="sql">
+  <field name="wlxqh" caption="物料需求号" group="true" datatype="varchar">
+    <field name="rq" caption="日期" group="true" datatype="date">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="xql" caption="需求量" sum="true" datatype="number">
+  <field name="jhkgl" caption="计划可供量" sum="true" datatype="number">
+  <field name="xgl" caption="需购量" sum="true" datatype="number">
+    <field name="scydw" caption="生产单位" group="true" datatype="varchar">
+  <field name="xqrq" caption="需求时间" group="true" datatype="date">
+  <field name="bz" caption="备注" group="true" datatype="varchar">
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">		
+  <where field="wlxqh" caption="物料需求号" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="wlxqh" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="jhh" caption="生产计划号" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="jhh" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select"  lookup="bm.iswork" >
+  <where field="jhzt" caption="计划状态" value="=全部&0=未完成&8=已完成" opersign="=" type="radio">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">				
+  <where field="dh" caption="物料需求状态" value="=全部&0=未订货&1=已订货" opersign="=" type="radio" span="true">
+  <where field="chxz" caption="存货性质" value="=全部&1=自制&2=外购" opersign="=" type="radio" span="true">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16"  valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">物料需求明细表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="wlxqh">物料需求号</td>
+	<td align="center" valign="middle" nowrap="true" field="rq">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+    <td align="center" valign="middle" nowrap="true" field="xql">需求量</td>
+	<td align="center" valign="middle" nowrap="true" field="jhkgl">计划可供量</td>
+    <td align="center" valign="middle" nowrap="true" field="xgl">需购量</td>
+		<td align="center" valign="middle" nowrap="true" field="scydw">单位</td>
+	<td align="center" valign="middle" nowrap="true" field="xqrq">需求时间</td>
+    <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr onClick="selectRow();">
+    <td nowrap="true"><value field="wlxqh"></td>
+    <td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true" align="right"><value field="xql" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="jhkgl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="xgl" format="{qtyformat}"></td>
+	    <td nowrap="true"><value field="scydw"></td>
+	<td nowrap="true" ><value field="xqrq"></td>
+    <td nowrap="true" ><value field="bz" ></td>
+  </tr>
+  <widths value="11,9,11,20,10,15,9,7,9,7,9,18"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

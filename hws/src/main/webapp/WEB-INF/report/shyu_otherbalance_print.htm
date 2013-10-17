@@ -1,0 +1,90 @@
+<html>
+<title name="其他应收款"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="19.4" width="21.5" magin-left="0" magin-right="1" magin-top="1" magin-bottom="1" footer-center="第 &P 页，共 &N 页"   footer-right="存根(白) 客户(红) 仓库(绿) 财务(蓝)"  font-size="11">
+<dataset name="a" object="(SELECT a.czy, a.otherfundid,a.fgsid,a.otherfundno,a.otherfunddate,a.otherfunditem,a.jbr,a.otherfund,a.bz,b.dwmc,b.addr,c.xm,d.mc,e.jsfs FROM xs_other_fund a,dwtx b,emp c,bm d,jsfs e WHERE a.dwtxid=b.dwtxid AND a.personid=c.personid AND a.deptid=d.deptid AND a.jsfsid=e.jsfsid )" type="sql">
+
+  <param name="otherfundid" datatype="number" value="{otherfundid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">  浙     江    盛    宇     被     服    有     限     公    司 </td>
+  </tr>
+  <tr>
+     <td align="center" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">其他应收款</td>
+  </tr>
+  <tr>
+	 <td align="right" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">No:<value field="otherfundno"></td>
+  </tr>
+</table>
+<widths value="15,5">
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+      <td nowrap="true" align="center"   >开单日期</td>
+	  <td nowrap="true" align="left"   ><value field="otherfunddate"></td>
+      <td align="center"  nowrap="true" field="mc"   >部门</td>
+	  <td align="left"  nowrap="true" field="mc"   ><value field="mc"></td>
+	  <td align="center"  nowrap="true" field="mc"   >业务员</td>
+	  <td align="left"  nowrap="true" field="mc"   ><value field="xm"></td>
+  </tr>
+  <tr>
+      <td nowrap="true" align="center"   >客户名称</td>
+	  <td nowrap="true" align="left"  colspan="5"    ><value field="dwmc"></td>
+  </tr>
+  <tr>
+      <td nowrap="true" align="center"   >客户地址</td>
+	  <td nowrap="true" align="left"  colspan="5"    ><value field="addr"></td>
+  </tr>
+  <tr>
+      <td nowrap="true" align="center"   >单据项目</td>
+	  <td nowrap="true" align="left"   ><value field="otherfunditem"></td>
+      <td align="center"  nowrap="true"  >经办人</td>
+	  <td align="left"  nowrap="true" field="jbr"   ><value field="jbr"></td>
+	  <td align="center"  nowrap="true" field="jsfs"   >结算方式</td>
+	  <td align="left"  nowrap="true" field="jsfs"   ><value field="jsfs"></td>
+  </tr>
+</table>
+<widths value="5,10,5,10,5,10">
+<table id="tableview2" class="table" dataset="a" font-size="11" width="100%" maxrow="10" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr>
+  	<td align="left"  border-bottom="0"  nowrap="false"  field="">款项内容与结算情况</td>
+	<td align="left"  border-bottom="0"  nowrap="false"  field=""><value field="bz"></td>
+  </tr>
+  <tr   >
+  	<td nowrap="true"   border-bottom="0"  border-top="0" ><value field=""></td>
+  </tr>
+    <widths value="4,20">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0">合计人民币大写：</td>
+	<td nowrap="true" colspan="4" ><value field="otherfund" chineseformat="1"    sum="true" datatype="number"></td>
+	<td nowrap="true"  align="left">小写：￥<value field="otherfund" sum="true"format="#.00">元</td>
+  </tr>
+<widths value="8,10,5,10,5,10">
+</table>
+<table id="tableview4" class="table" dataset="a" font-size="11" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+      <td align="center"  nowrap="true" colspan="5"  border-left="0" border-right="0" border-top="0" border-bottom="0" > 地址:苍南县灵溪镇示范工业园区沪山路         电话:0577-64839888(总机)6483911        传真:0577-64839333 </td>
+  </tr>
+  <tr>
+     <td align="left"    border-left="0" border-right="0" border-top="0" border-bottom="0" >会计:         </td>
+	 
+      <td align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >  出纳:         </td>
+	  
+	  <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" >   复核:        </td>
+	  
+ 	  <td align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开票:<value field="czy"></td>
+	   <td align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field=""></td>
+  </tr>	
+    <widths value="5,5,5,5,5">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

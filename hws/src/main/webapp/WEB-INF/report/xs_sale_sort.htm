@@ -1,0 +1,62 @@
+<html>
+<title name="销售排行榜">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="PCK_SALE_REP.xs_number_order(?,'@','@','@')" type="procedure">
+  <field name="rownum" caption="序号" group="true" datatype="number">
+  <field name="cpbm" caption="产品编码" group="true"  datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sl" caption="销量" sum="true" datatype="number">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="bl" caption="占总销量比率(%)" group="true"  datatype="number">
+  <field name="mc" caption="类别" group="true" datatype="varchar">
+
+ <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">	
+ <where field="wzlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_dmlb" >
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"   style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售排行榜</td>
+  </tr>
+</table>
+<table  id="tableview1" dataset="a" width="100%" border="0" cellspacing="0"  class="table" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="rownum">序号</td>
+    <td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="pm">品名</td>
+	<td align="center"  nowrap="true" field="gg">规格</td>
+    <td align="center"  nowrap="true" field="sl">销量</td>
+	<td align="center"  nowrap="true" field="jldw">单位</td>
+    <td align="center"  nowrap="true" field="bl">占总销量比率(%)</td>
+	<td align="center"  nowrap="true" field="mc">类别</td>
+  </tr>
+  <tr onClick="selectRow();"> 
+    <td nowrap="true" ><value field="rownum" ></td>
+	<td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true" ><value field="pm" ></td>
+	<td nowrap="true" ><value field="gg" ></td>
+	<td nowrap="true" align="right"><value field="sl"  zeroformat=""></td>
+	<td nowrap="true"><value field="jldw"></td>
+	<td nowrap="true" ><value field="bl" ></td>
+	<td nowrap="true" ><value field="mc" ></td>
+ </tr>
+  <widths value="8,8,8,8,8,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >initDefaultTableRow('tableview1',1);
+ function productCodeSelect(obj,srcVars)
+ {
+    SaleProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    SaleProdNameChange(document.all['prod'], obj.form.name, srcVars,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

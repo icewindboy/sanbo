@@ -1,0 +1,117 @@
+<html>
+<title name="采购合同"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="BILL_BUY_ORDER_EDIT" type="sql">
+  <where field="htid" caption="合同ID" opersign="=" datatype="number">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"></td>
+  </tr>
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">采购合同</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="true" header="3">
+  <tr>
+      <td align="center" valign="middle" nowrap="true" field="htbh" border-left="0" border-right="0" border-top="0" border-bottom="0">采购合同号</td>
+ 	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="htbh"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="htrq" border-left="0" border-right="0" border-top="0" border-bottom="0">合同日期</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="htrq"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="ksrq" border-left="0" border-right="0" border-top="0" border-bottom="0">有效期始</td>
+ 	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="ksrq"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="jsrq" border-left="0" border-right="0" border-top="0" border-bottom="0">有效期终</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="jsrq"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center" valign="middle" nowrap="true" field="dwmc" border-left="0" border-right="0" border-top="0" border-bottom="0">供应商</td>
+ 	  <td nowrap="true" colspan="3" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="dwmc"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="khlx" border-left="0" border-right="0" border-top="0" border-bottom="0">客户类型</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="khlx"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="mc" border-left="0" border-right="0" border-top="0" border-bottom="0">部门</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="mc"></td>
+  </tr>
+  <tr>  
+   	  <td align="center" valign="middle" nowrap="true" field="xm" border-left="0" border-right="0" border-top="0" border-bottom="0">业务员</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="xm"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="qddd" border-left="0" border-right="0" border-top="0" border-bottom="0">签订地点</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="qddd"></td>
+   	  <td align="center" valign="middle" nowrap="true" field="wbmc" border-left="0" border-right="0" border-top="0" border-bottom="0">外币类型</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="wbmc"></td>
+	  <td align="center" valign="middle" nowrap="true" field="hl" border-left="0" border-right="0" border-top="0" border-bottom="0">汇率</td>
+   	  <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" valign="middle"><value field="hl"></td>
+  </tr>
+  <widths value="8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr> 
+  	<td align="center" valign="middle" nowrap="true" field="sqbh">申请单编号</td>
+  	<td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+  	<td align="center" valign="middle" nowrap="true" field="product">品名 规格</td>
+	<td align="center" valign="middle" nowrap="true" field="hsdw">换算单位</td>
+  	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+  	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+  	<td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+  	<td align="center" valign="middle" nowrap="true" field="dj">单价</td>
+  	<td align="center" valign="middle" nowrap="true" field="je">金额</td>
+	<td align="center" valign="middle" nowrap="true" field="ybje">原币金额</td>
+	<td align="center" valign="middle" nowrap="true" field="jhrq">交货日期</td>
+	<td align="center" valign="middle" nowrap="true" field="gyszyh">供应商资源号</td>
+	<td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr>
+  	<td nowrap="true" border_bottom="0"><value field="sqbh"></td>
+  	<td nowrap="true" border_bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border_bottom="0"><value field="product"></td>
+	<td nowrap="true" border_bottom="0"><value field="hsdw"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" border_bottom="0"><value field="sxz"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="sl"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="dj"></td>
+	<td nowrap="true" border_bottom="0" align="right"><value field="je"></td>
+	<td nowrap="true" border_bottom="0" align="right"><value field="ybje"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jhrq"></td>
+  	<td nowrap="true" border_bottom="0"><value field="gyszyh"></td>
+	<td nowrap="true" border_bottom="0"><value field="bz"></td>
+  </tr>
+    <widths value="8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" align="center" valign="middle"  border_bottom="0">合计</td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" align="right" ><value field="sl" sum="true" format="{sumformat}"></td>
+	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" align="right" ><value field="je" sum="true" format="{sumformat}"></td>
+	<td nowrap="true" border_bottom="0" align="right"><value field="ybje" sum="true" format="{sumformat}"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+	<td nowrap="true" border_bottom="0"></td>
+  </tr>
+    <widths value="8,8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+   	  <td align="left" valign="middle" nowrap="true" field="spr" border-left="0" border-right="0" border-top="0" border-bottom="0"  >审核人:</td>
+ 	  <td nowrap="true"  valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="spr"></td>
+   	  <td align="right" valign="middle" nowrap="true" field="czy" border-left="0" border-right="0" border-top="0" border-bottom="0"  >制单人:</td>
+   	  <td nowrap="true" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="czy"></td>
+  </tr>	
+  <widths value="8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

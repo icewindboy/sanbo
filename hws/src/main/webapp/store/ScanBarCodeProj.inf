@@ -1,0 +1,9 @@
+;C++Builder-generated INF file for ScanBarCodeProj.ocx
+[Add.Code]
+ScanBarCodeProj.ocx=ScanBarCodeProj.ocx
+
+[ScanBarCodeProj.ocx]
+file=./ScanBarCodeProj.cab
+clsid={3FE58C97-FA6F-45AC-A983-0BD55A403FFA}
+RegisterServer=yes
+FileVersion=1,0,3,0

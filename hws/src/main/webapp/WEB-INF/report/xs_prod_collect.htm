@@ -1,0 +1,77 @@
+<html>
+<title name="商品销售汇总表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="rep_xs_detail_td" type="sql">
+
+  <field name="mc" caption="部门" group="true"  datatype="varchar">
+  <field name="xm" caption="业务员" group="true"  datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true"  datatype="varchar"  include="tdid,djlx">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="jje" caption="金额" sum="true" datatype="number">
+
+
+ <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">	
+ <where field="deptid" caption="部门" need="false" datatype="number" opersign="=" type="select"  lookup="bm" >
+ <where field="personid" caption="业务员" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+ <where field="djlx" caption="单据类型"  opersign="=" value="=全部&1=提货单&-1=退货单" type="radio" span="true">
+
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"   style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">商品销售汇总表</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$tdrq$a} -- {where.a$tdrq$b}</td>
+  </tr>
+</table>
+<table  id="tableview1" dataset="a" width="100%" border="0" cellspacing="0"  class="table" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="mc">部门</td>
+    <td align="center"  nowrap="true" field="xm">业务员</td>
+    <td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="pm">品名</td>
+    <td align="center"  nowrap="true" field="sl">数量</td>
+	<td align="center"  nowrap="true" field="jldw">单位</td>
+	<td align="center"  nowrap="true" field="jje">金额</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="detailRep('{tdid}','{djlx}')"> 
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+	<td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true" ><value field="pm" ></td>
+	<td nowrap="true" align="right"><value field="sl"  zeroformat=""></td>
+	<td nowrap="true"><value field="jldw"></td>
+	<td nowrap="true" align="right"><value field="jje"  format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="11,11,11,11,11,11,11"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >
+initDefaultTableRow('tableview1',1);
+ function productCodeSelect(obj,srcVars)
+ {
+    SaleProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    SaleProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(param,djlx){
+if(param=="")
+return;
+ if(djlx=='-1')
+   openSelectUrl('../sale/back_lading_bill_edit.jsp?operate=645355666&code=xs_td_detail&id='+param, 'unlading_bill');
+ else 
+  openSelectUrl('../sale/lading_bill_edit.jsp?operate=645355666&code=xs_td_detail&id='+param, 'lading_bill');
+}
+</SCRIPT>
+</body>
+</html>

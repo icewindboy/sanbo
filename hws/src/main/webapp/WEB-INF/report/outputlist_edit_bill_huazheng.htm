@@ -1,0 +1,98 @@
+<html>
+<title name="销售出库单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0">
+<page type="templet" height="10" width="19" magin-left="1" magin-right="1" magin-top="0.6" magin-bottom="1" font-size="11">
+<dataset name="a" object="PCK_STORE_BILL.Outputlist_Edit_Bill(?,'@','@')" type="procedure">
+  <where field="sfdjid" caption="收发单据ID" datatype="number">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" height="30" border="0" cellpadding="1" cellspacing="0" type="static">
+  <tr><td border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+     <td align="center" valign="bottom" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">编 织 袋 出 库 划 码 凭 证</td>
+  </tr>
+  <tr>
+     <td border-left="0" border-right="0" border-top="0" border-bottom="0"></td><td border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+  </tr>
+</table>
+ <widths value="8,8">
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" border-left="0" border-right="0" border-top="0" border-bottom="0" cellspacing="0" cellpadding="2" type="static" fillnull="false">
+  <tr>	         
+   	  <td align="left" valign="middle" nowrap="true" field="dwmc" border-left="0" border-right="0" border-top="0" border-bottom="0" field="dwmc">客户：</td>
+ 	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"  colspan="3"><value field="dwmc"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="khlx" border-left="0" border-right="0" border-top="0" border-bottom="0" field="khlx">类型:</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="khlx"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="jsr" border-left="0" border-right="0" border-top="0" border-bottom="0" field="sfrq">日期：</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"  colspan="2"><value field="sfrq"></td>
+      <td align="right" valign="middle" nowrap="true" field="jsr" border-left="0" border-right="0" border-top="0" border-bottom="0" field="sfdjdh">NO.</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"  colspan="2"><value field="sfdjdh"></td>
+  </tr>          
+  <widths value="8,9,8,8,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2" maxrow="5">
+  <tr>
+   <td align="center"   nowrap="true" field="rownum">编号</td> 
+  	<td align="center"  nowrap="true" field="tdbh">提单编号</td>
+  	<td align="center"  nowrap="true" field="pm">品名 规格</td>
+  	<td align="center"  nowrap="true" field="wzggsx">规格属性</td>
+  	<td align="center"  nowrap="true" field="hssl">筒数(个)</td>
+  	<td align="center"  nowrap="true" field="sl">重量(kg)</td>
+  	<td align="center"  nowrap="true" field="dj">单价</td>
+  	<td align="center"  nowrap="true" field="je">金额</td>	
+  	<td align="center"  nowrap="true" field="bz">备注</td>	
+  </tr>
+  <tr>
+    <td nowrap="true" border_bottom="0" align="center"><value field="rownum"></td>
+  	<td nowrap="true"  border_bottom="0"><value field="tdbh"></td>
+  	<td nowrap="true"  border_bottom="0"><value field="pm"></td>
+  	<td nowrap="true"  border_bottom="0"><value field="wzggsx"></td>
+  	<td nowrap="true"  border_bottom="0" align="right"><value field="hssl"></td>
+  	<td nowrap="true"  border_bottom="0" align="right"><value field="sl" format="#0.00"></td>
+  	<td nowrap="true"  border_bottom="0" align="right"><value field="dj" format="#0.00"></td>
+  	<td nowrap="true"  border_bottom="0" align="right"><value field="je" format="#0.00"></td>
+  	<td nowrap="true"  border_bottom="0"><value field="bz"></td>
+  </tr>
+    <widths value="3,12,17,9,7,6,5,7,5">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+    <td nowrap="true"  border_bottom="0"></td>
+  	<td nowrap="true"  colspan="2" align="center"  border_bottom="0">合　计：</td>
+  	<td nowrap="true"  border_bottom="0"></td>
+    <td nowrap="true"  border_bottom="0" align="right"><value field="hssl" sum="true" format="#0"></td>
+    <td nowrap="true"  border_bottom="0" align="right"><value field="sl" sum="true" format="#0.00"></td>
+  	<td nowrap="true"  border_bottom="0"></td>
+  	<td nowrap="true"  border_bottom="0" align="right"><value field="je" sum="true" format="#0.00"></td>
+  	<td nowrap="true"  border_bottom="0"></td>
+  </tr>
+    <widths value="3,12,17,9,7,6,5,7,5">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" colspan="5"  border_bottom="0" align="left">合计人民币大写：<value field="je" sum="true" chineseformat="1"></td>
+  	<td nowrap="true" colspan="3"  border_bottom="0" align="left">小写：￥<value field="je" sum="true">元</td>
+  </tr>
+    <widths value="3,12,17,9,7,6,5,7,5">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%"  border="0" cellspacing="0" cellpadding="2" type="static" offset="-2">
+  <tr>
+      <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0">过秤：</td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+   	  <td align="right" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="zdr">制单：</td>
+   	  <td align="left" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="zdr"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="xm">审核：</td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="xm"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0">提货人：</td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+  </tr>	
+  <widths value="8,8,8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+initDefaultTableRow('tableview4',0);
+</SCRIPT>
+</body>
+</html>
+

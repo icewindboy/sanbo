@@ -1,0 +1,656 @@
+
+
+
+
+<html>
+<head>
+<title></title>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../scripts/public.css" type="text/css">
+</head>
+
+<script language="javascript" src="../scripts/validate.js"></script>
+<script language="javascript" src="../scripts/tabcontrol.js"></script>
+<script language="javascript" src="../scripts/rowcontrol.js"></script>
+<script language="javascript">
+
+  function formatQty(srcStr){ return formatNumber(srcStr, '#0.####');}
+  function formatPrice(srcStr){ return formatNumber(srcStr, '#0.00');}
+  function formatSum(srcStr){ return formatNumber(srcStr, '#0.00');}
+
+
+    function sumitForm(oper, row)
+    {
+      lockScreenToWait("处理中, 请稍候！");
+      form1.rownum.value = row;
+      form1.operate.value = oper;
+    form1.submit();
+    }
+    function backList()
+    {
+  location.href='cloth_outprocess.jsp';
+    }
+    function deptchange(){
+   associateSelect(document.all['prod'], 'emp', 'jbr', 'deptid', eval('form1.deptid.value'), '');
+     }
+     function productCodeSelect(obj, i)
+     {
+  ProdCodeChange(document.all['prod'], obj.form.name, 'srcVar=cpid_'+i+'&srcVar=cpbm_'+i+'&srcVar=product_'+i+'&srcVar=jldw_'+i,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw', obj.value);
+     }
+     function corpCodeSelect(obj,i)
+     {
+       ProvideCodeChange(document.all['prod'], obj.form.name, 'srcVar=dwtxid_'+i+'&srcVar=dwdm_'+i+'&srcVar=dwmc_'+i,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value, 'sumitForm(1003)');
+}
+function bcorpCodeSelect(obj,j)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, 'srcVar=bdwtxid_'+j+'&srcVar=bdwdm_'+j+'&srcVar=bdwmc_'+j,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value, 'sumitForm(1004)');
+                   }
+                   function productNameSelect(obj,i)
+{
+                     ProdNameChange(document.all['prod'], obj.form.name, 'srcVar=cpid_'+i+'&srcVar=cpbm_'+i+'&srcVar=product_'+i+'&srcVar=jldw_'+i,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw', obj.value);
+                   }
+                   function productCodeSelect1(obj, i)
+                   {
+                     ProdCodeChange(document.all['prod'], obj.form.name, 'srcVar=bcpid_'+i+'&srcVar=cpbm1_'+i+'&srcVar=product1_'+i+'&srcVar=jldw1_'+i,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw', obj.value);
+                   }
+                   function productNameSelect1(obj,i)
+                   {
+                     ProdNameChange(document.all['prod'], obj.form.name, 'srcVar=bcpid_'+i+'&srcVar=cpbm1_'+i+'&srcVar=product1_'+i+'&srcVar=jldw1_'+i,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw', obj.value);
+                   }
+                   //function sl_onchange(i, isBigUnit)
+    // {
+                   //var oldhsblObj = document.all['hsbl_'+i];
+                   //var sxzObj = document.all['sxz_'+i];
+                   //unitConvert(document.all['prod_'+i], 'form1', 'srcVar=truebl_'+i, 'exp='+oldhsblObj.value, sxzObj.value, 'nsl_onchange('+i+','+isBigUnit+')');
+                   //}
+                   function sl_onchange(i,s, isBigUnit)
+                   {
+                     var bpslObj = document.all['bpsl_'+i];
+       var djObj = document.all['dj_'+i];
+       var jeObj = document.all['je'+s+'_'+i];
+
+
+        var trslObj = document.all['trsl_'+i];
+        var ccslObj = document.all['ccsl_'+i];
+        var ysslObj = document.all['yssl_'+i];
+        var yslObj = document.all['ysl_'+i];
+        var jgdjObj = document.all['jgdj_'+i];
+        var jgjeObj = document.all['jgje_'+i];
+
+        var slObj = document.all['sl_'+i];
+        var jgwdjObj = document.all['jgwdj_'+i];
+
+    if (s==0)
+    {
+      if(bpslObj.value=="")
+         return;
+      if(isNaN(bpslObj.value)){
+        alert("asdfsad");
+        alert("输入的数量非法");
+        bpslObj.focus();
+        return;
+      }
+       if(bpslObj.value<0){
+         alert("不能输入小于等于零的数")
+             return;
+       }
+       if(djObj.value=="")
+         return;
+       if(isNaN(djObj.value))
+        {
+         alert("输入的单价非法");
+         djObj.focus();
+         return;
+        }
+        if (bpslObj.value!="" && !isNaN(bpslObj.value)){
+          //alert(bpslObj.value);alert(bpslObj.value);
+    jeObj.value = formatSum(parseFloat(bpslObj.value) * parseFloat(djObj.value));
+        }
+        else
+          jeObj.value='';
+        return;
+    }
+    if (s==1)
+    {
+
+      if(trslObj.value=="")
+        return;
+      if(isNaN(trslObj.value)){
+        alert("asdfsad");
+        alert("输入的数量非法");
+        trslObj.focus();
+        return;
+      }
+       if(trslObj.value<0){
+         alert("不能输入小于等于零的数")
+             return;
+       }
+       if(jgdjObj.value=="")
+          return;
+       if(isNaN(jgdjObj.value))
+    {
+      alert("输入的单价非法");
+      jgdjObj.focus();
+      return;
+        }
+
+       if (trslObj.value!="" && !isNaN(trslObj.value)){
+        // alert(trslObj.value);alert(trslObj.value);
+
+         jgjeObj.value = formatSum(parseFloat(trslObj.value) * parseFloat(jgdjObj.value));
+       }
+       else
+         jeObj.value='';
+       ysslObj.value = formatSum(parseFloat(ccslObj.value) - parseFloat(trslObj.value));
+       yslObj.value = formatSum(parseFloat(ysslObj.value)/parseFloat(trslObj.value));
+       return;
+
+
+    }
+    if (s==2)
+    {
+      if(slObj.value=="")
+        return;
+      if(isNaN(slObj.value)){
+        alert("asdfsad");
+        alert("输入的数量非法");
+        slObj.focus();
+        return;
+      }
+      if (slObj.value!="" && !isNaN(slObj.value)){
+       // alert(slObj.value);alert(slObj.value);
+
+        jeObj.value = formatSum(parseFloat(slObj.value) * parseFloat(jgwdjObj.value));
+      }
+      else
+        jeObj.value='';
+      return;
+
+    }
+
+    //jeObj.value = formatSum(parseFloat(slObj.value) * parseFloat(djObj.value));
+
+     }
+</script>
+<BODY oncontextmenu="window.event.returnValue=true"  >
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<table WidTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0 class="headbar">
+  <tr> 
+    <td NOWRAP align="center"></td>
+  </tr>
+</table>
+<form name="form1" action="http://localhost:8080/buy_shengyu/cloth_outprocess_edit.jsp" method="POST" onsubmit="return false;" onKeyDown="return onInputKeyboard();" >
+  <INPUT TYPE="HIDDEN" NAME="rownum" value=''>
+  <INPUT TYPE="HIDDEN" NAME="operate" value=''>
+  <table BORDER="0" CELLPADDING="0" CELLSPACING="2" align="center">
+    <tr valign="top"> 
+      <td width="400"> <table width="90" border=0 CELLPADDING=0 CELLSPACING=0 class="table">
+          <tr> 
+            <td width="190"  class="activeVTab">坯布外加工单(未审核)</td>
+          </tr>
+        </table>
+        <table class="editformbox" cellspacing=2 cellpadding=0 width="100%">
+          <tr> 
+            <td> <table cellspacing="2" cellpadding="0" border="0" width="100%" bgcolor="#f0f0f0">
+                <INPUT TYPE="HIDDEN" NAME="personid"  VALUE="">
+                <tr> 
+                  <td nowrap class="tdTitle">外加工单号</td>
+                  <td noWrap class="td"><input type="text" name="djh" value='PB04080006' maxlength='32' style="width:110" class="edline" onKeyDown="return getNextElement();" readonly></td>
+              </table></td>
+            <td nowrap class="tdTitle">采购日期</td>
+            <td nowrap class="td"><input type="text" name="slrq" value='2004-08-04' maxlength="10" style="width:100" class=edbox onChange="checkDate(this)" onKeyDown="return getNextElement();" > 
+              <a href="#"><img src="../images/seldate.gif" width="20" height="16" border="0" title="选择日期" onClick="selectDate(slrq);"></a> 
+            </td>
+            <td nowrap class="tdTitle">订单日期</td>
+            <td nowrap class="td"><input type="text" name="ddrq" value='2004-08-01' maxlength="10" style="width:100" class=edbox onChange="checkDate(this)" onKeyDown="return getNextElement();" > 
+              <a href="#"><img src="../images/seldate.gif" width="20" height="16" border="0" title="选择日期" onClick="selectDate(ddrq);"></a> 
+            </td>
+            <td height="22" nowrap class="tdTitle">部门</td>
+            <td nowrap class="td"> <DIV ID='d2_deptid' class=edbox style='width:5;width:111' onClick=ToggleSelect('deptid')>
+                <table border=0 cellspacing=0 cellpadding=0>
+                  <tr>
+                    <td nowrap width='100%'><INPUT CLASS='ednone' NAME='v_deptid' style='width:100%' onKeyDown="return SelectKeyDown('deptid');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('deptid');" value=''></td>
+                    <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                  </tr>
+                </table>
+                <INPUT TYPE=HIDDEN NAME='deptid' link='v_deptid' value=''>
+              </DIV>
+              <script language='javascript'>o_deptid=new TSelectObject('deptid','deptid','v_deptid','d1_deptid','d2_deptid',false,"deptchange();",true);RegisterSelect(o_deptid);SetDestSelectObject(o_deptid);AddSelectItem('','');
+
+                    AddSelectItem('1','总经办');AddSelectItem('22','办公室');AddSelectItem('23','计划部');AddSelectItem('24','财务部');AddSelectItem('25','生产部');AddSelectItem('26','技术部');AddSelectItem('78','采购部');AddSelectItem('55','销售部');AddSelectItem('29','质管部');AddSelectItem('56','市场部');AddSelectItem('81','后勤部');SetSelectedIndex('1'); </script> 
+            </td>
+          </tr>
+          <tr> 
+            <td nowrap class="tdTitle">采购(经办人)</td>
+            <td noWrap class="td"> <DIV ID='d2_jbr' class=edbox style='width:5;width:110' onClick=ToggleSelect('jbr')>
+                <table border=0 cellspacing=0 cellpadding=0>
+                  <tr>
+                    <td nowrap width='100%'><INPUT CLASS='ednone' NAME='jbr' style='width:100%' onKeyDown="return SelectKeyDown('jbr');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('jbr');" value='陈友真'></td>
+                    <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                  </tr>
+                </table>
+                <INPUT TYPE=HIDDEN NAME='v_jbr' link='jbr' value=''>
+              </DIV>
+              <script language='javascript'>o_jbr=new TSelectObject('jbr','v_jbr','jbr','d1_jbr','d2_jbr',false,null,false);RegisterSelect(o_jbr);SetDestSelectObject(o_jbr);AddSelectItem('','');
+
+                    AddSelectItem('197','林茂');AddSelectItem('198','陈友真');AddSelectItem('205','叶冬桃');AddSelectItem('206','谢炳禅');AddSelectItem('207','李法銮');AddSelectItem('208','章招弟');AddSelectItem('209','林爱美');AddSelectItem('781','yjg');AddSelectItem('782','zjb');AddSelectItem('801','yl');AddSelectItem('144','曾上教');AddSelectItem('145','hukn');AddSelectItem('148','余振顿');AddSelectItem('149','陈秀明');AddSelectItem('23','张小容'); </script> 
+            </td>
+            <td nowrap class="tdTitle">备注</td>
+            <td colspan="5" nowrap class="td"> <input type="text" name="bz" value='safdfdsafdsafdsafdsadsafdsafds' maxlength='64' style="width:350" class=edbox onKeyDown="return getNextElement();" > 
+            </td>
+          </tr>
+          <tr> 
+            <td colspan="8" nowrap> <table cellspacing=0 width="100%" cellpadding=0>
+                <tr> 
+                  <td nowrap> <div id="tabDivINFO_EX_0" class="activeTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_0');return false;">坯布情况明细表</a></div></td>
+                  <td nowrap> <div id="tabDivINFO_EX_1" class="normalTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_1');return false;">外加工情况明细表</a></div></td>
+                  <td nowrap> <div id="tabDivINFO_EX_2" class="normalTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_2');return false;">加工cheng品布料明细表</a></div></td>
+                  <td class="lastTab" valign=bottom width=100% align=right><a class="tdTitle" href="#">&nbsp;</a></td>
+                </tr>
+              </table>
+              <div id="cntDivINFO_EX_0" class="tabContent" style="display:block;width:750;height=135;overflow-y:auto;overflow-x:auto;"> 
+                <table id="tableview1" border="0" cellspacing="1" cellpadding="0" class="table" width=100% >
+                  <tr class="tableTitle"> 
+                    <td height='20' align="center" nowrap> <input name="image" class="img" type="image" title="新增(A)" onClick="sumitForm(1020,-1);" src="../images/add_big.gif" border="0"> 
+                    <td>坯布编码</td>
+                    <td>坯布名称规格</td>
+                    <td>供应单位名称</td>
+                    <td>计量单位</td>
+                    <td>本批数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>购入时间</td>
+                    <td>购入数量</td>
+                  </tr>
+                  <tr class="td" > 
+                    <td nowrap> <img style='cursor:hand' title='单选物资' src='../images/select_prod.gif' border=0 onClick="ProdSingleSelect('form1','srcVar=cpid_0&srcVar=cpbm_0&srcVar=product_0&srcVar=jldw_0','fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw')"> 
+                      <input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(1023,0)" src="../images/delete.gif" border="0"> 
+                    </td>
+                    <td class="td" nowrap> <input type="hidden" name="cpid_0" value="3817"> 
+                      <input type='hidden' id='hsbl_0' name='hsbl_0' value=''> 
+                      <input type='hidden' id='truebl_0' name='truebl_0' value=''> 
+                      <input type='hidden' id='isprops_0' name='isprops_0' value='1'> 
+                      <input type="text" class=edFocused onKeyDown="return getNextElement();" id="cpbm_0" name="cpbm_0" value='1011010008' onchange="productCodeSelect(this,0)"  > 
+                    </td>
+                    <td class="td" nowrap><input type="text" class=edFocused onKeyDown="return getNextElement();" id="product_0" name="product_0" value='40320B暖风绿 235/78*65  ' onchange="productNameSelect(this,0)"  > 
+                    </td>
+                    <td noWrap class="td" > <input type="hidden" name="dwtxid_0" value='1926'> 
+                      <input type="text" class=edFocused style="width:20" onKeyDown="return getNextElement();" name="dwdm_0" value='1027001' onchange="corpCodeSelect(this,0)" > 
+                      <input type="text" class=edFocused name="dwmc_0" onKeyDown="return getNextElement();" value='武汉江南实业集团有限公司' style="width:100"  onchange="corpNameSelect(this,0)" > 
+                      <img style='cursor:hand' src='../images/view.gif' border=0 onClick="ProvideSingleSelect('form1','srcVar=dwtxid_0&srcVar=dwdm_0&srcVar=dwmc_0','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')"> 
+                    </td>
+                    <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="jldw_0" name="jldw_0" value='米' readonly> 
+                    </td>
+                    <td> <input type="text" class=edFocused value='32' id="bpsl_0" name="bpsl_0"  onchange="sl_onchange(0, '0', false)"  style="width:100%;" > 
+                    </td>
+                    <td> <input type="text" class=edFocused  value='23.00' id="dj_0" name="dj_0"   onchange="sl_onchange(0, '0',false)" style="width:100%;"> 
+                    </td>
+                    <td> <input type="text" class=edFocused value='736' id="je0_0" name="je0_0" style="width:100%;"> 
+                    </td>
+                    <td class="td" nowrap> <input type="text" class=edFocused style="width:65" onKeyDown="return getNextElement();" name="grrq_0" id="grrq_0"value='2004-08-05' maxlength='10' onchange="checkDate(this)"> 
+                      <a href="#"><img align="absmiddle" src="../images/seldate.gif" width="20" height="16" border="0" title="选择日期" onclick="selectDate(form1.grrq_0);"></a> 
+                    </td>
+                    <td> <input type="text" class=edFocused value='23' id="grsl_0" name="grsl_0" style="width:100%;"> 
+                    </td>
+                  </tr>
+                  <tr class="td" > 
+                    <td nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr class="td" > 
+                    <td nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr class="td" > 
+                    <td nowrap>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+                <script language="javascript">initDefaultTableRow('tableview1',1);</script>
+              </div>
+              <div id="cntDivINFO_EX_1" class="tabContent" style="display:none;width:750;height=135;overflow-y:auto;overflow-x:hidden;"> 
+                <center>
+                  <table id="tableview2" border="0" cellspacing="1" cellpadding="0" class="table" width="100%">
+                    <tr class="tableTitle"> 
+                      <td  width=45 align="center" nowrap> <input name="image" class="img" type="image" title="新增(A)" onClick="sumitForm(1021,-1);" src="../images/add_big.gif" border="0"> 
+                      </td>
+                      <td>外加工<br>
+                        工序名称</td>
+                      <td>加工单位</td>
+                      <td>投入数量</td>
+                      <td>产出数量</td>
+                      <td>加工单价</td>
+                      <td>金额</td>
+                      <td>溢损数量 <br>
+                        溢(+)损(-)</td>
+                      <td>溢损率<br>
+                        溢(+)损(-)</td>
+                      <td>次品数量</td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap> <input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(1024,0)" src="../images/delete.gif" border="0"> 
+                      </td>
+                      <td> <input type="text" class=edFocused value='' id="wjggx_0" name="wjggx_0"  style="width:100%;" > 
+                      </td>
+                      <td noWrap class="td" > <input type="hidden" name="bdwtxid_0" value='1861'> 
+                        <input type="text" class=edFocused style="width:20"  name="bdwdm_0" value='30577001' onKeyDown="return getNextElement();" onchange="bcorpCodeSelect(this,0)" > 
+                        <input type="text" class=edFocused name="bdwmc_0"  value='林志永' style="width:100"  onKeyDown="return getNextElement();" onchange="bcorpNameSelect(this,0)" > 
+                        <img style='cursor:hand' src='../images/view.gif' border=0 onClick="ProcessSingleSelect('form1','srcVar=bdwtxid_0&srcVar=bdwdm_0&srcVar=bdwmc_0','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')"> 
+                      </td>
+                      <td> <input type="text" class=edFocused value='345' id="trsl_0" name="trsl_0"  onchange="sl_onchange(0, '1', false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='345' id="ccsl_0" name="ccsl_0"   onchange="sl_onchange(0, '1', false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='3' id="jgdj_0" name="jgdj_0" onchange="sl_onchange(0, '1',false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='1035' id="jgje_0" name="jgje_0"   onchange="sl_onchange(0, '1',false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='0' id="yssl_0" name="yssl_0"  style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='' id="ysl_0" name="ysl_0"  style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='345' id="cpsl_0" name="cpsl_0"  style="width:100%;" > 
+                      </td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </table>
+                  <script language="javascript">initDefaultTableRow('tableview2',1);</script>
+                </center>
+              </div>
+              <div id="cntDivINFO_EX_2" class="tabContent" style="display:none;width:750;height=135;overflow-y:auto;overflow-x:auto;"> 
+                <center>
+                  <table id="tableview3" border="0" cellspacing="1" cellpadding="0" class="table" width="100%">
+                    <tr class="tableTitle"> 
+                      <td nowrap> <input name="image" class="img" type="image" title="新增(A)" onClick="sumitForm(1022,-1);" src="../images/add_big.gif" border="0"> 
+                      </td>
+                      <td nowrap>材料编号</td>
+                      <td nowrap>名称规格(花号款式)</td>
+                      <td nowrap>规格属性</td>
+                      <td nowrap>单位</td>
+                      <td nowrap>换算数量</td>
+                      <td nowrap>换算单位</td>
+                      <td nowrap>库位</td>
+                      <td nowrap>数量</td>
+                      <td nowrap>加工完成单价</td>
+                      <td nowrap>金额</td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap> <img style='cursor:hand' title='单选物资' src='../images/select_prod.gif' border=0 onClick="ProdSingleSelect('form1','srcVar=bcpid_0&srcVar=cpbm1_0&srcVar=product1_0&srcVar=jldw1_0','fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw')"> 
+                        <input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(1025,0)" src="../images/delete.gif" border="0"> 
+                      </td>
+                      <td class="td" nowrap> <input type="hidden" name="bcpid_0" value='3830'> 
+                        <input type='hidden' id='hsbl_0' name='hsbl_0' value=''> 
+                        <input type='hidden' id='trueb_0' name='trueb_0' value=''> 
+                        <input type='hidden' id='isprops_0' name='isprops_0' value='1'> 
+                        <input type="text" class=edFocused onKeyDown="return getNextElement();" id="cpbm1_0" name="cpbm1_0" value='1011010012' onchange="productCodeSelect1(this,0)" > 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=edFocused onKeyDown="return getNextElement();" id="product1_0" name="product1_0" value='40323B薰衣草 235/78*65  ' onchange="productNameSelect(this,0)" > 
+                      </td>
+                      <td class="td" nowrap> <input class=edFocused  name="sxz_0" value='' onchange="if(form1.bcpid_0.value==''){alert('请先输入产品');return;}propertyNameSelect(this,form1.bcpid_0.value,0)" onKeyDown="return getNextElement();" > 
+                        <input type="hidden" id="dmsxid_0" name="dmsxid_0" value=""> 
+                        <img style='cursor:hand' src='../images/view.gif' border=0 onClick="if(form1.bcpid_0.value==''){alert('请先输入产品');return;}if('1'=='0'){alert('该物资没有规格属性');return;}PropertySelect('form1','dmsxid_0','sxz_0',form1.bcpid_0.value)"> 
+                        <img style='cursor:hand' src='../images/delete.gif' BORDER=0 ONCLICK="dmsxid_0.value='';sxz_0.value='';"> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="jldw1_0" name="jldw1_0" value='米' readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone_r onKeyDown="return getNextElement();" id="hssl_0" name="hssl_0" value='0' maxlength='16' onchange="sl_onchange(0, false)" readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="hsdw_0" name="hsdw_0" value='' readonly> 
+                      </td>
+                      <td nowrap class="td"> <DIV ID='d2_kwid_0' class=edbox style='width:5;width:111' onClick=ToggleSelect('kwid_0')>
+                          <table border=0 cellspacing=0 cellpadding=0>
+                            <tr>
+                              <td nowrap width='100%'><INPUT CLASS='ednone' NAME='v_kwid_0' style='width:100%' onKeyDown="return SelectKeyDown('kwid_0');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('kwid_0');" value=''></td>
+                              <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                            </tr>
+                          </table>
+                          <INPUT TYPE=HIDDEN NAME='kwid_0' link='v_kwid_0' value=''>
+                        </DIV>
+                        <script language='javascript'>o_kwid_0=new TSelectObject('kwid_0','kwid_0','v_kwid_0','d1_kwid_0','d2_kwid_0',false,"deptchange();",true);RegisterSelect(o_kwid_0);SetDestSelectObject(o_kwid_0);AddSelectItem('','');
+
+                     </script> </td>
+                      <td> <input type="text" class=edFocused value='21' id="sl_0" name="sl_0"  onchange="sl_onchange(0, '2', false)"   style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='21' id="jgwdj_0" name="jgwdj_0" onchange="sl_onchange(0, '2',false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='441' id="je2_0" name="je2_0"  style="width:100%;" > 
+                      </td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap> <img style='cursor:hand' title='单选物资' src='../images/select_prod.gif' border=0 onClick="ProdSingleSelect('form1','srcVar=bcpid_1&srcVar=cpbm1_1&srcVar=product1_1&srcVar=jldw1_1','fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw')"> 
+                        <input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(1025,1)" src="../images/delete.gif" border="0"> 
+                      </td>
+                      <td class="td" nowrap> <input type="hidden" name="bcpid_1" value='3830'> 
+                        <input type='hidden' id='hsbl_1' name='hsbl_1' value=''> 
+                        <input type='hidden' id='trueb_1' name='trueb_1' value=''> 
+                        <input type='hidden' id='isprops_1' name='isprops_1' value='1'> 
+                        <input type="text" class=edFocused onKeyDown="return getNextElement();" id="cpbm1_1" name="cpbm1_1" value='1011010012' onchange="productCodeSelect1(this,1)" > 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=edFocused onKeyDown="return getNextElement();" id="product1_1" name="product1_1" value='40323B薰衣草 235/78*65  ' onchange="productNameSelect(this,1)" > 
+                      </td>
+                      <td class="td" nowrap> <input class=edFocused  name="sxz_1" value='' onchange="if(form1.bcpid_1.value==''){alert('请先输入产品');return;}propertyNameSelect(this,form1.bcpid_1.value,1)" onKeyDown="return getNextElement();" > 
+                        <input type="hidden" id="dmsxid_1" name="dmsxid_1" value=""> 
+                        <img style='cursor:hand' src='../images/view.gif' border=0 onClick="if(form1.bcpid_1.value==''){alert('请先输入产品');return;}if('1'=='0'){alert('该物资没有规格属性');return;}PropertySelect('form1','dmsxid_1','sxz_1',form1.bcpid_1.value)"> 
+                        <img style='cursor:hand' src='../images/delete.gif' BORDER=0 ONCLICK="dmsxid_1.value='';sxz_1.value='';"> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="jldw1_1" name="jldw1_1" value='米' readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone_r onKeyDown="return getNextElement();" id="hssl_1" name="hssl_1" value='0' maxlength='16' onchange="sl_onchange(1, false)" readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="hsdw_1" name="hsdw_1" value='' readonly> 
+                      </td>
+                      <td nowrap class="td"> <DIV ID='d2_kwid_1' class=edbox style='width:5;width:111' onClick=ToggleSelect('kwid_1')>
+                          <table border=0 cellspacing=0 cellpadding=0>
+                            <tr>
+                              <td nowrap width='100%'><INPUT CLASS='ednone' NAME='v_kwid_1' style='width:100%' onKeyDown="return SelectKeyDown('kwid_1');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('kwid_1');" value=''></td>
+                              <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                            </tr>
+                          </table>
+                          <INPUT TYPE=HIDDEN NAME='kwid_1' link='v_kwid_1' value=''>
+                        </DIV>
+                        <script language='javascript'>o_kwid_1=new TSelectObject('kwid_1','kwid_1','v_kwid_1','d1_kwid_1','d2_kwid_1',false,"deptchange();",true);RegisterSelect(o_kwid_1);SetDestSelectObject(o_kwid_1);AddSelectItem('','');
+
+                     </script> </td>
+                      <td> <input type="text" class=edFocused value='45' id="sl_1" name="sl_1"  onchange="sl_onchange(1, '2', false)"   style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='545' id="jgwdj_1" name="jgwdj_1" onchange="sl_onchange(1, '2',false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='24525' id="je2_1" name="je2_1"  style="width:100%;" > 
+                      </td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap> <img style='cursor:hand' title='单选物资' src='../images/select_prod.gif' border=0 onClick="ProdSingleSelect('form1','srcVar=bcpid_2&srcVar=cpbm1_2&srcVar=product1_2&srcVar=jldw1_2','fieldVar=cpid&fieldVar=cpbm&fieldVar=product&fieldVar=jldw')"> 
+                        <input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(1025,2)" src="../images/delete.gif" border="0"> 
+                      </td>
+                      <td class="td" nowrap> <input type="hidden" name="bcpid_2" value='3829'> 
+                        <input type='hidden' id='hsbl_2' name='hsbl_2' value=''> 
+                        <input type='hidden' id='trueb_2' name='trueb_2' value=''> 
+                        <input type='hidden' id='isprops_2' name='isprops_2' value='1'> 
+                        <input type="text" class=edFocused onKeyDown="return getNextElement();" id="cpbm1_2" name="cpbm1_2" value='1011010011' onchange="productCodeSelect1(this,2)" > 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=edFocused onKeyDown="return getNextElement();" id="product1_2" name="product1_2" value='40323A薰衣草 235/78*65  ' onchange="productNameSelect(this,2)" > 
+                      </td>
+                      <td class="td" nowrap> <input class=edFocused  name="sxz_2" value='' onchange="if(form1.bcpid_2.value==''){alert('请先输入产品');return;}propertyNameSelect(this,form1.bcpid_2.value,2)" onKeyDown="return getNextElement();" > 
+                        <input type="hidden" id="dmsxid_2" name="dmsxid_2" value=""> 
+                        <img style='cursor:hand' src='../images/view.gif' border=0 onClick="if(form1.bcpid_2.value==''){alert('请先输入产品');return;}if('1'=='0'){alert('该物资没有规格属性');return;}PropertySelect('form1','dmsxid_2','sxz_2',form1.bcpid_2.value)"> 
+                        <img style='cursor:hand' src='../images/delete.gif' BORDER=0 ONCLICK="dmsxid_2.value='';sxz_2.value='';"> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="jldw1_2" name="jldw1_2" value='米' readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone_r onKeyDown="return getNextElement();" id="hssl_2" name="hssl_2" value='0' maxlength='16' onchange="sl_onchange(2, false)" readonly> 
+                      </td>
+                      <td class="td" nowrap><input type="text" class=ednone style="width:100%" onKeyDown="return getNextElement();" id="hsdw_2" name="hsdw_2" value='' readonly> 
+                      </td>
+                      <td nowrap class="td"> <DIV ID='d2_kwid_2' class=edbox style='width:5;width:111' onClick=ToggleSelect('kwid_2')>
+                          <table border=0 cellspacing=0 cellpadding=0>
+                            <tr>
+                              <td nowrap width='100%'><INPUT CLASS='ednone' NAME='v_kwid_2' style='width:100%' onKeyDown="return SelectKeyDown('kwid_2');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('kwid_2');" value=''></td>
+                              <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                            </tr>
+                          </table>
+                          <INPUT TYPE=HIDDEN NAME='kwid_2' link='v_kwid_2' value=''>
+                        </DIV>
+                        <script language='javascript'>o_kwid_2=new TSelectObject('kwid_2','kwid_2','v_kwid_2','d1_kwid_2','d2_kwid_2',false,"deptchange();",true);RegisterSelect(o_kwid_2);SetDestSelectObject(o_kwid_2);AddSelectItem('','');
+
+                     </script> </td>
+                      <td> <input type="text" class=edFocused value='324' id="sl_2" name="sl_2"  onchange="sl_onchange(2, '2', false)"   style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='23' id="jgwdj_2" name="jgwdj_2" onchange="sl_onchange(2, '2',false)" style="width:100%;" > 
+                      </td>
+                      <td> <input type="text" class=edFocused value='7452' id="je2_2" name="je2_2"  style="width:100%;" > 
+                      </td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr class="td" > 
+                      <td nowrap align="center"><b>合计</b></td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td align="right" class="td"><input id="t_sl" name="t_sl" type="text" class="ednone_r" style="width:100%" value='390' readonly></td>
+                      <td>&nbsp;</td>
+                      <td>合计项</td>
+                    </tr>
+                  </table>
+                  <script language="javascript">initDefaultTableRow('tableview3',1);
+                         obj=GetInputControl('cpbm1',8);
+						 obj.AddInputSize(form1.cpbm1_0);
+						 obj.AddInputSize(form1.cpbm1_1);
+						 obj.AddInputSize(form1.cpbm1_2);
+						 obj.AdjustInputSize();				  
+				  obj=GetInputControl('product1',8);
+						 obj.AddInputSize(form1.product1_0);
+						 obj.AddInputSize(form1.product1_1);
+						 obj.AddInputSize(form1.product1_2);
+						 obj.AdjustInputSize();
+                         function formatQty(srcStr){ return formatNumber(srcStr, '#0.####');}
+                         function formatPrice(srcStr){ return formatNumber(srcStr, '#0.00');}
+                         function formatSum(srcStr){ return formatNumber(srcStr, '#0.00');}
+
+                      </script>
+                </center>
+              </div>
+          <tr class="td" > 
+            <td nowrap>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <script language="javascript">initDefaultTableRow('tableview3',1); </script> 
+        <SCRIPT LANGUAGE="javascript">INFO_EX = new TabControl('INFO_EX',0);
+      AddTabItem(INFO_EX,'INFO_EX_0','tabDivINFO_EX_0','cntDivINFO_EX_0');
+      AddTabItem(INFO_EX,'INFO_EX_1','tabDivINFO_EX_1','cntDivINFO_EX_1');
+      AddTabItem(INFO_EX,'INFO_EX_2','tabDivINFO_EX_2','cntDivINFO_EX_2');
+      if (window.top.StatFrame+''!='undefined'){ var tmp_curtab=window.top.StatFrame.GetRegisterVar('INFO_EX');if (tmp_curtab!='') {SetActiveTab(INFO_EX,tmp_curtab);}}
+     </SCRIPT> </td>
+    </tr>
+  </table>
+  <tr> 
+    <td> </td>
+  </tr>
+  <table CELLSPACING=0 CELLPADDING=0 width="760" align="center">
+    <tr> 
+      <td class="td"><b>登记日期:</b>2004-08-31</td>
+      <td class="td"></td>
+      <td class="td" align="right"><b>制单人:</b>zjb</td>
+    </tr>
+    <tr> 
+      <td colspan="3" noWrap class="tableTitle"> <input name="button2" type="button" class="button" onClick="sumitForm(19);" value='保存添加(N)'> 
+        <script language='javascript'>GetShortcutControl(78,"sumitForm(19,-1)");</script> 
+        <input name="button" type="button" class="button" onClick="sumitForm(14);" value='保存返回(S)'> 
+        <script language='javascript'>GetShortcutControl(83,"sumitForm(14,-1)");</script> 
+        <input name="btnback2" type="button" class="button" onClick="if(confirm('是否删除该记录？'))sumitForm(1067,null)" value='删除(X)'> 
+        <script language='javascript'>GetShortcutControl(88,"if(confirm('是否删除该记录？'))sumitForm(1067,null)");</script> 
+        <input name="btnback" type="button" class="button" onClick="backList();" value='  返回(C)  '> 
+        <script language='javascript'>GetShortcutControl(67,"backList();");</script> 
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+<title name="存货收发日报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_STORE_REP.store_inout_day(?,'@','@','@','@','@','@','@','@')" type="procedure">
+  
+  <field name="cpbm" caption="存货代码" group="true" datatype="varchar">
+  <field name="pm" caption="存货名称" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+   <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="srjc" caption="上日结存" sum="true" datatype="number">
+  <field name="brsr" caption="本日收入" sum="true" datatype="number">
+  <field name="brfc" caption="本日发出" sum="true" datatype="number">
+  <field name="brjc" caption="本日结存" sum="true" datatype="number">
+
+  <where field="rq" caption="日期" span="true" linktable="" need="true" linkcolumn="" querycolumn="" extendname="a" opersign="=" initvalue="{date}" datatype="date">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_chlb" >
+ <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">	
+  <where field="dmsxid" caption="规格属性" datatype="number" opersign="=" type="lookup" span="true" 
+  nameonchange="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}propertyNameSelect(this,fixedQueryform.A$CPID.value,'@')"
+ onclick="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}PropertySelect('fixedQueryform','@','fieldVar=dmsxid&fieldVar=sxz',fixedQueryform.A$CPID.value)">		
+  <where field="zt" caption="包括未记帐"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+  <param name="fgsid" datatype="number" value="{fgsid}"><param name="personid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" valign="middle" style="font_size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货收发日报表</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a}</td>
+  </tr>
+</table>
+<table dataset="a" id="tableview1" class="table" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="cpbm">存货代码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">存货名称</td>
+	<td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">计量单位</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+        <td align="center" valign="middle" nowrap="true" field="srjc">上日结存</td>
+	<td align="center" valign="middle" nowrap="true" field="brsr">本日收入</td>
+	<td align="center" valign="middle" nowrap="true" field="brfc">本日发出</td>
+        <td align="center" valign="middle" nowrap="true" field="brjc">本日结存</td>
+  </tr>
+  <tr onClick="selectRow();"> 
+	<td nowrap="true"><value field="cpbm"></td>
+	<td nowrap="true"><value field="pm"></td>
+	<td nowrap="true"><value field="gg"></td>
+        <td nowrap="true"><value field="jldw"></td>
+		<td nowrap="true"><value field="sxz"></td>
+	<td nowrap="true" align="right"><value field="srjc" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="brsr" format="{qtyformat}"></td>
+        <td nowrap="true" align="right"><value field="brfc" format="{qtyformat}"></td>
+        <td nowrap="true" align="right"><value field="brjc" format="{qtyformat}"></td>
+  </tr>
+  <widths value="10,18,7,7,20,7,7,7,7"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

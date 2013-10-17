@@ -1,0 +1,60 @@
+<html>
+<title name="职工培训情况明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_RL_TRAIN_PERSON" type="sql">
+  <field name="mc" caption="部门名称" group="true" datatype="varchar">
+  <field name="xm" caption="姓名" datatype="varchar">
+  <field name="lb" caption="用工类别" datatype="varchar">
+  <field name="zw" caption="职务" datatype="varchar">
+  <field name="study" caption="学历" datatype="varchar">
+  <field name="date_in" caption="进厂日期" datatype="date">
+  <field name="pxxm" caption="培训项目" datatype="varchar">
+  <field name="zzjg" caption="组织机构" datatype="varchar">
+  <field name="kssj" caption="开始日期" datatype="date">
+  <field name="jssj" caption="结束日期" datatype="date">
+  <field name="bz" caption="备注" datatype="varchar">
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="bm" caption="职工代码" datatype="number" opersion="left_like">
+  <where field="xm" caption="姓名" datatype="varchar">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">职工培训情况明细表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+	<td align="center" valign="middle" nowrap="true" field="mc">部门名称</td>
+    <td align="center" valign="middle" nowrap="true" field="xm">姓名</td>
+	<td align="center" valign="middle" nowrap="true" field="lb">用工类别</td>
+    <td align="center" valign="middle" nowrap="true" field="zw">职务</td>
+	<td align="center" valign="middle" nowrap="true" field="study">学历</td>
+    <td align="center" valign="middle" nowrap="true" field="date_in">进厂日期</td>
+    <td align="center" valign="middle" nowrap="true" field="pxxm">培训项目</td>
+	<td align="center" valign="middle" nowrap="true" field="zzjg">组织机构</td>
+    <td align="center" valign="middle" nowrap="true" field="kssj">开始日期</td>
+	<td align="center" valign="middle" nowrap="true" field="jssj">结束日期</td>
+    <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr>
+ 	<td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="lb"></td>
+	<td nowrap="true"><value field="zw"></td>
+    <td nowrap="true"><value field="study"></td>
+    <td nowrap="true" align="center"><value field="date_in"></td>
+    <td nowrap="true"><value field="pxxm"></td>
+    <td nowrap="true"><value field="zzjg"></td>
+    <td nowrap="true" align="center"><value field="kssj"></td>
+    <td nowrap="true" align="center"><value field="jssj"></td>
+    <td nowrap="true"><value field="bz"></td>
+  </tr>
+  <widths value="8,5,4,7,7,6,8,9,6,6,7">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

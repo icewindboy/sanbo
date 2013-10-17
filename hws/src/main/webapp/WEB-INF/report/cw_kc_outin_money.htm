@@ -1,0 +1,109 @@
+<html>
+<title name="原料存货月收发金额汇总表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT (b.pm ||' '||b.gg) product,f.ckmc,b.cpbm,b.chlbid,b.wzlbid,e.sxz,c.mc,b.jldw,d.chmc,a.* FROM kc_kcnjc a,kc_dm b,kc_dmlb c,kc_chlb d,kc_dmsx e ,kc_ck f WHERE a.cpid=b.cpid AND b.wzlbid=c.wzlbid AND b.chlbid=d.chlbid AND a.dmsxid=e.dmsxid(+) AND a.storeid=f.storeid ) " type="sql">
+   <field name="cpbm" caption="编码" datatype="varchar">
+  <field name="product" caption="品名规格" datatype="varchar">
+  <field name="sxz" caption="规格属性" datatype="varchar">
+  <field name="ckmc" caption="仓库名称" datatype="varchar">
+  <field name="mc" caption="物质类别" datatype="varchar">
+  <field name="chmc" caption="存货类别" datatype="varchar">
+  <field name="jldw" caption="计量单位" datatype="varchar">
+ 
+
+  <field name="sysl" caption="上月数量" datatype="varchar" sum="true" >
+  <field name="syje" caption="上月金额" datatype="varchar" sum="true" >
+  <field name="ssl" caption="本月收数量" datatype="varchar" sum="true" >
+  <field name="sje" caption="本月收金额" datatype="varchar" sum="true">
+  <field name="fsl" caption="本月发数量" datatype="varchar" sum="true">
+  <field name="fje" caption="本月发金额" datatype="varchar" sum="true" >
+  <field name="jcsl" caption="本月末库存量" datatype="varchar"  sum="true">
+  <field name="jcje" caption="本月末结存金额" datatype="varchar" sum="true">
+
+   <where field="nf" caption="年份" opersign="=" initvalue="{yyyy}" datatype="number" need="true">
+   <where field="yf" caption="月份"  opersign="="  datatype="number" initvalue="{mm}" value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月" type="select" need="true">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_chlb" >
+   <where field="wzlbid" caption="物质类别" datatype="number" opersign="=" type="select"  lookup="kc_dmlb" >
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+   <where field="dmsxid" caption="规格属性" datatype="number" opersign="=" type="lookup" span="true" 
+  nameonchange="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}propertyNameSelect(this,fixedQueryform.A$CPID.value,'@')"
+ onclick="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}PropertySelect('fixedQueryform','@','fieldVar=dmsxid&fieldVar=sxz',fixedQueryform.A$CPID.value)">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="product" caption="品名规格" datatype="varchar">
+  <where field="sxz" caption="规格属性" datatype="varchar">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+<td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货月收发金额汇总表 </td>
+
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$nf}年 - {where.a$yf}月</td>
+   </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td width="5%" align="right" valign="right" nowrap="true" field="cpbm">编码</td>
+	<td width="5%" align="left" valign="left" nowrap="true" field="product">品名规格</td>
+	<td width="5%" align="left" valign="left" nowrap="true" field="sxz">规格属性</td>
+	 <td width="4%" align="left" valign="left" nowrap="true" field="ckmc">仓库名称</td>
+    <td width="4%" align="left" valign="left" nowrap="true" field="mc">物质类别</td>
+     
+	<td width="5%" align="left" valign="left" nowrap="true" field="chmc">存货类别</td>
+    <td width="5%" align="left" valign="left" nowrap="true" field="jldw">计量单位</td>
+	
+    <td width="5%" align="right" valign="right" nowrap="true" field="sysl">上月数量</td>
+	<td width="5%" align="right" valign="right" nowrap="true" field="syje">上月金额</td>
+	<td width="5%" align="right" valign="right" nowrap="true" field="ssl">本月收数量</td>
+    <td width="6%" align="right" valign="right" nowrap="true" field="sje">本月收金额</td>
+	<td width="7%" align="right" valign="right" nowrap="true" field="fsl">本月发数量</td>
+    <td width="7%" align="right" valign="right" nowrap="true" field="fje">本月发金额</td>
+	<td width="5%" align="right" valign="right" nowrap="true" field="jcsl">本月末库存量</td>
+	<td width="5%" align="right" valign="right" nowrap="true" field="jcje">本月末结存金额</td>
+   
+	</tr>
+  <tr>
+    <td nowrap="true" align="right" ><value field field="cpbm"></td>
+ 	<td nowrap="true" align="left" ><value field field="product"></td>
+	<td nowrap="true" align="left"  ><value field field="sxz"></td>
+    	<td nowrap="true" align="left"  ><value field field="ckmc"></td>
+
+    <td nowrap="true" align="left"><value field field="mc"></td>
+	<td nowrap="true" align="left"><value field field="chmc"></td>
+    <td nowrap="true" align="left" ><value field field="jldw"></td>
+	
+    <td nowrap="true" align="right" ><value field field="sysl"></td>
+	<td nowrap="true" align="right"><value field field="syje"  format="#,##0.00"></td>
+	<td nowrap="true" align="right" ><value field field="ssl"></td>
+    <td nowrap="true" align="right" ><value field field="sje"  format="#,##0.00"></td>
+	<td nowrap="true" align="right"><value field field="fsl" ></td>
+    <td nowrap="true" align="right" ><value field field="fje"  format="#,##0.00"></td>
+	<td nowrap="true" align="right" ><value field field="jcsl"></td>
+	<td nowrap="true" align="right" ><value field field="jcje" format="#,##0.00"></td>
+   
+	
+  </tr>
+  <widths value="10,10,8,8,5,5,5,5,6,7,7,5,7,5,7">
+</table>
+	<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+	 function productCodeSelect(obj,srcVars)
+	 {
+		ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+					   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+	 }
+	  function productNameSelect(obj,srcVars)
+	  {
+		ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+					   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+	  }
+	  
+
+	</SCRIPT>
+</body>
+</html>
+
+
+

@@ -1,0 +1,119 @@
+<html>
+<title name="计件工作量"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="vw_piece_rate_bill" type="sql">
+  <where field="piecewage_id" caption="id" datatype="number">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">计件工作量</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" border-left="0" border-right="0" border-top="0" border-bottom="0" cellspacing="0" cellpadding="2" type="static" fillnull="false">
+  <tr>
+          <td align="left" valign="middle" nowrap="true" field="sfdjdh" border-left="0" border-right="0" border-top="0" border-bottom="0" >单据号</td>
+ 	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="piece_code"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="sfrq" border-left="0" border-right="0" border-top="0" border-bottom="0" >日期</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="piece_date"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="ckmc" border-left="0" border-right="0" border-top="0" border-bottom="0" >车间</td>
+ 	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="mc"></td>
+ 	  <td align="left" valign="middle" nowrap="true" field="lbmc" border-left="0" border-right="0" border-top="0" border-bottom="0" >工作组</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" colspan="4"><value field="gzzmc"></td>
+  </tr>
+  <tr>
+  	  <td align="left" valign="middle" nowrap="true" field="bmmc" border-left="0" border-right="0" border-top="0" border-bottom="0" >品名规格</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="cpbm"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="dwmc" border-left="0" border-right="0" border-top="0" border-bottom="0" ></td>
+ 	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="pm"></td>
+	  <td align="left" valign="middle" nowrap="true" field="jsr" border-left="0" border-right="0" border-top="0" border-bottom="0" >加工单号</td>
+   	  <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="jgdh"></td>
+   	  <td align="left" valign="middle" nowrap="true" field="bz" border-left="0" border-right="0" border-top="0" border-bottom="0" ></td>
+          <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" colspan="3"></td>
+          <td align="left" valign="middle" nowrap="true" field="bz" border-left="0" border-right="0" border-top="0" border-bottom="0" ></td>
+  </tr>
+  <tr>
+          <td align="left" valign="middle" nowrap="true" field="bmmc" border-left="0" border-right="0" border-top="0" border-bottom="0" field="proc_num">总产量</td>
+          <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="proc_num"></td>
+          <td align="left" valign="middle" nowrap="true" field="dwmc" border-left="0" border-right="0" border-top="0" border-bottom="0" field="jldw">单位</td>
+          <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="jldw"></td>
+          <td align="left" valign="middle" nowrap="true" field="jsr" border-left="0" border-right="0" border-top="0" border-bottom="0" field="gymcid">工序</td>
+          <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="gymc"></td>
+  </tr>
+  <widths value="8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="25" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="2" offset="-2">
+  <tr >
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="xm">人员</td>
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="piece_num">数量</td>
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="piece_price">计价单价</td>
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="piece_wage">计价工资</td>
+  	<td align="center" colspan="3" valign="middle" nowrap="true" >奖 励 核 算</td>
+  	<td align="center" colspan="3" valign="middle" nowrap="true" >处 罚 核 算</td>
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="zgz">总工资</td>
+  	<td align="center" rowspan="2" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr >
+        <td align="center" height="20" valign="middle" nowrap="true" field="bt">补贴</td>
+        <td align="center" height="20" valign="middle" nowrap="true" field="ccj">超产奖</td>
+        <td align="center" height="20" valign="middle" nowrap="true" field="zhj">综合奖</td>
+        <td align="center" valign="middle" nowrap="true" field="bf">报废</td>
+        <td align="center" valign="middle" nowrap="true" field="qq">缺勤</td>
+        <td align="center" valign="middle" nowrap="true" field="zhf">综合罚</td>
+  </tr>
+ <tr >
+  	<td nowrap="true" border_bottom="0" align="left"><value field="xm"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="piece_num"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="piece_price"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="piece_wage"></td>
+          <td nowrap="true" border_bottom="0" align="right"><value field="bt"></td>
+  	  <td nowrap="true" border_bottom="0" align="right"><value field="ccj"></td>
+  	  <td nowrap="true" border_bottom="0" align="right"><value field="zhj"></td>
+  	  <td nowrap="true" border_bottom="0" align="right"><value field="bf"></td>
+          <td nowrap="true" border_bottom="0" align="right"><value field="qq"></td>
+          <td nowrap="true" border_bottom="0" align="right"><value field="zhf"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="zgz"></td>
+        <td nowrap="true" border_bottom="0" align="left"><value field="bz"></td>
+  </tr>
+    <widths value="8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+
+  	<td nowrap="true" align="center" valign="middle"  border_bottom="0">合计</td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+        <td nowrap="true" border_bottom="0" align="right"><value field="sl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  </tr>
+    <widths value="8,8,8,8,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%"  border="0" cellspacing="0" cellpadding="2" type="static" offset="-2">
+  <tr>
+      <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="zdrq">登记日期</td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="zdrq"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="jzr"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="xm"></td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="zdr">制单人</td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="zdr"></td>
+  </tr>
+  <widths value="8,8,8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

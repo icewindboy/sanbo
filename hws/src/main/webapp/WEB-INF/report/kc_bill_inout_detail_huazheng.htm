@@ -1,0 +1,126 @@
+<html>
+<title name="库存收发明细帐">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_STORE_BILL" type="sql">
+  <field name="sfrq" caption="日期" group="true" datatype="date">
+  <field name="djmc" caption="单据类型" group="true" datatype="varchar">
+  <field name="sfdjdh" caption="单据号" group="true" include="sfdjid,djxz" datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">  
+  <field name="srsl" caption="收入数量" sum="true" datatype="number">
+  <field name="fcsl" caption="发出数量" sum="true" datatype="number">
+  <field name="ph" caption="批号" group="true" datatype="varchar">
+  
+  <where field="sfrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="sfrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">	
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+   <where field="dmsxid" caption="规格属性" datatype="number" opersign="=" type="lookup" span="true" 
+  nameonchange="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}propertyNameSelect(this,fixedQueryform.A$CPID.value,'@')"
+ onclick="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}PropertySelect('fixedQueryform','@','fieldVar=dmsxid&fieldVar=sxz',fixedQueryform.A$CPID.value)">	
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="pm" caption="品名" datatype="varchar">
+  <where field="gg" caption="规格" datatype="varchar">
+  <where field="cpbm" caption="物资大类" datatype="varchar" opersign="left_like" type="select" lookup="kc_dmlb.firstcode">
+  <where field="djxz" caption="单据类别" datatype="number" opersign="=" type="select"  value="1=采购入库单&2=销售出库单&3=自制入库单&4=生产领料单&5=外加工入库单&6=外加工发料单&7=报损单&8=移库单&9=其他入库单" >
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >	
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="ph" caption="批号" datatype="varchar" >
+   <where field="dwtxid" caption="供应商" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="zt" caption="包括未记帐单据"  opersign="=" value="=包括&0=不包括" type="radio" span="true" >	
+  <param name="fgsid" datatype="number" value="{fgsid}"><param name="personid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" style="font_size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">库存收发明细帐</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$sfrq$a} -- {where.a$sfrq$b}</td>
+  </tr>
+</table>
+<table dataset="a" id="tableview1" class="table" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="sfrq">日期</td>
+	<td align="center" valign="middle" nowrap="true" field="djmc">单据名称</td>
+    <td align="center" valign="middle" nowrap="true" field="sfdjdh">单据号</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+    <td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+    <td align="center" valign="middle" nowrap="true" field="srsl">收入数量</td>
+    <td align="center" valign="middle" nowrap="true" field="fcsl">发出数量</td>
+    <td align="center" valign="middle" nowrap="true" field="ph">批号</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{sfdjid}','{djxz}')"> 
+    <td nowrap="true"><value field="sfrq"></td>
+	<td nowrap="true"><value field="djmc"></td>
+    <td nowrap="true"><value field="sfdjdh"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="sxz"></td>	
+	<td nowrap="true"><value field="jldw"></td>
+	<td nowrap="true" align="right"><value field="srsl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="fcsl" format="{qtyformat}"></td>
+    <td nowrap="true"><value field="ph"></td>
+  </tr>
+  <widths value="9,10,11,12,18,10,15,7,7,7,8"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+  function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+   function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(sfdjid, djxz){
+if(sfdjid=="" || djxz==""){
+ return;
+}
+if(djxz=="1")
+  openSelectUrl('../store/contract_instore_edit.jsp?operate=2000&code=contract_instore_edit&id='+sfdjid, 'contract_instore_edit');
+if(djxz=="2")
+  openSelectUrl('../store_huazheng/outputlist_edit.jsp?operate=2000&code=outputlist&id='+sfdjid, 'outputlist');
+if(djxz=="3")
+  openSelectUrl('../store/self_gain_edit.jsp?operate=2000&code=self_gain_list&id='+sfdjid, 'self_gain_list');
+if(djxz=="4")
+  openSelectUrl('../store_huazheng/receive_material_edit.jsp?operate=2000&code=receive_material_list&id='+sfdjid, 'receive_material_list');
+if(djxz=="5")
+  openSelectUrl('../store/process_instore_edit.jsp?operate=2000&code=process_instore_list&id='+sfdjid, 'process_instore_list');
+if(djxz=="6")
+  openSelectUrl('../store/process_issue_edit.jsp?operate=2000&code=process_issue_list&id='+sfdjid, 'process_issue_list');
+if(djxz=="7")
+  openSelectUrl('../store/report_destroy_edit.jsp?operate=2000&code=report_destroy_list&id='+sfdjid, 'report_destroy_list');
+if(djxz=="8")
+  openSelectUrl('../store/move_store_edit.jsp?operate=2000&code=move_store_list&id='+sfdjid, 'move_store_list');
+ if(djxz=="9")
+  openSelectUrl('../store/other_instore_edit.jsp?operate=2000&id='+sfdjid, 'other_instore_edit');
+}
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<html>
+<title name="收发存分类汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="24" width="28" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="" type="sql">
+  <field name="cpbm" caption="产品编码" group="true" include="cpid" datatype="varchar">
+  <field name="product" caption="品名规格(花号/款式)" group="true" datatype="varchar">
+  <field name="zjm" caption="助记码" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="qcjc" caption="期初结存" sum="true" datatype="number">
+  <field name="cgrk" caption="采购入库" sum="true" datatype="number">
+  <field name="cgtkrk" caption="采购退库" sum="true" datatype="number">
+  <field name="jgrk" caption="加工入库" sum="true" datatype="number">
+  <field name="ccprk" caption="产成品入库" sum="true" datatype="number">
+  <field name="qtrk" caption="其他入库" sum="true" datatype="number">
+  <field name="ykrk" caption="移库入库" sum="true" datatype="number">
+  
+  <field name="syrk" caption="损益" sum="true" datatype="number">
+  <field name="scllck" caption="生产领料" sum="true" datatype="number">
+  <field name="wjgck" caption="加工出库" sum="true" datatype="number">
+  <field name="xsck" caption="销售出库" sum="true" datatype="number">
+  <field name="xstkck" caption="销售退货" sum="true" datatype="number">
+  <field name="ggcxck" caption="促销出库" sum="true" datatype="number">
+  
+  <field name="xszsck" caption="赠送出库" sum="true" datatype="number">
+  <field name="qtckck" caption="其他出库" sum="true" datatype="number">
+  <field name="ykckck" caption="移库出库" sum="true" datatype="number">
+  <field name="zrk" caption="总入库数" sum="true" datatype="number">
+  <field name="zck" caption="总出库数" sum="true" datatype="number">
+  <field name="qmjc" caption="期末结存" sum="true" datatype="number">
+  
+  
+  <where field="ksrq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_chlb" >
+  <where field="cpbm" caption="产品编码" linktable="" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="endcpbm" caption="--" linktable="" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="product" caption="品名" datatype="varchar">
+  <where field="gg" caption="规格" datatype="varchar">
+  <where field="wzlbid" caption="物资大类" datatype="number" opersign="=" type="select" lookup="kc_dmlb">
+  <where field="p_sfdjcheck_in" caption="包括未记帐单据"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+  <param name="fgsid" datatype="number" value="{fgsid}"><param name="personid" datatype="number" value="{personid}">
+  <param name="personid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">收发存分类汇总</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" class="table" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center" valign="middle" nowrap="true"  field="cpbm">产品编码</td>
+    <td align="center" valign="middle" nowrap="true"  field="zjm">助记码</td>
+    <td align="center" valign="middle" nowrap="true"  field="product">品名(花号/款式)</td>
+    <td align="center" valign="middle" nowrap="true"  field="sxz">规格属性</td>
+                                              
+    <td align="center" valign="middle" nowrap="true"  field="qcjc">期初结存</td>
+    <td align="center" valign="middle" nowrap="true"  field="cgrk">采购入库</td>
+	<td align="center" valign="middle" nowrap="true"  field="cgtkrk">采购退库</td>
+	<td align="center" valign="middle" nowrap="true"  field="jgrk">加工入库</td>
+	<td align="center" valign="middle" nowrap="true"  field="ccprk">产成品入库</td>
+	<td align="center" valign="middle" nowrap="true"  field="qtrk">其他入库</td>
+	<td align="center" valign="middle" nowrap="true"  field="ykrk">移库入库</td>
+	
+	<td align="center" valign="middle" nowrap="true" field="syrk">损益</td>
+    <td align="center" valign="middle" nowrap="true"  field="scllck">生产领料</td>
+	<td align="center" valign="middle" nowrap="true" field="wjgck">加工出库</td>
+	<td align="center" valign="middle" nowrap="true"  field="xsck">销售出库</td>
+	<td align="center" valign="middle" nowrap="true"  field="xstkck">销售退货</td>
+	<td align="center" valign="middle" nowrap="true"  field="ggcxck">促销出库</td>
+	                                          
+	<td align="center" valign="middle" nowrap="true" field="xszsck">赠送出库</td>
+    <td align="center" valign="middle" nowrap="true"  field="qtckck">其他出库</td>
+	<td align="center" valign="middle" nowrap="true" field="ykckck">移库出库</td>
+	<td align="center" valign="middle" nowrap="true"  field="zrk">总入库数</td>
+	<td align="center" valign="middle" nowrap="true"  field="zck">总出库数</td>
+	<td align="center" valign="middle" nowrap="true"  field="qmjc">期末结存</td>	  
+  </tr>
+  <tr onClick="selectRow();">
+    <td nowrap="true"><value field="cpbm"></td>                       
+    <td nowrap="true"><value field="zjm"></td>
+    <td nowrap="true"><value field="product"></td>
+    <td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true" align="right"><value field="qcjc" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="cgrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="cgtkrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="jgrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="ccprk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="qtrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="ykrk" format="{qtyformat}"></td>
+	
+	<td nowrap="true" align="right"><value field="syrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="scllck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="wjgck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="xsck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="xstkck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="ggcxck" format="{qtyformat}"></td>
+	
+	<td nowrap="true" align="right"><value field="xszsck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="qtckck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="ykckck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="zrk" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="zck" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="qmjc" format="{qtyformat}"></td>
+  </tr>
+  <widths value="11,18,11,7,6,7,7,7,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+  function productCodeSelect(obj,srcVars)
+  {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+  function detailRep(cpid, fgsid, ksrq, jsrq, storeid){
+    if(cpid=="")
+      return;
+    openSelectUrl('showdetail.jsp?operate=showdetail&code=kc_stocks_detail_shengyu&a$cpid='+cpid+'&a$fgsid='+fgsid+'&a$rq$a='+ksrq+'&a$rq$b='+jsrq+'&a$storeid='+storeid+'&a$zt=1', 'kc_stocks_detail');
+  }
+  function proddetailRep(cpid, fgsid, ksrq, jsrq, storeid){
+    if(cpid=="")
+      return;
+    openSelectUrl('showdetail.jsp?operate=showdetail&code=kc_stocks_prod_detail0_shengyu&a$cpid='+cpid+'&a$fgsid='+fgsid+'&a$sfrq$a='+ksrq+'&a$sfrq$b='+jsrq+'&a$storeid='+storeid, 'kc_stocks_prod_detail0');
+  }
+</SCRIPT>
+</body>
+</html>

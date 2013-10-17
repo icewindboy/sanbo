@@ -1,0 +1,45 @@
+<html>
+<title name="收发类别分类汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="stock" object="" type="sql">
+  <field name="cpbm" caption="产品编码" datatype="varchar" group="false" show="false">
+  <field name="product" caption="品名规格" datatype="varchar" group="false" show="false">
+  <where field="ksrq" caption="日期" linktable="" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date" need="true">
+  <where field="jsrq" caption="--" linktable="" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date" need="true">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_chlb" need="true">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">收发类别分类汇总</td>
+  </tr>
+  <tr>
+   <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.stock$ksrq} -- {where.stock$jsrq}</td>
+  </tr>
+</table>
+<table id="dynamic" class="table" dataset="stock" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="2">
+  <tr>
+    <td rowspan="2" align="center" valign="middle" nowrap="true">品名</td>
+    <td rowspan="2" align="center" valign="middle" nowrap="true">期初</td>
+    <td id="intotal" align="center" valign="middle" nowrap="true">收入</td>
+    <td id="outtotal" align="center" valign="middle" nowrap="true">支出</td>
+    <td rowspan="2" align="center" valign="middle" nowrap="true">结存</td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle" nowrap="true">合计</td>
+    <td align="center" valign="middle" nowrap="true">合计</td>
+  </tr>
+  <tr>
+    <td id="preserve" valign="middle" nowrap="true"><value field="product"></td>
+    <td id="preserve" valign="middle" nowrap="true" align="right"><value field="beforetotal"></td>
+    <td valign="middle" nowrap="true"><value field="intotal"></td>
+    <td valign="middle" nowrap="true"><value field="outtotal"></td>
+    <td id="total" valign="middle" nowrap="true" align="right"><value field="total"></td>
+  </tr>
+  <widths value="11,15">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('dynamic',2);</SCRIPT>
+</body>
+</html>

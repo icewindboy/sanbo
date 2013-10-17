@@ -1,0 +1,49 @@
+<html>
+<title name="职工奖惩情况表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_RL_AWARD_PERSON" type="sql">
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+  <field name="xm" caption="姓名" datatype="varchar">
+  <field name="zw" caption="职务" datatype="varchar">
+  <field name="lb" caption="类别" datatype="varchar">
+  <field name="jcjg" caption="奖惩结果" datatype="varchar">
+  <field name="yy" caption="奖惩原因" datatype="varchar">
+  <field name="rq" caption="奖惩日期" datatype="date">
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="bm" caption="职工编号" datatype="varchar" opersion="left_like">
+  <where field="xm" caption="姓名" datatype="varchar">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">职工奖惩情况表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+	<td align="center" valign="middle" nowrap="true" field="mc">部门</td>
+    <td align="center" valign="middle" nowrap="true" field="xm">姓名</td>
+	<td align="center" valign="middle" nowrap="true" field="zw">职务</td>
+    <td align="center" valign="middle" nowrap="true" field="lb">类别</td>
+	<td align="center" valign="middle" nowrap="true" field="jcjg">奖惩结果</td>
+    <td align="center" valign="middle" nowrap="true" field="yy">原因</td>
+	<td align="center" valign="middle" nowrap="true" field="rq">日期</td>
+  </tr>
+  <tr>
+  <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="personid"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="zw"></td>
+    <td nowrap="true"><value field="lb"></td>
+    <td nowrap="true"><value field="jcjg"></td>
+    <td nowrap="true"><value field="yy"></td>
+    <td nowrap="true" align="center"><value field="rq"></td>
+  </tr>
+  <widths value="6,4,4,5,5,5,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

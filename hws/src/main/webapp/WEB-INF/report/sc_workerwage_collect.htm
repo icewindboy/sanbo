@@ -1,0 +1,64 @@
+<html>
+<title name="工人工资汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="REP_SC_WORKER_WAGE" type="sql">
+
+  <field name="nf" caption="年份" group="true">
+  <field name="yf" caption="月份" group="true" datatype="number">
+  <field name="xm" caption="姓名" group="true" datatype="varchar">
+  <field name="zcl" caption="总产量" group="true" >
+  <field name="zjjgz" caption="计件工资合计" group="true" datatype="varchar"  >
+  <field name="bt" caption="补贴" group="true"  datatype="varchar">
+  <field name="kk" caption="扣款"  sum="true" datatype="number" >
+  <field name="zgrgz" caption="工资合计"   datatype="varchar"  >
+
+  <where field="nf" caption="年份" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}" datatype="date">
+  <where field="nf" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{yyyy}" datatype="date">
+
+ <where field="yf" caption="月份" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{mm}" datatype="date">
+  <where field="yf" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{mm}" datatype="date">
+
+  <where field="xm" caption="姓名" datatype="varchar">
+
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">工人工资汇总</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$yf$a} -- {where.a$yf$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table"  dataset="a" name="dwmincen"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    
+    <td align="center"  nowrap="true" field="nf">年份</td>
+	<td align="center"  nowrap="true" field="yf">月份</td>
+	<td align="center"  nowrap="true" field="xm">姓名</td>
+	<td align="center"  nowrap="true" field="zcl">总产量</td>
+	<td align="center"  nowrap="true" field="zjjgz">计件工资合计</td>
+	<td align="center"  nowrap="true" field="bt">补贴</td>
+    <td align="center"  nowrap="true" field="kk">扣款</td>
+	<td align="center"  nowrap="true" field="zgrgz">工资合计</td>
+  </tr>
+  <tr  onClick="selectRow();" > 
+  
+   <td nowrap="true"><value field="nf"></td>
+    <td nowrap="true"><value field="yf"></td>
+	<td nowrap="true"><value field="xm"></td>
+	<td nowrap="true"><value field="zcl"></td>
+	<td nowrap="true"><value field="zjjgz"></td>
+	<td nowrap="true"><value field="bt"></td>
+    <td nowrap="true" align="right"><value field="kk"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" ><value field="zgrgz"  ></td>
+  </tr>
+  <widths value="11,7,7,7,7,7,7,7"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

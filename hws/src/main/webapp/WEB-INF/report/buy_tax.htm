@@ -1,0 +1,38 @@
+<html>
+<title name="采购进项税统计表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="xstax" object="REP_BUY_TAX" type="sql">
+  <field name="mon" caption="月份" group="true" datatype="varchar">
+  <field name="cgje" caption="采购金额" sum="true" datatype="number">
+  <field name="cgse" caption="采购税金" sum="true" datatype="number">
+  <field name="gs" caption="关税金额" sum="true" datatype="number">
+  <field name="jshj" caption="价税合计" sum="true" datatype="number">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">采购进项税统计表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="xstax" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="mon">月份</td>
+	<td align="center" valign="middle" nowrap="true" field="cgje">采购金额</td>
+    <td align="center" valign="middle" nowrap="true" field="cgse">采购税金</td>
+	<td align="center" valign="middle" nowrap="true" field="gs">关税金额</td>
+    <td align="center" valign="middle" nowrap="true" field="jshj">价税合计</td>
+  </tr>
+  <tr> 
+    <td nowrap="true"><value field="mon"></td>
+    <td nowrap="true" align="right"><value field="cgje" format="{sumformat}"></td>
+	<td nowrap="true" align="right"><value field="cgse" format="{sumformat}"></td>
+	<td nowrap="true" align="right"><value field="gs" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="jshj" format="{sumformat}"></td>
+  </tr>
+  <widths value="8,11,11,11,11"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

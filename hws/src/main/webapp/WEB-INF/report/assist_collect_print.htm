@@ -1,0 +1,46 @@
+<html>
+<title name="辅助材料收发存汇总表"/>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="10">
+<page type="templet" height="30.4" width="30.5" magin-left="0" magin-right="0.1" magin-top="1" magin-bottom="1"   font-size="11">
+<table  id="tableview1" width="100%" border="0" dataset="ds" cellspacing="0" cellpadding="0" type="static">
+<tr>
+    <td align="center" colspan="6"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1" ></td>
+</tr>
+<tr>
+    <td align="center" colspan="6"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1" >辅助材料收发存汇总表</td>
+</tr>
+<tr>
+  <td nowrap align="left" colspan="2"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1" >规格：<value field="product"></td>
+  <td nowrap align="left" colspan="2"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1" ><value field="ksrq">至<value field="jsrq"></td>
+  <td nowrap class="td" align="left" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1" >计量单位: <value field="jldw"></td>
+</tr>
+<widths value="10,10,10,10,10,5">
+</table>
+<table id="tableview2" class="table" dataset="list" font-size="8" width="100%" maxrow="40" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr >
+    <td   align="center" nowrap="true" field="product">品名 规格</td>
+    <td   align="center" nowrap="true" field="jldw">单位</td>
+    <td   align="center" nowrap="true" field="cqsl">期初数量</td>
+    <td   align="center" nowrap="true" field="qcje">期初金额</td>
+    <td   align="center" nowrap="true" field="srsl">本期入库数量</td>
+    <td   align="center" nowrap="true" field="srje">本期入库金额</td>
+    <td   align="center" nowrap="true" field="fcsl">本期出库数量</td>
+    <td   align="center" nowrap="true" field="fcje">本期出库金额</td>
+    <td   align="center" nowrap="true" field="bqsl">本期结存数量</td>
+    <td   align="center" nowrap="true" field="bqje">本期结存金额</td>
+  </tr>
+  <tr>
+    <td nowrap="true"><value field="product"></td>
+    <td nowrap="true" border_bottom="0"><value field="jldw"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="cqsl"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="qcje"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="srsl"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="srje"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="fcsl"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="fcje"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="bqsl"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="bqje"></td>
+  </tr>
+  <widths value="10,10,10,10,10,10,10,10,10,10">
+</table>
+</html>

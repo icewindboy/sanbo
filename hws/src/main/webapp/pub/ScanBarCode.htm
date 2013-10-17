@@ -1,0 +1,55 @@
+<%--
+1.javascript调用scaner.Read('http://192.168.0.28/erp/store/IT3CW32d.DLL')得到包含产品编码和批号的字符串
+2.提交表单。用String[][] s =StringUtils.getArrays(String s); s[0]表示产品编码的数组,s[1]表示批号的数组
+/*
+卷筒纸：print_pap(string1,....,string30)
+膜　　：print_bx(string1,.....,string30)
+平张纸int print_pap1(string1,...string10)10个都是变量，序号从左到右，由上而下
+卷筒纸:
+1=品名
+2=规格
+3=质检员
+4=文号
+5=重量
+6=等级
+7=长度
+8=定量()
+9=产地
+10=生产编号
+11=生产日期
+12=条码1
+13=条码2
+膜：
+1=品名
+2=规格
+3=质检员
+4=等级
+5=静重
+6=纸芯重
+7=长度
+8=分切班次
+9=产地
+10=生产编号
+11=生产日期
+12=条码1
+13=条码2
+*/
+--%>
+<HTML>
+<H1> C++Builder 5 ActiveX Test Page </H1><p>
+You should see your C++Builder 5 forms or controls embedded in the form below.
+<HR><center><P>
+<OBJECT id="scaner" classid="clsid:3FE58C97-FA6F-45AC-A983-0BD55A403FFA" 
+codebase="ScanBarCodeProj.cab#version=1,0,13,0" width=300 height=200></OBJECT>
+<script language="javascript">
+var doUrl = 'http://192.168.0.28/erp/quality/do.dll';
+var zebraUrl = 'http://192.168.0.28/erp/quality/ZEBRA32.DLL';
+</script>
+<input type="button" value="盘点机" onClick="alert(scaner.Read('http://192.168.0.28/erp/store/IT3CW32d.DLL'));">
+<input type="button" value="卷筒纸" 
+onClick="alert(scaner.Print(1,false,doUrl,zebraUrl,'卷筒纸','25*460','检3','11','3','12','500m','10g/m2','019','B040401B0604','2004.04.02','B040401B0604','30200250460'));">
+<input type="button" value="膜格式" 
+onClick="alert(scaner.Print(2,false,doUrl,zebraUrl,'VMCPP','25*460','检3','A','40.4kg','1.2kg','4050m','B','016','A040401B0604','2004.04.01','A040401B0604','30200250460'));">
+<input type="button" value="平板纸" 
+onClick="alert(scaner.Print(3,false,doUrl,zebraUrl,'1','2','3','4','5','6','7','8','9','10','11','12','13'));">
+</HTML>

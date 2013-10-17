@@ -1,0 +1,104 @@
+<html>
+<title name="物资编码表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_PRODUCT" type="sql">
+  <field name="cpbm" caption="物资编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="txm" caption="条形码" group="true" datatype="varchar">
+  <field name="jldw" caption="计量单位" group="true" datatype="varchar">
+  <field name="hsdw" caption="换算单位" group="true" datatype="varchar">
+  <field name="hsbl" caption="换算比例" group="true" datatype="number">
+  <field name="scydw" caption="生产单位" group="true" datatype="varchar">
+  <field name="scdwgs" caption="生产公式" group="true" datatype="number">
+  <field name="wzlbmc" caption="物资类别" group="true" datatype="varchar">
+  <field name="chmc" caption="存货类别" group="true" datatype="varchar">
+  <field name="xz" caption="存货性质" group="true" datatype="varchar">
+  <field name="ff" caption="计价方法" group="true" datatype="varchar">
+  <field name="ckmc" caption="存放仓库" group="true" datatype="varchar">
+  <field name="bmmc" caption="生产车间" group="true" datatype="varchar">
+  <field name="jhdj" caption="计划单价" group="true" datatype="varchar"> 
+  <field name="th" caption="图号" group="true" datatype="varchar"> 
+  <field name="abc" caption="ABC分类" group="true" datatype="varchar"> 
+  <field name="maxsl" caption="库存上限" group="true" datatype="number"> 
+  <field name="minsl" caption="库存下限" group="true" datatype="number"> 
+  <field name="props" caption="规格属性" group="true" datatype="varchar"> 
+  <field name="sale" caption="销售" group="true" datatype="varchar"> 
+  <field name="bz" caption="备注" group="true" datatype="varchar">
+  <where field="cpbm" caption="产品编码" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="cpbm" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="pm" caption="品名" datatype="varchar">
+  <where field="gg" caption="规格" datatype="varchar">
+   <where field="wzlbid" caption="物资类别" datatype="varchar" opersign="=" type="select" lookup="kc_dmlb">
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select"  lookup="kc_chlb" >
+  <where field="storeid" caption="存放仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="deptid" caption="生产车间" datatype="number" opersign="=" type="select"  lookup="bm" >
+   <where field="chxz" caption="存货性质" datatype="number" opersign="=" value="1=自制件&2=外购件&3=外协件&4=虚拟件" type="select" >
+   <where field="jjff" caption="计价方法" datatype="number" opersign="=" value="1=加权平均法&2=移动平均法&3=计划单价法" type="select" >
+  <where field="isprops" caption="是否有规格属性" opersign="=" value="=全部&1=是&0=否" type="radio" span="true">
+  <where field="isprops" caption="是否包括删除" opersign="=" value="=包括&0=不包括" type="radio" span="true">
+  <where field="issale" caption="是否销售" opersign="=" value="=全部&1=是&0=否" type="radio" span="true">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">物资编码表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="cpbm">物资编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+<td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+<td align="center" valign="middle" nowrap="true" field="txm">条形码</td>
+<td align="center" valign="middle" nowrap="true" field="jldw">计量单位</td>
+    <td align="center" valign="middle" nowrap="true" field="hsdw">换算单位</td>
+	<td align="center" valign="middle" nowrap="true" field="hsbl">换算比例</td>
+    <td align="center" valign="middle" nowrap="true" field="scydw">生产单位</td>
+	<td align="center" valign="middle" nowrap="true" field="scdwgs">生产公式</td>
+    <td align="center" valign="middle" nowrap="true" field="wzlbmc">物资类别</td>
+	<td align="center" valign="middle" nowrap="true" field="chmc">存货类别</td>
+    <td align="center" valign="middle" nowrap="true" field="xz">存货性质</td>
+    <td align="center" valign="middle" nowrap="true" field="ff">计价方法</td>
+    <td align="center" valign="middle" nowrap="true" field="ckmc">存放仓库</td>
+	<td align="center" valign="middle" nowrap="true" field="bmmc">生产车间</td>
+    <td align="center" valign="middle" nowrap="true" field="jhdj">计划单价</td>
+	<td align="center" valign="middle" nowrap="true" field="th">图号</td>
+    <td align="center" valign="middle" nowrap="true" field="abc">ABC分类</td>
+    <td align="center" valign="middle" nowrap="true" field="maxsl">库存上限</td>
+	<td align="center" valign="middle" nowrap="true" field="minsl">库存下限</td>
+    <td align="center" valign="middle" nowrap="true" field="props">规格属性</td>
+	<td align="center" valign="middle" nowrap="true" field="sale">销售</td>
+    <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr onClick="selectRow();"> 
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="txm"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="hsdw"></td>
+    <td nowrap="true"><value field="hsbl"></td>
+    <td nowrap="true"><value field="scydw"></td>
+    <td nowrap="true"><value field="scdwgs"></td>
+    <td nowrap="true"><value field="wzlbmc"></td>
+    <td nowrap="true"><value field="chmc"></td>
+	<td nowrap="true"><value field="xz"></td>
+    <td nowrap="true"><value field="ff"></td>
+    <td nowrap="true"><value field="ckmc"></td>
+    <td nowrap="true"><value field="bmmc"></td>
+    <td nowrap="true"><value field="jhdj"></td>
+    <td nowrap="true"><value field="th"></td>
+	<td nowrap="true"><value field="abc"></td>
+    <td nowrap="true"><value field="maxsl"></td>
+    <td nowrap="true"><value field="minsl"></td>
+    <td nowrap="true"><value field="props"></td>
+	<td nowrap="true"><value field="sale"></td>
+    <td nowrap="true"><value field="bz"></td>
+  </tr>
+  <widths value="10,10,10,9,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

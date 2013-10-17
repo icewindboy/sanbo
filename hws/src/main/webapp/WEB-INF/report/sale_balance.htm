@@ -1,0 +1,74 @@
+<html>
+<title name="销售结算报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="(SELECT a.fgsid,a.rq,b.dqh,b.dqmc,c.dwdm,c.dwmc,decode(a.djxz,1,'销售收款',-1,'销售退款') djxz,(f.pm||f.gg) product,d.jsje je,e.xm FROM cw_xsjs a,dwdq b,dwtx c,cw_xsjshx d,emp e,kc_dm f WHERE a.dwtxid=c.dwtxid  AND c.dqh=b.dqh  AND d.cpid=f.cpid  AND a.personid=e.personid  AND a.xsjsid=d.xsjsid)" type="sql">
+
+  <field name="rq" caption="日期" group="true"  datatype="date">
+  <field name="dqh" caption="地区号" group="true" datatype="varchar">
+  <field name="dqmc" caption="地区名称" group="true" datatype="varchar">
+  <field name="dwdm" caption="单位代码" group="true"   datatype="varchar">
+  <field name="dwmc" caption="单位名称" group="true" datatype="varchar">
+  <field name="djxz" caption="类别" group="true"  datatype="varchar">
+  <field name="product" caption="品名" group="true" datatype="varchar">
+  <field name="je" caption="金额" sum="true" datatype="number">
+  <field name="xm" caption="业务员" group="true" datatype="varchar">
+ 
+  <param name="fgsid" datatype="number" value="{fgsid}">
+
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="dqh" caption="地区号" datatype="varchar" opersion="left_like">
+  <where field="dqmc" caption="地区名称" datatype="varchar" opersion="left_like">
+  <where field="dwdm" caption="单位代码" datatype="varchar" opersion="left_like">
+  <where field="dwmc" caption="单位名称" datatype="varchar" opersion="left_like">
+  <where field="je" caption="金额" datatype="varchar" opersion="left_like">
+  <where field="xm" caption="业务员" datatype="varchar" opersion="left_like">
+  
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售结算报表</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr> 
+   
+
+  <td align="center"  nowrap="true" field="rq"> 日期</td>
+  <td align="center"  nowrap="true" field="dqh">地区号</td>
+  <td align="center"  nowrap="true"field="dqmc">地区名称</td>
+  <td align="center"  nowrap="true" field="dwdm">单位代码</td>
+  <td align="center"  nowrap="true" field="dwmc">单位名称</td>
+  <td align="center"  nowrap="true" field="djxz">类别</td>
+  <td align="center"  nowrap="true" field="product">品名</td>
+  <td align="center"  nowrap="true" field="je">金额</td>
+  <td align="center"  nowrap="true" field="xm">业务员</td>
+ 
+  </tr>
+  <tr  onClick="selectRow();"  > 
+   
+
+
+ 
+  <td  nowrap="true"><value field="rq"> </td>
+  <td  nowrap="true"><value field="dqh"></td>
+  <td  nowrap="true"><value field="dqmc"></td>
+  <td   nowrap="true"><value field="dwdm"></td>
+  <td   nowrap="true"><value field="dwmc"></td>
+  <td  nowrap="true"><value field="djxz"></td>
+  <td   nowrap="true"><value field="product"></td>
+  <td   nowrap="true" align="right"> <value field="je" format="#,##0.00" zeroformat=""></td>
+  <td  nowrap="true"><value field="xm"></td>
+  </tr>
+  <widths value="7,7,7,7,8,7,18,7,7"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

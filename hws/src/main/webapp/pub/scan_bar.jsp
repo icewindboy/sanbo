@@ -1,0 +1,2 @@
+<%--OBJECT id="scaner" classid="clsid:3FE58C97-FA6F-45AC-A983-0BD55A403FFA" codebase="../pub/ScanBarCodeProj.cab#version=1,0,9,0" style="display:none" width=0 height=0>
+</OBJECT--%><script language="javascript">var scaner=parent.scaner;</script>

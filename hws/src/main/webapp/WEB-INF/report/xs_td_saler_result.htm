@@ -1,0 +1,106 @@
+<html>
+<title name="业务员销售业绩(按提单)">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="rep_xs_td_saler_result" type="sql">
+
+ <field name="dwdm" caption="客户代码" group="true" datatype="number">
+ <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+ <field name="xm" caption="业务员" group="true" datatype="varchar">
+ <field name="htbh" caption="合同号" group="true"  datatype="varchar">
+ <field name="tdbh" caption="单据号" group="true"  datatype="varchar" include="tdid">
+  <field name="tdrq" caption="提单日期" group="true" datatype="date">
+  <field name="cpbm" caption="产品编码" group="true"  datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="dj" caption="单价" group="true"  datatype="number">
+  <field name="jje" caption="金额" sum="true" datatype="number">
+  <field name="jsfs" caption="结算方式" group="true" datatype="varchar">
+  
+  <where field="tdrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="tdrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <where field="tdbh" caption="单据号" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="tdbh" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="cpbm" caption="产品编码" datatype="varchar" opersign="=">
+  <where field="pm" caption="品名" datatype="varchar" opersign="like">
+  <where field="gg" caption="规格" datatype="varchar" opersign="like">
+  <where field="sxz" caption="规格属性" datatype="varchar" opersign="like">
+  <where field="mc" caption="部门" datatype="varchar" opersign="like">
+  <where field="xm" caption="业务员" datatype="varchar" opersign="like">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">业务员销售业绩(按提单)</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$tdrq$a} -- {where.a$tdrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="dwdm">客户代码</td>
+    <td align="center"  nowrap="true" field="dwmc">客户名称</td>
+	<td align="center"  nowrap="true" field="xm">业务员</td>
+	<td align="center"  nowrap="true" field="htbh">合同号</td>
+	<td align="center"  nowrap="true" field="tdbh">单据号</td>
+    <td align="center"  nowrap="true" field="tdrq">提单日期</td>
+    <td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="sxz">规格属性</td>
+	<td align="center"  nowrap="true" field="pm">品名</td>
+	<td align="center"  nowrap="true" field="gg">规格</td>
+    <td align="center"  nowrap="true" field="sl">数量</td>
+	<td align="center"  nowrap="true" field="jldw">单位</td>
+    <td align="center"  nowrap="true" field="dj">单价</td>
+	<td align="center"  nowrap="true" field="jje">金额</td>
+
+	<td align="center"  nowrap="true" field="jsfs">结算方式</td>
+  </tr>
+  <tr  onClick="selectRow();"  onDblClick="selectRow();detailRep('{tdid}')"> 
+    <td nowrap="true"><value field="dwdm"></td>
+  	<td nowrap="true" ><value field="dwmc" ></td>
+	<td nowrap="true" ><value field="xm" ></td>
+	<td nowrap="true" ><value field="htbh" ></td>
+	 <td nowrap="true"><value field="tdbh"></td>
+    <td nowrap="true"><value field="tdrq"></td>
+	<td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true" ><value field="pm" ></td>
+	<td nowrap="true" ><value field="gg" ></td>
+	<td nowrap="true" ><value field="sxz" ></td>
+	<td nowrap="true" align="right"><value field="sl" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="jldw"></td>
+	<td nowrap="true" align="right"><value field="dj" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="jje" format="#,##0.00" zeroformat=""></td>
+
+	<td nowrap="true" ><value field="jsfs" ></td>
+  </tr>
+  <widths value="7,18,9,11,11,7,6,7,7,7,11,11,11,9,11"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+if(param=='')
+return;
+if(param==null)
+return;
+  openSelectUrl('../sale/lading_bill_edit.jsp?operate=645355666&code=xs_td_saler_result&id='+param, 'lading_bill');
+}
+</SCRIPT>
+</body>
+</html>

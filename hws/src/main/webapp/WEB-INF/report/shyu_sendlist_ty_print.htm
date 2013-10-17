@@ -1,0 +1,94 @@
+<html>
+<title name="托运单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="2" magin-right="2" magin-top="2" magin-bottom="2" footer-center="注:无托运专用章及主管签字无效" font-size="12">
+<dataset name="a" object="BILL_SALE_SENDBLIST_TY" type="sql">
+  <param name="tdcyqkid" datatype="number" value="{tdcyqkid}">
+   <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">存根</td>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"><value field="tdbh"></td>
+  </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+  </tr>
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">       今托 <value field="dwmc">托运部, 托运<value field="qsd">至 <value field="mdd">大件_________件,</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">小件______件,运费计人民币(大写): <value field="fy"  chineseformat="1"  datatype="number">  ￥:<value field="fy"  format="#.00">元</td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"> (附:托运号___________)</td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">主管：                    </td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"> 经办人：                </td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">  年     月     日            </td>
+  </tr>
+</table>
+<table width="100%" border="0"  cellspacing="0" cellpadding="1" type="static">
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+    </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+  </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+  </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+  </tr>
+</table>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">托运证明单</td>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"><value field="tdbh"></td>
+  </tr>
+    <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   </td>
+  </tr>
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">       今托 <value field="dwmc">托运部, 托运<value field="qsd">至 <value field="mdd">大件_________件,</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">小件______件,运费计人民币(大写):<value field="fy"  chineseformat="1" sum="false" datatype="number">  ￥:<value field="fy" format="#.00">元</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"> (月末凭此单与公司结算)</td>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"> (附:托运号___________)</td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">浙江成宇被服有限公司</td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">主管：                    </td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1"> 经办人：                </td>
+  </tr>
+  <tr>
+     <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">  年     月     日          </td>
+  </tr>
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+</SCRIPT>
+</body>
+</html>
+

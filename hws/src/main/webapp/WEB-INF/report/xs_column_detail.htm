@@ -1,0 +1,50 @@
+<html>
+<title name="销售分栏统计">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="" type="sql">
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <field name="mc" caption="地区" group="true" datatype="varchar">
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+  <field name="areacode" caption="数量合计" group="true">
+  <field name="dqmc" caption="货款总额" group="true">
+  <field name="dwdm" caption="尚欠金额" group="true">
+  <field name="dwmc" caption="铺底金额" group="true">
+
+  
+  <where field="djxz" caption="数据来源"  opersign="=" value="2=提单&1=发票" type="radio" initvalue="2" span="true">
+  <where field="sh" caption="包括未记帐资料"  opersign="=" value="1=包含&2=不包含" type="radio" initvalue="1" span="true">
+
+  <where field="flzid" caption="选择分栏帐" need="false" datatype="number" opersign="=" type="select"  lookup="xs_flz" >
+
+ <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售分栏统计</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="dynamic"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr> 
+    <td  rowspan="2" align="center"  nowrap="true" field="dqmc">地区</td>
+    <td  rowspan="2" align="center"  nowrap="true" field="dwmc">客户名称</td>
+
+	<td  rowspan="2" align="center"  nowrap="true" field="sqje">尚欠金额</td>
+  </tr>
+  <tr  onClick="selectRow();" > 
+    <td nowrap="true" ><value field="dqmc" ></td>
+	<td nowrap="true" ><value field="dwmc" ></td>
+
+    <td nowrap="true"><value field="sqje" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="11,18,11"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<html>
+<title name="帐户汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_cw_yh_inout" type="sql">
+
+  <field name="iodate" caption="收支日期" group="true">
+  <field name="billcode" caption="单据（凭证）编号" group="true">
+  
+  <field name="yhmc" caption="银行" group="true">
+  <field name="zh" caption="帐号" group="true">
+  <field name="summary" caption="摘要" group="true">
+  <field name="inmoney" caption="收入"  sum="true" datatype="number" >
+  <field name="outmoney" caption="支出"  sum="true" datatype="number" >
+  <field name="ye" caption="余额"  sum="true" datatype="number" >
+  <field name="xm" caption="业务员" group="true">
+
+  <where field="iodate" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="iodate" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="yhid" caption="银行" need="false" datatype="number" opersign="=" type="select"  lookup="bank" >
+  <where field="zh" caption="帐号" datatype="varchar" opersign="like">
+
+  <param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">帐户汇总</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$iodate$a} -- {where.a$iodate$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table"  dataset="a" name="dwmincen"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="iodate">收支日期</td>
+	<td align="center"  nowrap="true" field="billcode">单据（凭证）编号</td>
+	
+    <td align="center"  nowrap="true" field="yhmc">银行</td>
+	<td align="center"  nowrap="true" field="zh">帐号</td>
+	<td align="center"  nowrap="true" field="summary">摘要</td>
+	<td align="center"  nowrap="true" field="inmoney">收入</td>
+	<td align="center"  nowrap="true" field="outmoney">支出</td>
+	<td align="center"  nowrap="true" field="ye">余额</td>
+	<td align="center"  nowrap="true" field="xm">业务员</td>
+  </tr>
+  <tr  onClick="selectRow();"  > 
+    <td nowrap="true"><value field="iodate"></td>
+	<td nowrap="true"><value field="billcode"></td>
+    <td nowrap="true"><value field="yhmc"></td>
+    <td nowrap="true"><value field="zh"></td>
+	<td nowrap="true"><value field="summary"></td>
+	<td align="right" nowrap="true"><value field="inmoney"  format="#,##0.00" zeroformat=""></td>
+	<td align="right"  nowrap="true"><value field="outmoney"  format="#,##0.00" zeroformat=""></td>
+    <td align="right"  nowrap="true" align="right"><value field="ye"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="xm"></td>
+  </tr>
+  <widths value="11,11,11,11,11,11,11,11,11"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+var isShow = false;
+for(i=1; i<=4; i++)
+{
+  table = document.all['tableview'+i];
+  if(table+'' != 'undefined')
+  {
+	if(isShow)
+	  table.style.display ="none";  
+	else
+	{
+	  isShow = true;
+	  initDefaultTableRow('tableview'+i,1);
+	}
+  }
+}
+function detailRep(param){
+if(param=='')
+return;
+if(param==null)
+return;
+  openSelectUrl('../finance_dafa/sale_balance_edit.jsp?operate=80000014&code=xs_day_income&id='+param, 'sale_balance');
+}
+</SCRIPT>
+</body>
+</html>

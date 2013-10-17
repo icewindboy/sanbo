@@ -1,0 +1,101 @@
+<html>
+<title name="供应商合格率统计表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+
+<!--page type="templet" height="21" width="35" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9"-->
+<dataset name="a" object="VW_BUY_CHECK_COUNT_REPORT" type="sql">
+  <field name="dwmc" caption="供应商名称"   datatype="varchar">
+  <field name="get_date" caption="供货日期"   datatype="date">
+  <field name="cpbm" caption="产品编码"   datatype="varchar">
+  <field name="pm" caption="品名"   datatype="varchar">
+  <field name="gg" caption="规格"   datatype="varchar">
+  <field name="sxz" caption="规格属性"   datatype="varchar">
+  <field name="check_num" caption="抽样数量"   datatype="number">
+  <field name="personid_0" caption="检验员"   datatype="number">
+  <field name="check_verdict_0" caption="检验结论"   datatype="number">
+  <field name="buycheckdate" caption="检验日期"   datatype="date">
+  <field name="remark" caption="备注"   datatype="varchar">
+<where field="get_date" caption="供货日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+<where field="get_date" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+<where field="buycheckdate" caption="检验日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+<where field="buycheckdate" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+<where field="dwtxid" caption="供应商名称" datatype="number" opersign="=" type="lookup" span="true"
+codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')" onclick="ProvideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+<where field="cpid" caption="产品名称" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')"> 
+<where field="personid" caption="检验员" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+<where field="check_verdict" caption="检验结论" need="false" datatype="number" opersign="=" type="select"  value="1=合格&0=不合格"> 
+<param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="976">供应商合格率统计表</td>
+  </tr>
+  <tr> 
+    <td align="center" border-left="0" border-right="0" border-top="0" border-bottom="0" >{where.a$get_date$a}--{where.a$get_date$b}</td>
+  </tr>
+</table>
+<table id="tableview1" width="972" border="0" align="center" cellpadding="2" cellspacing="0" class="table"  dataset="a" type="dynamic" fillnull="true" header="1" offset="-2" >
+  <tr>
+          <td nowrap="true" align="center" field="dwmc">供应商名称</td>
+          <td nowrap="true" align="center" field="get_date">供货日期</td>
+          <td nowrap="true" align="center" field="cpbm">产品编码</td>
+          <td nowrap="true" align="center" field="pm">品名</td>
+		  <td nowrap="true" align="center" field="gg">规格</td>
+          <td nowrap="true" align="center" field="sxz">规格属性</td>
+		  <td nowrap="true" align="center" field="check_num">抽样数量</td>
+          <td nowrap="true" align="center" field="personid_0">检验员</td>
+          <td nowrap="true" align="center" field="check_verdict_0">检验结论</td>
+          <td nowrap="true" align="center" field="buycheckdate">检验日期</td>
+		  <td nowrap="true" align="center" field="remark">备注</td>
+        </tr>
+	  <tr>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="dwmc"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="get_date"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="cpbm"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="pm"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="gg"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="sxz"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="check_num"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="personid_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="check_verdict_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="buycheckdate"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="remark"></td>
+     </tr>
+	 <widths value="20,8,6,13,5,27,6,6,6,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+ function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+   function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+if(param=="")
+	 return;
+  openSelectUrl('../buy/buy_ordergoods_edit.jsp?operate=2000&code=buy_ordergoods&jhdid='+param, 'buy_ordergoods');
+}
+</SCRIPT>
+</body>
+</html>

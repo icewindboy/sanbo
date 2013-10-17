@@ -1,0 +1,89 @@
+<html>
+<title name="销售提单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="19.4" width="21.5" magin-left="0" magin-right="0.5" magin-top="1" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="BILL_SALE_SENDBLIST_PRINT" type="sql">
+  <param name="tdid" datatype="number" value="{tdid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1"> 宇  宙  家  纺  有  限  公  司 </td>
+  </tr>
+  <tr>
+     <td align="center" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">送 货 单</td>
+  </tr>
+  <tr>
+      <td align="left"  nowrap="true" field="mc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >科别:<value field="mc">   客户:<value field="dwmc"></td>
+	 <td align="right"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">No:<value field="tdbh"></td>
+  </tr>
+<widths value="25,5">
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+   	  <td nowrap="true" align="left" colspan="2"  field="dz"   border-left="0" border-right="0" border-top="0" border-bottom="0" >地址:<value field="dz"></td>
+ 	  <td nowrap="true" align="right"   border-left="0" border-right="0" border-top="0" border-bottom="0" >日期:<value field="tdrq"></td>
+  </tr>
+<widths value="10,10,5,5">
+</table>
+<table id="tableview2" class="table" dataset="a" font-size="11" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr>
+  	<td align="center"   nowrap="true" field="cpbm">产品代码</td>
+  	<td align="center"   nowrap="true" field="product">产品名称</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+  	<td align="center"  nowrap="true" field="jldw">单位</td>
+  	<td align="center"  nowrap="true" field="dj">单价</td>
+  	<td align="center"  nowrap="true" field="jje">金额</td>
+  	<td align="center"  nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="product"></td>
+  	<td nowrap="true" align="right" border-top="0" border-bottom="0"><value field="sl"></td>
+  	<td nowrap="true" align="left" border-top="0" border-bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" align="right" border-top="0" border-bottom="0"><value field="dj"></td>
+  	<td nowrap="true" align="right" border-top="0"  border-bottom="0"><value field="jje" format="#,##0.00" ></td>
+	<td nowrap="true" border-top="0"  border-bottom="0"><value field="bz"></td>
+  </tr>
+    <widths value="12,25,5,5,5,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="subtotal" header="0" offset="-2">
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" >小计</td>
+  	<td nowrap="true"  colspan="2"   ><value   sum="true" datatype="number" field="sl"></td>
+  	<td nowrap="true"  colspan="4" align="right" ><value field="jje"   sum="true" datatype="number" format="#,##0.00" zeroformat=""></td>
+  </tr>
+    <widths value="12,25,5,5,5,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="total" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" colspan="4"  border-top="1" border-bottom="1">合计人民币大写：<value field="jje" chineseformat="1"    sum="true" datatype="number"></td>
+	<td nowrap="true" colspan="3"   border-top="1"  border-bottom="1" align="right">小写：￥<value field="jje" sum="true"format="#.00"></td>
+  </tr>
+  <tr>
+	<td nowrap="false"   colspan="7"   align="left">备注:<value field="qtxx" ></td>
+  </tr>
+  <tr>
+      <td align="center"  nowrap="true" colspan="7"  border-left="0" border-right="0" border-top="1" border-bottom="0" > 地址:苍南县钱库镇工业园区         电话:<value field="dept_phone">        传真:0577-64475299 </td>
+  </tr>
+  <tr>
+     <td align="left"  colspan="2"    border-left="0" border-right="0" border-top="0" border-bottom="0" >主管:         </td>
+	  <td align="left"  colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" >   发货:        </td>
+ 	  <td align="left"  colspan="2"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开单:<value field="czy"></td>
+   	  <td align="left"  colspan="1"  border-left="0" border-right="0" border-top="0" border-bottom="0"  >提货人:<value field="thr"></td>
+  </tr>	
+  <tr>
+     <td align="left"  colspan="2"    border-left="0" border-right="0" border-top="0" border-bottom="0" >承运车号:         </td>
+	  <td align="left"  colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" >   承运人:        </td>
+ 	  <td align="left"  colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" >司机手机:</td>
+  </tr>	
+    <widths value="12,18,18,8,8,10,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

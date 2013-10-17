@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<!-- a tag library descriptor -->
+<taglib>
+<!-- after this the default space is
+"http://java.sun.com/j2ee/dtds/jsptaglibrary_1_2.dtd"
+-->
+<tlibversion>1.0</tlibversion>
+<jspversion>1.1</jspversion>
+<shortname>pc</shortname>
+<uri></uri>
+<info>
+A tag library from Core Servlets and JavaServer Pages
+</info>
+
+<tag>
+  <name>dbNavigator</name>
+  <tagclass>engine.web.taglib.DBNavigator</tagclass>
+  <info>DataSet Navigate Pages Tag</info>
+  <attribute>
+    <name>dataSet</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>pageSize</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>form</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>operate</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>disable</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>jspUrl</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>isPrint</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>goProperty</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>navigator</name>
+  <tagclass>engine.web.taglib.Navigator</tagclass>
+  <teiclass>engine.web.taglib.NavigatorTei</teiclass>
+  <info>Navigate Pages Tag</info>
+  <attribute>
+    <name>id</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>recordCount</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>pageSize</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>form</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>operate</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>disable</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>jspUrl</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>isPrint</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>goProperty</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>PagesControl</name>
+  <tagclass>engine.web.taglib.PagesControl</tagclass>
+  <info>Outputs Pages Tag</info>
+  <attribute>
+    <name>recordCount</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>jspUrl</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>pageNumber</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>pageSize</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>linkClass</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>lookup</name>
+  <tagclass>engine.web.taglib.LookupTag</tagclass>
+  <teiclass>engine.web.taglib.LookupTei</teiclass>
+  <info>Lookup Bean Tag</info>
+  <attribute>
+    <name>id</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>name</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>select</name>
+  <tagclass>engine.web.taglib.Select</tagclass>
+  <info>Select Control Tag</info>
+  <attribute>
+    <name>id</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>name</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>valueName</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>downImage</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>className</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>style</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>onSelect</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>enter2tab</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>input</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>disable</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>addNull</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>value</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>combox</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>lookup</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>lookupParam</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>option</name>
+  <tagclass>engine.web.taglib.Option</tagclass>
+  <info>Option Control Tag</info>
+  <attribute>
+    <name>value</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>shortcut</name>
+  <tagclass>engine.web.taglib.Shortcut</tagclass>
+  <info>Shortcut Control Tag</info>
+  <attribute>
+    <name>key</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>script</name>
+    <required>true</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+<tag>
+  <name>ExcelHtml</name>
+  <tagclass>engine.web.taglib.ExcelHtml</tagclass>
+  <info>ExcelHtml Control Tag</info>
+  <attribute>
+    <name>id</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>name</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+    <name>footer</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
+</tag>
+</taglib>

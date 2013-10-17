@@ -1,0 +1,109 @@
+<html>
+<title name="应收帐款明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="27.4" width="24" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="10">
+<dataset name="a" object="PCK_SALE_REP.XS_RECEIVABLE_DETAIL(?,'@','@','@','@','@','@','@','@','@','@')" type="procedure">
+  
+  <field name="areacode" caption="地区号" group="true" datatype="number">
+  <field name="dwdm" caption="单位代码" group="true"  datatype="number">
+  <field name="dwmc" caption="单位名称" group="true"  datatype="varchar">
+  <field name="rq" caption="日期" group="true" datatype="date">
+  <field name="zy" caption="摘要" group="true"  datatype="varchar">
+  <field name="jf" caption="借金额" sum="true"  datatype="number">
+  <field name="df" caption="贷金额" sum="true"  datatype="number">
+  <field name="ye" caption="余额" group="false"  datatype="number">
+  <field name="djh" caption="单据号" group="true"  datatype="varchar">
+  <field name="jsfs" caption="结算方式" group="true" datatype="varchar">
+  <field name="ywy" caption="业务员" group="true"  datatype="varchar">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+
+  <where field="rq" caption="开始日期" linktable="" need="true" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+
+  <where field="rq" caption="结束日期" linktable=""need="true" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <where field="djxz" caption="数据来源"  opersign="=" value="1=提单&2=发票" type="radio" initvalue="1" span="true">
+
+  <where field="areacode" caption="地区代码" datatype="varchar" opersign="=">
+
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+
+  <where field="khlx" caption="客户类型" need="false" datatype="varchar"  value="A=A&C=C" initValue=""   opersign="=" type="select"   span="true">
+
+  <where field="personid" caption="业务员" need="false" datatype="number" opersign="=" type="select"  lookup="emp" span="true">
+
+  <where field="zt" caption="包括未记帐提货单据"  opersign="=" value="1=是&0=否" initValue="0" type="radio" span="true" >
+  <where field="jzt" caption="包括未记帐结算单据"  opersign="=" value="1=是&0=否" initValue="0" type="radio" span="true" >
+  
+  <param name="fgsid" datatype="number" value="{fgsid}">
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">应收帐款明细表</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="areacode">地区号</td>
+	<td align="center"  nowrap="true" field="dwdm">单位代码</td>
+    <td align="center"  nowrap="true" field="dwmc">单位名称</td>
+    <td align="center"  nowrap="true" field="rq">日期</td>
+	<td align="center"  nowrap="true" field="zy">摘要</td>
+	<td align="center"  nowrap="true" field="jf" >借金额</td>
+	<td align="center"  nowrap="true" field="df">贷金额</td>
+    <td align="center"  nowrap="true" field="ye">余额</td>
+	<td align="center"  nowrap="true" field="djh">单据号</td>
+	<td align="center"  nowrap="true" field="jsfs">结算方式</td>
+	<td align="center"  nowrap="true" field="ywy">业务员</td>
+	<td align="center"  nowrap="true" field="khlx">客户类型</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="detailRep('{id}','{zy}')"> 
+    <td nowrap="true"><value field="areacode"></td>
+	<td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="rq"></td>
+	<td nowrap="true"><value field="zy"></td>
+	<td nowrap="true" align="right"><value field="jf"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="df"  format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="ye"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="djh"></td>
+	<td nowrap="true"><value field="jsfs"></td>
+	<td nowrap="true"><value field="ywy"></td>
+	<td nowrap="true"><value field="khlx"></td>
+  </tr>
+  <widths value="5,5,26,10,8,11,11,14,11,8,11,4"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param,zy){
+if(zy=='期初余额')
+return;	
+if(param=="")
+return;
+else if(zy=='销货'){
+    openSelectUrl('../sale_dafa/lading_bill_edit.jsp?operate=645355666&code=xs_td_detail&id='+param, 'lading_bill');
+}
+else if(zy=='销退'){
+    openSelectUrl('../sale_dafa/back_lading_bill_edit.jsp?operate=645355666&code=xs_td_detail&id='+param, 'lading_bill');
+}
+else if(zy=='结算'){
+    openSelectUrl('../finance_dafa/sale_balance_edit.jsp?operate=80000014&code=sale_balance&id='+param, 'sale_balance');
+}
+}
+</SCRIPT>
+</body>
+</html>

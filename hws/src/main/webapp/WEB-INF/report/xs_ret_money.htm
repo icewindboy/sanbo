@@ -1,0 +1,46 @@
+<html>
+<title name="销售资金回笼表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="PCK_SALE_REP.xs_receive_money(?,'@','@','@','@','@')" type="procedure">
+  <field name="xm" caption="业务员" group="true" datatype="varchar">
+  <field name="qcye" caption="期初余额"  sum="true" datatype="number">
+  <field name="dje" caption="贷方金额"  sum="true" datatype="number">
+  <field name="jje" caption="借方金额"  sum="true" datatype="number">
+  <field name="qmye" caption="期末余额"  sum="true" datatype="number">
+
+  <where field="ksnf" caption="开始年份" opersign="=" initvalue="{yyyy}" datatype="number" need="true">
+  <where field="ksyf" caption="月份"  opersign="="  datatype="number" initvalue="{mm}" value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月" type="select" need="true">
+  <where field="jsnf" caption="结束年份" opersign="=" initvalue="{yyyy}" datatype="number" need="true">
+  <where field="jsyf" caption="结束月份"  opersign="="  datatype="number" initvalue="{mm}" value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月" type="select" need="true">
+  
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售资金回笼表</td>
+  </tr>
+      <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$ksnf}-{where.a$ksyf} -- {where.a$jsnf}-{where.a$jsyf}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center"  nowrap="true" field="xm" >业务员</td>
+    <td align="center"  nowrap="true" field="qcye" ">期初余额</td>
+    <td align="center"  nowrap="true" field="dje" >贷方金额</td>
+    <td align="center"  nowrap="true" field="jje" >借方金额</td>
+    <td align="center"  nowrap="true" field="qmye" >期末余额</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+    <td nowrap="true" align="right"><value field="xm" ></td>
+	<td nowrap="true" align="right"><value field="qcye" format="#,##0.00" ></td>
+	<td nowrap="true" align="right"><value field="dje"  format="#,##0.00"></td>
+	<td nowrap="true" align="right"><value field="jje"  format="#,##0.00"></td>
+	<td nowrap="true" align="right"><value field="qmye"  format="#,##0.00"></td>
+  </tr>
+  <widths value="11,11,11,11,11">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);</SCRIPT>
+</body>
+</html>

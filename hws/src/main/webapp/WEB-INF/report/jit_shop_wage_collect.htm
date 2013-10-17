@@ -1,0 +1,59 @@
+<html>
+<title name="车间工资汇总表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT e.deptid, e.gzzid, f.mc, g.gzzmc, e.rq, SUM(e.hour_wage+e.piece_wage) totalwage, sum(nvl(e.hour_wage, 0)) hour_wage, sum(nvl(e.piece_wage,0)) piece_wage FROM (SELECT a.deptid,a.gzzid, a.wage_date rq, sum(nvl(b.hour_wage, 0)) hour_wage,0 piece_wage FROM sc_hourwage a, sc_hourwage_emp b WHERE a.hourwage_id =  b.hourwage_id GROUP BY a.deptid,a.gzzid, a.wage_date UNION SELECT c.deptid, c.gzzid, c.piece_date rq, 0, SUM(nvl(d.piece_wage, 0)) piece_wage FROM sc_piecewage c, sc_piecewage_emp d WHERE c.piecewage_id = d.piecewage_id GROUP BY c.deptid,c.gzzid, c.piece_date) e, bm f, sc_gzz g WHERE e.deptid = f.deptid(+) AND e.gzzid = g.gzzid(+) GROUP BY  e.deptid,e.gzzid,e.rq, f.mc, g.gzzmc)" type="sql">
+
+  <field name="rq" caption="日期" group="true"  datatype="date">
+  <field name="mc" caption="车间" group="true"  datatype="varchar">
+  <field name="gzzmc" caption="工作组" group="true" include="gzzid" datatype="varchar">
+  <field name="totalwage" caption="总工资" sum="true" datatype="number">
+  <field name="piece_wage" caption="计件工资" sum="true" datatype="number">
+  <field name="hour_wage" caption="计时工资" sum="true" datatype="number">
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date" need="true">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date" need="true">
+  <where field="deptid" caption="车间" datatype="number" opersign="=" type="select"  lookup="bm.iswork" >
+  <where field="gzzid" caption="工作组" datatype="number" opersign="=" type="select"  lookup="sc_gzz" >
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">车间工资汇总表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td align="center" nowrap="true" field="rq">日期</td>
+    <td align="center" nowrap="true" field="mc">车间</td>
+    <td align="center" nowrap="true" field="gzzmc">工作组</td>
+    <td align="center" nowrap="true" field="xm">姓名</td>
+    <td align="center" nowrap="true" field="totalwage">总工费</td>
+    <td align="center" nowrap="true" field="piece_wage">计件工资</td>
+    <td align="center" nowrap="true" field="hour_wage">计时工资</td>
+  </tr>
+  <tr onClick="selectRow();">
+  	<td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="mc"></td>
+	<td nowrap="true"><value field="gzzmc"></td>
+	<td nowrap="true"><value field="xm"></td>
+	<td nowrap="true" align="right"><value field="totalwage" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="piece_wage" format="{sumformat}"></td>
+	<td nowrap="true" align="right"><value field="hour_wage" format="{sumformat}"></td>
+  </tr>
+  <widths value="10,10,10,10,10,9,9">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function detailRep(ksrq, jsrq, deptid, bc, gzzid, grid){
+  if(ksrq=="" && jsrq=="" && deptid=="")
+    return;
+  if(gzzid == "0")
+    gzzid = "";
+  if(grid == "0")
+    grid = "";
+  openSelectUrl('showdetail.jsp?operate=showdetail&code=sc_worker_wage&a$deptid='+deptid+'&a$djrq$a='+ksrq+'&a$djrq$b='+jsrq+'&a$bc='+bc+'&a$gzzid='+gzzid+'&a$grid='+grid, 'sc_worker_wage');
+}
+</SCRIPT>
+</body>
+</html>

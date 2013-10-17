@@ -1,0 +1,20 @@
+<%@page contentType="application/pdf" %><%--@ include file="../pub/init.jsp"--%><%
+  session.setMaxInactiveInterval(600);
+  //¹Ø±Õnetscapeä¯ÀÀÆ÷»º´æ
+  response.setHeader("Pragma","no-cache");
+  //¹Ø±ÕIEä¯ÀÀÆ÷»º´æ
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Cache-Control","no-store");
+  response.setHeader("Cache-Control","post-check=0");
+  response.setHeader("Cache-Control","pre-check=0");
+  response.setHeader("Cache-Control","must-revalidate");
+  //È¥µô´úÀí·þÎñÆ÷µÄ»º´æ
+  response.setHeader("Expires","0");
+  //response.setDateHeader("Expires", 0);
+  engine.common.LoginBean loginBean = engine.common.LoginBean.getInstance(request);
+  if(!loginBean.isLogin(request, response))
+    return;
+
+  engine.common.PdfProducerFacade pdf = engine.common.PdfProducerFacade.getInstance(request);
+  pdf.doService(request, response);
+%>

@@ -1,0 +1,74 @@
+<html>
+<title name="冲帐单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="19.4" width="21.5" magin-left="0" magin-right="0.5" magin-top="1" magin-bottom="1" footer-center="第 &P 页，共 &N 页"   footer-right="存根(白) 客户(红) 仓库(绿) 财务(蓝)"  font-size="11">
+<dataset name="a" object="(SELECT t.fgsid,t.tdid,t.tdbh,t.zje,t.czy,t.tdrq,b.dwmc,b.addr,t.bz,c.mc FROM xs_td t,dwtx b,bm c WHERE t.dwtxid=b.dwtxid AND t.deptid=c.deptid AND t.djlx=6 )" type="sql">
+  <param name="tdid" datatype="number" value="{tdid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">  浙     江    盛    宇     被     服    有     限     公    司 </td>
+  </tr>
+  <tr>
+     <td align="center" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">补帐单</td>
+  </tr>
+  <tr>
+	 <td align="right" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">No:<value field="tdbh"></td>
+  </tr>
+<widths value="15,5">
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+       <td align="left"  nowrap="true" field="mc"     border-left="0" border-right="0" border-top="0" border-bottom="0" >科别:<value field="mc"></td>
+      <td align="left"  nowrap="true" field="dwmc"  font-size="14" font-bold="1"   border-left="0" border-right="0" border-top="0" border-bottom="0" >客户:<value field="dwmc"></td>
+   	  <td nowrap="true" align="left" colspan="2"  field="dz"   border-left="0" border-right="0" border-top="0" border-bottom="0" >地址:<value field="addr"></td>
+ 	  <td nowrap="true" align="right"   border-left="0" border-right="0" border-top="0" border-bottom="0" >日期:<value field="tdrq"></td>
+  </tr>
+<widths value="4,8,10,5,5">
+</table>
+
+<table id="tableview3" class="table" dataset="a" font-size="11" width="100%" maxrow="10" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr>
+  	<td align="left"  border-bottom="0"  nowrap="false"  field="">备注:<value field="bz"></td>
+  </tr>
+  <tr   >
+  	<td nowrap="true"   border-bottom="0"  border-top="0" ><value field=""></td>
+  </tr>
+    <widths value="12,18">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true"   border-top="1" border-bottom="1">合计人民币大写：</td>
+	<td nowrap="true" colspan="5"   border-top="1" border-bottom="1"><value field="zje" chineseformat="1"    sum="true" datatype="number"></td>
+	<td nowrap="true" colspan="3"   border-top="1"  border-bottom="1" align="left">小写：￥<value field="zje" sum="true"format="#.00"></td>
+  </tr>
+    <widths value="12,18,9,8,8,5,5,5,7,5,8,8">
+</table>
+
+<table id="tableview5" class="table" dataset="a" font-size="11" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+      <td align="center"  nowrap="true" colspan="4"  border-left="0" border-right="0" border-top="1" border-bottom="0" > 地址:苍南县灵溪镇示范工业园区沪山路         电话:0577-64839888(总机)13757885555        传真:0577-64839333 </td>
+  </tr>
+  <tr>
+     <td align="left"    border-left="0" border-right="0" border-top="0" border-bottom="0" >会计:         </td>
+	 
+      <td align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >  出纳:         </td>
+	  
+	  <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" >   复核:        </td>
+	  
+ 	  <td align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开票:<value field="czy"></td>
+ 
+  </tr>	
+    <widths value="5,5,5,5">
+</table>
+
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview3',0);
+initDefaultTableRow('tableview4',0);
+initDefaultTableRow('tableview5',0);
+</SCRIPT>
+</body>
+</html>
+

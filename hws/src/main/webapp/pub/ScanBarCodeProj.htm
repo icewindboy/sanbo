@@ -1,0 +1,12 @@
+<%--
+1.javascript调用scaner.Read('http://192.168.0.28/erp/store/IT3CW32d.DLL')得到包含产品编码和批号的字符串
+2.提交表单。用String[][] s =StringUtils.getArrays(String s); s[0]表示产品编码的数组,s[1]表示批号的数组
+--%>
+<HTML>
+<H1> C++Builder 5 ActiveX Test Page </H1><p>
+You should see your C++Builder 5 forms or controls embedded in the form below.
+<HR><center><P>
+<OBJECT id="scaner" classid="clsid:3FE58C97-FA6F-45AC-A983-0BD55A403FFA" 
+codebase="ScanBarCodeProj.cab#version=1,0,8,0" width=300 height=200></OBJECT>
+<input type="button" value="盘点机" onClick="alert(scaner.Read('http://192.168.0.28/erp/store/IT3CW32d.DLL'));">
+</HTML>

@@ -1,0 +1,95 @@
+<html>
+<title name="销售提单汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="rep_xp_collect_td" type="sql">
+
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+  <field name="tdbh" caption="提单编号" group="true" datatype="varchar">
+  <field name="htbh" caption="订单号" group="true" datatype="varchar">
+  <field name="dh" caption="单号" group="true" datatype="varchar">
+  <field name="tdrq" caption="开单日期" group="true" datatype="date">
+  <field name="dwdm" caption="客户代码" group="true" datatype="varchar">
+  <field name="dwmc" caption="客户名称" group="true" include="dwtxid" datatype="varchar">
+  <field name="zsl" caption="数量" sum="true" datatype="number">
+  <field name="zje" caption="金额" sum="true" datatype="number">
+
+  <where field="tdrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="tdrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <where field="tdbh" caption="提单编号" datatype="varchar" opersign="=">
+  <where field="htbh" caption="订单号" datatype="varchar" opersign="=">
+  <where field="dh" caption="单号" datatype="varchar" opersign="=">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+
+
+  <where field="zt" caption="类别"  opersign="in" value="0=未审&1=已审&2=出库未确认&9=审批中&8=已全部出库&4=作废" type="multi" span="true">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+
+  <param name="deptid" datatype="number" opersign="in"  value="select q.deptid from jc_bmqx q where q.personid={personid}">
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售提单汇总</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$tdrq$a} -- {where.a$tdrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr>
+    <td align="center"  nowrap="true" field="mc">部门</td>
+	<td align="center"  nowrap="true" field="tdbh">提单编号</td>
+	<td align="center"  nowrap="true" field="htbh">订单号</td>
+	<td align="center"  nowrap="true" field="dh">单号</td>
+	<td align="center"  nowrap="true" field="tdrq">开单日期</td>
+    <td align="center"  nowrap="true" field="dwdm">客户代码</td>
+    <td align="center"  nowrap="true" field="dwmc">客户名称</td>
+	<td align="center"  nowrap="true" field="zsl">数量</td>
+	<td align="center"  nowrap="true" field="zje">金额</td>
+  </tr>
+  <tr  onClick="selectRow()" onDblClick="detailRep('{dwtxid}','{tdbh}','{where.a$tdrq$a}','{where.a$tdrq$b}')"  >
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="tdbh"></td>
+    <td nowrap="true"><value field="htbh"></td>
+    <td nowrap="true"><value field="dh"></td>
+    <td nowrap="true"><value field="tdrq"></td>
+    <td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+    <td align="right"  nowrap="true"><value field="zsl" format="#,##0.00" zeroformat=""></td>
+    <td align="right"  nowrap="true"><value field="zje" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="15,18,18,7,11,7,11,7,7">
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar, 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,    'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+ function productCodeSelect(obj,srcVars)
+ {
+    SaleProdCodeChange(document.all['prod'], obj.form.name, srcVars, 'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    SaleProdNameChange(document.all['prod'], obj.form.name, srcVars,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(param1,param2,ksrq,jsrq){
+var zts="";
+for(i=0;i<fixedQueryform.A$ZT.length;i++)
+{
+ if(fixedQueryform.A$ZT[i].checked==true)
+ zts=zts+"&a$zt="+fixedQueryform.A$ZT[i].value
+}
+openSelectUrl("showdetail.jsp?operate=showdetail&code=yuz_xp_tddetail"+zts+"&a$tdrq$a="+ksrq+"&a$tdrq$b="+jsrq+"&a$dwtxid="+param1+"&a$tdbh="+param2, 'yuz_xp_tddetail');
+}
+</SCRIPT>
+</body>
+</html>

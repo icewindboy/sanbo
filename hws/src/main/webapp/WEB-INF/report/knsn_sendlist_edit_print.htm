@@ -1,0 +1,97 @@
+<html>
+<title name="销售提单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="19.4" width="21.5" magin-left="0" magin-right="0.5" magin-top="0.5" magin-bottom="1"  footer-center="第 &P 页，共 &N 页"     footer-right="存根(白) 客户(红) 仓库(绿) 财务(蓝)"  font-size="11">
+<dataset name="a" object="BILL_SALE_SENDBLIST_PRINT" type="sql">
+  <param name="tdid" datatype="number" value="{tdid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">  浙江康盛管业有限公司 </td>
+  </tr>
+  <tr>
+     <td align="center" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">发货清单</td>
+  </tr>
+  <tr>
+	 <td align="right" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">No:<value field="tdbh"></td>
+  </tr>
+<widths value="15,5">
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+      <td align="left"  nowrap="true" field="mc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >科别:<value field="mc"></td>
+      <td align="left"  nowrap="true" field="mc"   font-size="14" font-bold="1"  border-left="0" border-right="0" border-top="0" border-bottom="0" >客户:<value field="dwmc"></td>
+   	  <td nowrap="true" align="left" colspan="2"  field="dz"   border-left="0" border-right="0" border-top="0" border-bottom="0" >地址:<value field="dz"></td>
+ 	  <td nowrap="true" align="right"   border-left="0" border-right="0" border-top="0" border-bottom="0" >日期:<value field="tdrq"></td>
+  </tr>
+<widths value="5,8,15,5,5">
+</table>
+<table id="tableview2" class="table" dataset="a" font-size="11" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr>
+  	<td align="center"   nowrap="true" field="cpbm">产品代码</td>
+  	<td align="center"   nowrap="true" field="pm">产品名称</td>
+	<td align="center"  nowrap="true" field="hh">花号</td>
+  	<td align="center"  nowrap="true" field="ks">款式</td>
+  	<td align="center"  nowrap="true" field="gg">规格</td>
+	<td align="center"  nowrap="true" field="abc">类别</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+  	<td align="center"  nowrap="true" field="jldw">单位</td>
+  	<td align="center"  nowrap="true" field="xsj">零售价</td>
+	<td align="center"  nowrap="true" field="zk">折扣</td>
+  	<td align="center"  nowrap="true" field="jje">金额</td>
+  	<td align="center"  nowrap="true" field="zxh">装箱号</td>
+
+  </tr>
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="pm"></td>
+	<td nowrap="true" border-top="0" border-bottom="0"><value field="hh"></td>
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="ks"></td>
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="gg"></td>
+	<td nowrap="true" border-top="0" border-bottom="0"><value field="abc"></td>
+  	<td nowrap="true" align="right" border-top="0" border-bottom="0"><value field="sl"></td>
+  	<td nowrap="true" border-top="0" border-bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" align="right" border-top="0" border-bottom="0"><value field="xsj"></td>
+	<td nowrap="true" align="right" border-top="0" border-bottom="0"><value field="zk"></td>
+  	<td nowrap="true" align="right" border-top="0"  border-bottom="0"><value field="jje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" border-top="0"  border-bottom="0"><value field="zxh"></td>
+  </tr>
+    <widths value="12,18,9,8,8,5,5,5,7,5,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="subtotal" header="0" offset="-2">
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" >小计</td>
+  	<td nowrap="true"  align="right"   colspan="6"   ><value   sum="true" datatype="number" field="sl"></td>
+  	<td nowrap="true"  align="right"   colspan="4" align="right" ><value field="jje"   sum="true" datatype="number" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" ></td>
+  </tr>
+    <widths value="12,18,9,8,8,5,5,5,7,5,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="total" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" colspan="8"  border-top="1" border-bottom="1">合计人民币大写：<value field="jje" chineseformat="1"    sum="true" datatype="number"></td>
+	<td nowrap="true" colspan="4"   border-top="1"  border-bottom="1" align="left">小写：￥<value field="jje" sum="true"format="#.00"></td>
+  </tr>
+  <tr>
+	<td nowrap="false"   colspan="12"   align="left">备注:<value field="qtxx" ></td>
+  </tr>
+  <tr>
+      <td align="center"  nowrap="true" colspan="12"  border-left="0" border-right="0" border-top="1" border-bottom="0" > 地址:...........         电话:...(总机)........        传真:......... </td>
+  </tr>
+  <tr>
+     <td align="left"  colspan="2"    border-left="0" border-right="0" border-top="0" border-bottom="0" >会计:         </td>
+      <td align="left"  colspan="2"   border-left="0" border-right="0" border-top="0" border-bottom="0" >出纳:         </td>
+	  <td align="left"  colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" > 复核:        </td>
+ 	  <td align="left"  colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开票:<value field="czy"></td>
+   	  <td align="left"  colspan="3"  border-left="0" border-right="0" border-top="0" border-bottom="0"  >提货人:<value field="thr"></td>
+  </tr>	
+	<widths value="12,18,9,8,8,5,5,5,7,5,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>

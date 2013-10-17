@@ -1,0 +1,64 @@
+<html>
+<title name="新供方产品质量评定表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="40" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_ZL_NEWPROVIDER_BILL" type="sql">
+  <field name="newproviderno" caption="单据号"  datatype="varchar">
+  <field name="dwmc_0" caption="供应商"  datatype="varchar">
+  <field name="cpbm_0" caption="产品编码"  datatype="varchar">
+  <field name="pm_0" caption="品名" datatype="varchar">
+  <field name="gg_0" caption="规格"  datatype="varchar">
+  <field name="sxz_0" caption="规格属性"   datatype="varchar">
+  <field name="jldw_0" caption="单位" datatype="varchar">
+  <field name="get_num" caption="来货数量" datatype="number">
+  <field name="get_date" caption="来货日期"   datatype="date">
+  <field name="check_num" caption="抽检数量" datatype="number">
+  <field name="standardname_0" caption="检验依据"   datatype="varchar">
+  <field name="check_date" caption="抽检日期"   datatype="date">
+  <field name="qualityid_0" caption="检验员"   datatype="varchar">
+  <field name="check_verdict0" caption="检验结论"   datatype="number">
+</dataset>
+<table width="982" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr>
+     
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="982">新供方产品质量评定表</td>
+  </tr>
+</table>
+<table id="tableview1"  border="1" align="center" cellpadding="1" cellspacing="0" class="table"  dataset="a" type="dynamic" fillnull="false" header="1" offset="-2" maxrow="23" >
+  <tr> 
+    <td align="center" nowrap="true" field="newproviderno">单据号</td>
+    <td align="center" nowrap="true" field="dwmc_0">供应商</td>
+    <td align="center" nowrap="true" field="cpbm_0">产品编码</td>
+    <td align="center" nowrap="true" field="pm_0">品名规格</td>
+    <td align="center" nowrap="true" field="sxz_0">规格属性</td>
+    <td align="center" nowrap="true" field="jldw_0">单位</td>
+    <td align="center" nowrap="true" field="get_num">来货数量</td>
+	<td align="center" nowrap="true" field="get_date">来货日期</td>
+	<td align="center" nowrap="true" field="check_num">抽检数量</td>
+	<td  align="center" nowrap="true" field="standardname_0">检验依据</td>
+	<td  align="center" nowrap="true" field="check_date">抽检日期</td>
+    <td  align="center" nowrap="true" field="qualityid_0">检验员</td>
+    <td  align="center" nowrap="true" field="check_verdict0">检验结论</td>
+  </tr>
+  <tr> 
+    <td nowrap="true" align="center"  border_bottom="0" ><value field="newproviderno"></td> 
+	<td nowrap="true" align="center"  border_bottom="0"><value field="dwmc_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="cpbm_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="pm_0"> <value field="gg_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="sxz_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="jldw_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="get_num"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="get_date"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="check_num"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="standardname_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="check_date"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="qualityid_0"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="check_verdict0"></td> 
+  </tr>
+  <widths value="15,40,13,13,40,8,10,13,10,10,13,10,10">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+</SCRIPT>
+</body>
+</html>

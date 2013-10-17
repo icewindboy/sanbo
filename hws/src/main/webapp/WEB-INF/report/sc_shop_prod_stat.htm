@@ -1,0 +1,86 @@
+<html>
+<title name="车间产品完成情况表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_SHOP_TASK_STAT" type="sql">
+<field name="mc" caption="车间" group="true" include="bmid">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar" include="dmsxid">
+  <field name="sl" caption="任务单量" sum="true" datatype="number">
+  <field name="yjgl" caption="完成数量" sum="true" datatype="number">
+  <field name="ce" caption="差额" sum="true" datatype="number">
+  <field name="scydw" caption="生产单位" group="true" datatype="varchar">
+  <where field="rq" caption="任务单日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">		
+  <where field="bmid" caption="车间" datatype="number" opersign="=" type="select"  lookup="bm.iswork" >	
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">
+   <where field="dmsxid" caption="规格属性" datatype="number" opersign="=" type="lookup" span="true" 
+  nameonchange="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}propertyNameSelect(this,fixedQueryform.A$CPID.value,'@')"
+ onclick="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}PropertySelect('fixedQueryform','@','fieldVar=dmsxid&fieldVar=sxz',fixedQueryform.A$CPID.value)">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">车间产品完成情况表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+  <td align="center" valign="middle" nowrap="true" field="mc">生产车间</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">任务单量</td>
+	<td align="center" valign="middle" nowrap="true" field="yjgl">完成数量</td>
+    <td align="center" valign="middle" nowrap="true" field="ce">差额</td>
+	<td align="center" valign="middle" nowrap="true" field="scydw">生产单位</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{bmid}','{cpbm}','{dmsxid}')"> 
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="yjgl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="ce" format="{qtyformat}"></td>
+	    <td nowrap="true"><value field="scydw"></td>
+  </tr>
+  <widths value="10,10,18,12,15,9,7,7,7,8"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(deptid, cpbm,dmsxid){
+if(cpbm=="")
+return;
+if(deptid !="" && cpbm=="")
+{
+  param = deptid;
+}
+	openSelectUrl	('showdetail.jsp?operate=showdetail&code=sc_shop_task_stat&a$cpbm='+cpbm+'&a$rq$a='+ksrq+'&a$rq$b='+jsrq+'&a$bmid='+deptid+'&a$dmsxid='+dmsxid, 'sc_shop_task_stat');
+}
+</SCRIPT>
+</body>
+</html>

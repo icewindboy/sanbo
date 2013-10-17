@@ -1,0 +1,97 @@
+<html>
+<title name="收款明细">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="REP_XS_CUSTER_INCOME_DETAIL" type="sql">
+  <field name="rq" caption="日期" group="true">
+  <field name="areacode" caption="地区号" group="true" datatype="number">
+  <field name="dqmc" caption="地区名称" group="true" datatype="varchar">
+  <field name="dwdm" caption="单位代码" group="true" >
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar"  include="xsjsid">
+
+  <field name="xm" caption="业务员" group="true"  datatype="varchar">
+  <field name="je" caption="收款金额"  sum="true" datatype="number" >
+  <field name="cpbm" caption="产品编码"  group="true"  datatype="varchar">
+  <field name="product" caption="产品名称" group="true"  datatype="varchar">
+  <field name="sxz" caption="花型-颜色" group="true"  datatype="varchar">
+
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="jsfsid" caption="结算方式" need="false" datatype="number" opersign="=" type="select"  lookup="jsfs" >
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">收款明细</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table"  dataset="a" name="dwmincen"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+
+    <td align="center"  nowrap="true" field="rq">日期</td>
+	<td align="center"  nowrap="true" field="areacode">地区号</td>
+	<td align="center"  nowrap="true" field="dqmc">地区名称</td>
+	<td align="center"  nowrap="true" field="dwdm">单位代码</td>
+	<td align="center"  nowrap="true" field="dwmc">单位名称</td>
+	<td align="center"  nowrap="true" field="xm">业务员</td>
+        <td align="center"  nowrap="true" field="je">金额</td>
+	<td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="product">产品名称</td>
+	<td align="center"  nowrap="true" field="sxz">花型-颜色</td>
+  </tr>
+  <tr  onClick="selectRow();"  onDblClick="selectRow();detailRep('{xsjsid}')">
+
+   <td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="areacode"></td>
+	<td nowrap="true"><value field="dqmc"></td>
+	<td nowrap="true"><value field="dwdm"></td>
+	<td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="xm"></td>
+        <td nowrap="true" align="right"><value field="je"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="cpbm"></td>
+	<td nowrap="true" align="right"><value field="product"></td>
+	<td nowrap="true" align="right"><value field="sxz"></td>
+  </tr>
+  <widths value="11,11,11,18,11,11,11,11,11,11">
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+var isShow = false;
+for(i=1; i<=4; i++)
+{
+  table = document.all['tableview'+i];
+  if(table+'' != 'undefined')
+  {
+	if(isShow)
+	  table.style.display ="none";
+	else
+	{
+	  isShow = true;
+	  initDefaultTableRow('tableview'+i,1);
+	}
+  }
+}
+function detailRep(param){
+if(param=='')
+return;
+if(param==null)
+return;
+  openSelectUrl('../finance_yuzhou/sale_balance_edit.jsp?operate=80000014&code=xs_day_income&id='+param, 'sale_balance');
+}
+</SCRIPT>
+</body>
+</html>

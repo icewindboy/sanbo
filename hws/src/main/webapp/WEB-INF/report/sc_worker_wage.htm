@@ -1,0 +1,71 @@
+<html>
+<title name="工人工资统计表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_PERSONALWAGE" type="sql">
+  <field name="mc" caption="车间" group="true" datatype="varchar">
+  <field name="xm" caption="员工" group="true" include="grgzid" datatype="varchar">
+  <field name="bc" caption="班次" group="true" datatype="varchar">
+  <field name="gzzmc" caption="工作组" group="true" datatype="varchar">
+  <field name="djh" caption="单据号" group="true" datatype="varchar">
+  <field name="djrq" caption="日期" group="true" datatype="date">
+  <field name="zgf" caption="总工费" sum="true" datatype="number">
+  <field name="jjgz" caption="计件工资" sum="true" datatype="number">
+  <where field="djrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date" need="true">
+  <where field="djrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date" need="true">
+  <where field="deptid" caption="车间" datatype="number" opersign="=" type="select"  lookup="bm.iswork" >
+  <where field="bc" caption="班次" datatype="varchar" opersign="=">
+  <where field="gzzid" caption="工作组" datatype="number" opersign="=" type="select"  lookup="sc_gzz" >
+  <where field="grid" caption="人员" datatype="number" opersign="=" type="select"  lookup="emp" >
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">工人计件工资统计表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$djrq$a} -- {where.a$djrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="mc">车间</td>
+    <td align="center" valign="middle" nowrap="true" field="xm">员工</td>
+    <td align="center" valign="middle" nowrap="true" field="bc">班次</td>
+    <td align="center" valign="middle" nowrap="true" field="gzzmc">工作组</td>
+    <td align="center" valign="middle" nowrap="true" field="djh">单据号</td>
+    <td align="center" valign="middle" nowrap="true" field="djrq">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="zgf">总工费</td>
+    <td align="center" valign="middle" nowrap="true" field="jjgz">计件工资</td>
+  </tr>
+  <tr onDblClick="selectRow();detailRep('{grgzid}')">
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="bc"></td>
+    <td nowrap="true"><value field="gzzmc"></td>
+    <td nowrap="true"><value field="djh"></td>
+    <td nowrap="true"><value field="djrq"></td>
+    <td nowrap="true" align="right"><value field="zgf" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="jjgz" format="{sumformat}"></td>
+  </tr>
+  <widths value="10,10,6,10,12,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(param){
+  if(param=="")
+    return;
+  openSelectUrl('../produce/personal_workerdetail_wage.jsp?operate=2000&code=personal_worker_wage&grgzid='+param, 'personal_worker_wage');
+}
+</SCRIPT>
+</body>
+</html>
