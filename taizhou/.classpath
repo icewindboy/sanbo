@@ -22,20 +22,20 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/beandt.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/classes12.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/classes12_g.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/cos.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/dx.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/ejbobject.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/itext-1.01.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/iTextAsian.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/jcommon-0.9.5.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/jdom.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/jfreechart-0.9.20.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/nls_charset12.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/ocrs12.jar"/>
-	<classpathentry kind="lib" path="D:/taizhou/src/main/projectlib/platform-common-graph-validator-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/beandt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/classes12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/classes12_g.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/cos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/dx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/ejbobject.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/itext-1.01.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/iTextAsian.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/jcommon-0.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/jfreechart-0.9.20.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/nls_charset12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/ocrs12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/kangning.hu/git/sanbo/taizhou/src/main/projectlib/platform-common-graph-validator-1.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
