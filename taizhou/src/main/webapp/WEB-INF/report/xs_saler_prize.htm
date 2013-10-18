@@ -1,0 +1,38 @@
+<html>
+<title name="业务员奖金">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT d.dm,c.bm ygbm,a.nf,a.yf,a.sfjz,b.*,c.xm,d.mc,c.bm,c.isdeformity FROM xs_jjzb a,xs_jj b,emp c,bm d WHERE a.jjzbid=b.jjzbid AND b.personid=c.personid AND b.deptid=d.deptid ORDER BY d.dm,c.bm )" type="sql">
+
+  <where field="nf" caption="年份"  need="true" opersign="=" initvalue="{yyyy}" datatype="number">
+  <where field="yf" caption="月份"  need="true" type="select" opersign="=" initvalue="{mm}" datatype="number"  value="01=1&02=2&03=3&04=4&05=5&06=6&07=7&08=8&09=9&10=10&11=11&12=12" >
+  <where field="deptid"  caption="部门"  need="false" datatype="number" opersign="=" type="select"  lookup="bm" >
+  <where field="personid" caption="姓名" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+
+  <where field="isdeformity" caption="有无残疾"  opersign="in" value="1,0=全部&1=有&0=无" type="radio" span="true" >
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">业务员奖金</td>
+  </tr>
+</table>
+<table id="dynamic" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="1" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td id="preserve" align="center" nowrap="true" field="dm">部门编码</td>
+    <td id="preserve" align="center" nowrap="true" field="ygbm">员工编码</td>
+    <td id="preserve" align="center" nowrap="true" field="mc">部门</td>
+    <td id="preserve" align="center" nowrap="true" field="xm">员工姓名</td>
+  </tr>
+  <tr onClick="selectRow();" >
+    <td id="preserve" nowrap="true"><value field="dm"></td>
+    <td id="preserve" nowrap="true" ><value field="ygbm"></td>
+    <td id="preserve" nowrap="true"><value field="mc"></td>
+    <td id="preserve" nowrap="true" ><value field="xm"></td>
+  </tr>
+  <widths value="7,5">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('dynamic',1);
+</SCRIPT>
+</body>
+</html>

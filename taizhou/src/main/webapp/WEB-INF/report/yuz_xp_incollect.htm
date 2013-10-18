@@ -1,0 +1,87 @@
+<html>
+<title name="应收帐款余额表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="" type="sql">
+
+  <field name="areacode" caption="地区编号" group="true"  datatype="number">
+  <field name="dqmc" caption="地区" group="true" datatype="varchar">
+  <field name="dwdm" caption="单位代码" group="true"  datatype="number">
+  <field name="dwmc" caption="单位名称" group="true"  datatype="varchar" include="dwtxid">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+  <field name="qichuye" caption="期初余额"  sum="true" datatype="number">
+  <field name="zsl" caption="总销售数"  sum="true" datatype="number">
+  <field name="zjf" caption="借金额"  sum="true" datatype="number">
+  <field name="zdf" caption="贷金额" sum="true" datatype="number">
+  <field name="qimeye" caption="期末余额"  sum="true" datatype="number">
+
+  <where field="ksrq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="areacode" caption="地区编号" datatype="varchar" opersign="=">
+  <where field="djxz" caption="数据来源"  opersign="=" value="1=提单" type="radio" initvalue="1">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"   codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="khlx" caption="客户类型" need="false" datatype="varchar"  value="A=A&C=C" initValue="" opersign="=" type="select">
+  <where field="personid" caption="业务员" need="false" datatype="number" opersign="=" type="select" lookup="emp">
+  
+  <where field="zt" caption="提货单"  opersign="=" value="1=已出库未确认+已全部出库&0=已全部出库" initValue="0" type="radio"  >
+  <where field="jzt" caption="结算单"  opersign="=" value="1=全部&0=已审+完成" initValue="0" type="radio" span="true" >
+  <where field="sg" caption="客户"  opersign="=" value="1=不显示本月未发生,期余额为0的&0=显示" initValue="0" type="radio" span="true" >
+  <where field="nokhlx" caption="不计客户类型"  opersign="=" value="1=是&2=否" type="radio" initvalue="1">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+  <param name="pid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">应收帐款余额表 </td>
+
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center"  nowrap="true" field="areacode">地区编号</td>
+	<td align="center"  nowrap="true" field="dqmc">地区</td>
+    <td align="center"  nowrap="true" field="dwdm">单位代码</td>
+    <td align="center"  nowrap="true" field="dwmc">单位名称</td>
+	<td align="center"  nowrap="true" field="khlx">客户类型</td>
+	<td align="center"  nowrap="true" field="qichuye">期初余额</td>
+	<td align="center"  nowrap="true" field="zsl">总销售数</td>
+	<td align="center"  nowrap="true" field="zjf">借金额</td>
+	<td align="center"  nowrap="true" field="zdf">贷金额</td>
+    <td align="center"  nowrap="true" field="qimeye">期末余额</td>
+  </tr>
+  <tr  onClick="selectRow();"  onDblClick="selectRow();detailRep('{where.a$ksrq}','{where.a$jsrq}','{where.a$djxz}','{where.a$zt}','{where.a$jzt}','{dwtxid}','{khlx}')">
+    <td nowrap="true"><value field="areacode"></td>
+	<td nowrap="true"><value field="dqmc"></td>
+    <td nowrap="true"><value field="dwdm"></td>
+	<td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="khlx"></td>
+	<td nowrap="true" align="right"><value field="qichuye" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="zsl"   zeroformat="" ></td>
+	<td nowrap="true" align="right"><value field="zjf" format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="zdf" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="qimeye" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="7,7,10,20,11,11,11,11,11,11">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(ksrq, jsrq, djxz,zt,jzt, dwtxid,khlx){
+openSelectUrl('showdetail.jsp?operate=showdetail&code=yuz_xp_indetail&a$rq$a='+ksrq+'&a$rq$b='+jsrq+'&a$djxz='+djxz+'&a$zt='+zt+'&a$jzt='+jzt+'&a$dwtxid='+dwtxid+'&a$khlx='+khlx, 'yuz_xp_indetail');
+}
+</SCRIPT>
+</body>
+</html>

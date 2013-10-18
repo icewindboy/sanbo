@@ -1,0 +1,39 @@
+<html>
+<title name="产成品调拔出库月报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_STORE_REP.ks_out_collect(?,'@','@')" type="procedure">
+
+ <where field="ksrq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" extendname="" opersign="=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" extendname="" opersign="=" initvalue="{date}" datatype="date">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" valign="middle" style="font_size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">产成品调拔出库月报表</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table dataset="a" id="tableview1" class="table"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+	<td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+        <td align="center" valign="middle" nowrap="true" field="outsl">本月调拔出库数</td>
+        <td align="center" valign="middle" nowrap="true" field="outsl">本月退货入库数</td>
+        <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr onClick="selectRow();" >
+
+	<td nowrap="true"><value field="gg"></td>
+	<td nowrap="true" align="right"><value field="outsl" format="{qtyformat}"></td>
+<td nowrap="true" align="right"><value field="insl" format="{qtyformat}"></td>
+	<td nowrap="true"><value field="bz"></td>
+  </tr>
+  <widths value="18,7,7,7">
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

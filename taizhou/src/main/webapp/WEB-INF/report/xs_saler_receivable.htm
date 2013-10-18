@@ -1,0 +1,70 @@
+<html>
+<title name="业务员应收帐款统计">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="" type="sql">
+
+  <field name="mc" caption="部门" group="true"  datatype="number">
+  <field name="xm" caption="姓名" group="true" datatype="varchar">
+  <field name="dwdm" caption="单位代码" group="true"  datatype="number">
+  <field name="dwmc" caption="单位名称" group="true"  datatype="varchar" include="dwtxid">
+  <field name="sqye" caption="期初余额"  sum="true" datatype="number">
+  <field name="xssl" caption="销售数量"  sum="true" datatype="number">
+  <field name="xsje" caption="销售额"  sum="true" datatype="number">
+  <field name="bqhk" caption="本期回款" sum="true" datatype="number">
+  <field name="bqye" caption="期末余额"  sum="true" datatype="number">
+
+  <where field="ksrq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="djxz" caption="数据来源" opersign="=" value="1=提货单&2=发票" type="radio" span="true" initvalue='1'>
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select"  lookup="bm" >
+  <where field="personid" caption="业务员" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+
+
+  <where field="zt" caption="提货单"  opersign="=" value="1=已出库未确认+已全部出库&0=已全部出库" initValue="0" type="radio" span="true" >
+  <where field="jzt" caption="结算单"  opersign="=" value="1=全部&0=已审+完成" initValue="0" type="radio" span="true" >
+  <where field="sg" caption="客户"  opersign="=" value="1=不显示本月未发生,期余额为0的&0=显示" initValue="0" type="radio"
+
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     
+    <td align="center"  style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">业务员应收帐款统计</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" name="jhdchhz" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+	<td align="center"  nowrap="true" field="mc">部门</td>
+    <td align="center"  nowrap="true" field="xm">姓名</td>
+	<td align="center"  nowrap="true" field="dwdm">单位代码</td
+    <td align="center"  nowrap="true" field="dwmc">单位名称</td>
+	<td align="center"  nowrap="true" field="sqye">期初余额</td>
+    <td align="center"  nowrap="true" field="xssl">销售数量</td>
+    <td align="center"  nowrap="true" field="xsje">销售额</td>
+    <td align="center"  nowrap="true" field="bqhk">本期回款</td>
+    <td align="center"  nowrap="true" field="bqye">期末余额</td>
+  </tr>
+  <tr  onClick="selectRow();" > 
+	<td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+	<td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true" align="right"><value field="sqye" format="{priceformat}"  zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="xssl" format="{qtyformat}"  zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="xsje" format="{priceformat}"  zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="bqhk" format="{sumformat}"  zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="bqye" format="{sumformat}"  zeroformat=""></td>
+  </tr>
+  <widths value="15,10,11,20,7,7,7,7,7"> 
+</table>
+
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

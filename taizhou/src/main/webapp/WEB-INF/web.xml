@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>engineERP</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/spring/spring-sanbo.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>Encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>engine</servlet-name>
+		<servlet-class>engine.EngineServlet</servlet-class>
+		<init-param>
+			<param-name>logConfig</param-name>
+			<param-value>/WEB-INF/classes/conf/log4j.properties</param-value>
+		</init-param>
+		<init-param>
+			<param-name>mode</param-name>
+			<param-value>develop</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dbConfig</param-name>
+			<param-value>/WEB-INF/classes/conf/dbconfig.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DisplayChart</servlet-name>
+		<servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>VerifyCaptchaServlet</servlet-name>
+		<servlet-class>com.sanbo.erp.web.servlet.VerifyCaptchaServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DisplayChart</servlet-name>
+		<url-pattern>/servlet/DisplayChart</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>VerifyCaptchaServlet</servlet-name>
+		<url-pattern>/servlet/VerifyCaptchaServlet</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pub/error404_page.jsp</location>
+	</error-page>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,40 @@
+<html>
+<title name="其他出库单"/>
+<page type="precision" height="12.8" width="19" font-size="11"/>
+
+<%--坐标的原点是从左上脚开始的。y:表示纵坐标,x:表示横坐标--,type的值(head:表头,body:表体,用于打印多条记录的,foot:表尾)--%>
+<table type="head" DataSet="mrs">
+<tr>
+<td  x="13.5"  y="1.3"  align="left" field="pageNo" font-size="12"></td>
+<td  x="2.2"   y="2.5"   align="left" field="ckmc"></td>
+<td  x="8"     y="2.5"   align="left" field="sfrq"></td>
+<td  x="13.7"  y="2.5"   align="left" field="sfdjdh"></td>
+<td  x="2"     y="3.1"   align="left" field="pm"></td>
+<td  x="8"     y="3.1"   align="left" field="gg"></td>
+<td  x="14.1"  y="3.1"   align="left" field="cpbm"></td>
+<td  x="2"     y="3.7"   align="left" field="dwmc"></td>
+<td  x="7.9"   y="3.7"   align="left" field="hssl"></td>
+</tr>
+</table>
+
+<%--space:行间隙。y,x表体开始的坐标, 每个打印的格子多需要设置横坐标。nowrap:超过最大长度是否自动折行(只对表体有效)。multirow:是否可打印多行。nowrap属性和multirow属性是不能同是共存的--%>
+<table type="body" DataSet="drs" y="5.1" space="0.63" >
+<tr>
+<td x="0.3"   align="left" field="ph0"  multirow="true" font-size="9"></td>
+<td x="4"     align="left" field="sl0"  multirow="true" font-size="9"></td>
+<td x="5.7"   align="left" field="ph1"  multirow="true" font-size="9"></td>
+<td x="9.5"   align="left" field="sl1"  multirow="true" font-size="9"></td>
+<td x="11.1"  align="left" field="ph2"  multirow="true" font-size="9"></td>
+<td x="14.8"  align="left" field="sl2"  multirow="true" font-size="9"></td>
+</tr>
+</table>
+<table type="foot" DataSet="mrs">
+<tr>
+<td  x="2.3"    y="10.9"     align="left" field="jsr"></td>
+<td  x="5.9"    y="10.9"     align="left" field="zdr"></td>
+<td  x="9.3"    y="10.9"     align="left" field="spr"></td>
+<td  x="12.9"   y="10.9"     align="left" field="zdr"></td>
+<td  x="14.5"   y="10.9"     align="left" field="total"></td>
+</tr>
+</table>
+</html>

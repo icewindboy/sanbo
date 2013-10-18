@@ -1,0 +1,179 @@
+<html>
+<head>
+<title></title>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="stylesheet" href="public.css" type="text/css">
+</head>
+<script language="javascript" >
+function TabControl(name,active)
+{
+	this.name = name;
+	this.tabName = new Array();
+	this.tabDiv = new Array();
+	this.contentDiv = new Array();
+	this.activeTab = active;
+	return this;
+}
+
+function AddTabItem(tbCtrl,name,tabDiv,contentDiv)
+{
+	tbCtrl.tabName[tbCtrl.tabName.length] = name;
+	tbCtrl.tabDiv[tbCtrl.tabDiv.length] = tabDiv;
+	tbCtrl.contentDiv[tbCtrl.contentDiv.length] = contentDiv;
+}
+
+function SetActiveTab(tbCtrl,name)
+{
+	var i;
+	for (i=0;i<tbCtrl.tabName.length;i++){
+		if (tbCtrl.tabName[i]==name)
+			break;
+	}
+	if (i>=tbCtrl.tabName.length)
+		return false;
+	document.all[tbCtrl.tabDiv[tbCtrl.activeTab]].className = "normalTab";
+	document.all[tbCtrl.contentDiv[tbCtrl.activeTab]].style.display = "none";
+	document.all[tbCtrl.tabDiv[i]].className = "activeTab";
+	document.all[tbCtrl.contentDiv[i]].style.display = "block";
+	tbCtrl.activeTab = i;
+	//if (window.top.StatFrame+''!='undefined')
+	//	window.top.StatFrame.RegisterVar(tbCtrl.name,name);
+//if (window.top.StatFrame+''!='undefined'){ var tmp_curtab=window.top.StatFrame.GetRegisterVar('INFO_EX');if (tmp_curtab!='') {
+	return false;
+}
+
+function SetActiveVTab(tbCtrl,name)
+{
+	var i;
+	for (i=0;i<tbCtrl.tabName.length;i++){
+		if (tbCtrl.tabName[i]==name)
+			break;
+	}
+	if (i>=tbCtrl.tabName.length)
+		return false;
+	document.all[tbCtrl.tabDiv[tbCtrl.activeTab]].className = "normalVTab";
+	document.all[tbCtrl.contentDiv[tbCtrl.activeTab]].style.display = "none";
+	document.all[tbCtrl.tabDiv[i]].className = "activeVTab";
+	document.all[tbCtrl.contentDiv[i]].style.display = "block";
+	tbCtrl.activeTab = i;
+	if (window.top.StatFrame+''!='undefined')
+		window.top.StatFrame.RegisterVar(tbCtrl.name,name);
+	return false;
+}
+
+
+</script>
+<BODY >
+<table WidTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0 class="headbar">
+  <tr>
+    <td NOWRAP align="center"></td>
+  </tr>
+</table>
+
+<form name="form1"  >
+  <INPUT TYPE="HIDDEN" NAME="rownum" value=''>
+  <INPUT TYPE="HIDDEN" NAME="operate" value=''>
+<table BORDER="0" CELLPADDING="0" CELLSPACING="2" align="center">
+  <tr valign="top">
+  <td width="400">
+  <table border=0 CELLPADDING=0 CELLSPACING=0 class="table">
+  <tr>
+  <td  class="activeVTab">信息卡</td>
+  </tr>
+</table>
+<table class="editformbox" cellspacing=2 cellpadding=0 width="100%">
+  <tr>
+  <td>
+
+
+<table cellspacing="2" cellpadding="0" border="0" width="100%" bgcolor="#f0f0f0">
+     <INPUT TYPE="HIDDEN" NAME="personid"  VALUE="3781">
+     <tr>
+     <td nowrap>
+    <table cellspacing=0 width="100%" cellpadding=0>
+     <tr>
+         <td nowrap><div id="tabDivINFO_EX_0" class="activeTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_0');return false;">家庭情况</a></div></td>
+         <td nowrap><div id="tabDivINFO_EX_1" class="normalTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_1');return false;">教育情况</a></div></td>
+         <td nowrap><div id="tabDivINFO_EX_2" class="normalTab"><a class="tdTitle" href="#" onClick="blur();SetActiveTab(INFO_EX,'INFO_EX_2');return false;">工作经历</a></div></td>
+         <td class="lastTab" valign=bottom width=100% align=right><a class="tdTitle" href="#">&nbsp;</a></td>
+     </tr>
+     </table>
+     <div id="cntDivINFO_EX_0" class="tabContent" style="display:block;width:750;height:110;overflow-y:auto;overflow-x:auto;">
+     <table id="tableview1" border="0" cellspacing="1" cellpadding="0" class="table" width="100%">
+     <tr class="tableTitle">
+          <td nowrap>
+          
+          <input name="image" class="img" type="image" title="新增" onClick="sumitForm(9000,-1)" src="../images/add.gif" border="0">
+          
+           </td>
+           <td>称谓</td>
+           <td>姓名</td>
+           <td>职业</td>
+           <td>出生日期</td>
+           <td>备注</td>
+    </tr>
+     
+      </table>
+      <script language="javascript">initDefaultTableRow('tableview1',1);</script>
+      </div>
+<div id="cntDivINFO_EX_1" class="tabContent" style="display:none;width:750;height:110;overflow-y:auto;overflow-x:hidden;">
+    <center>
+        <table id="tableview2" border="0" cellspacing="1" cellpadding="0" class="table" width="100%">
+            <tr class="tableTitle">
+                  <td  width=45 align="center" nowrap>
+                  
+                  <input name="image4" class="img" type="image" title="新增" onClick="sumitForm(9007,-1)" src="../images/add.gif" border="0">
+                 
+                  </td>
+                  <td>毕业学校</td>
+                  <td>所学专业</td>
+                  <td>证明人</td>
+                  <td>开始日期</td>
+                  <td>结束日期</td>
+                  <td>备注</td>
+            </tr>
+     
+        </table>
+        <script language="javascript">initDefaultTableRow('tableview2',1);</script>
+    </center>
+</div>
+<div id="cntDivINFO_EX_2" class="tabContent" style="display:none;width:750;height:110;overflow-y:auto;overflow-x:hidden;">
+      <center>
+            <table id="tableview3" border="0" cellspacing="1" cellpadding="0" class="table" width="100%">
+                <tr class="tableTitle">
+                    <td nowrap><input name="image5" class="img" type="image" title="新增" onClick="sumitForm(9003,-1)" src="../images/add.gif" border="0"></td>
+                    <td>工作单位</td>
+                    <td>职务</td>
+                    <td>开始日期</td>
+                    <td>结束日期</td>
+                    <td>备注</td>
+                </tr>
+     
+            </table>
+            <script language="javascript">initDefaultTableRow('tableview3',1);</script>
+      </center>
+</div>
+
+
+  <SCRIPT LANGUAGE="javascript">INFO_EX = new TabControl('INFO_EX',0);
+      AddTabItem(INFO_EX,'INFO_EX_0','tabDivINFO_EX_0','cntDivINFO_EX_0');
+      AddTabItem(INFO_EX,'INFO_EX_1','tabDivINFO_EX_1','cntDivINFO_EX_1');
+      AddTabItem(INFO_EX,'INFO_EX_2','tabDivINFO_EX_2','cntDivINFO_EX_2');
+      if (window.top.StatFrame+''!='undefined'){ var tmp_curtab=window.top.StatFrame.GetRegisterVar('INFO_EX');if (tmp_curtab!='') {SetActiveTab(INFO_EX,tmp_curtab);}}
+  </SCRIPT>
+</td>
+</tr>
+</table>
+
+
+<tr>
+<td> </td>
+</tr>
+</table>
+</table>
+</form>
+
+</body>
+</html>

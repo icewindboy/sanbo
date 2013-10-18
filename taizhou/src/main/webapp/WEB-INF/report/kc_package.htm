@@ -1,0 +1,85 @@
+<html>
+<title name="销售结算报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="vw_kc_package" type="sql">
+
+  <field name="drawdate" caption="领料日期" group="true"  datatype="date">
+  <field name="drawcode" caption="领料单号" group="true" datatype="varchar">
+  <field name="receivedate" caption="收货日期" group="true" datatype="varchar">
+  <field name="receivecode" caption="收货单号" group="true"   datatype="varchar">
+  <field name="packagename" caption="包装方案"  group="true"  datatype="varchar">
+  <field name="product" caption="辅料名称" group="true" datatype="varchar">
+  <field name="sxz" caption="辅料属性" group="true"  datatype="varchar">
+   
+  <field name="drawnum" caption="领料数量"  sum="true"  datatype="number">
+ 
+  <field name="sl" caption="用料数量"  group="true" datatype="number">
+  <field name="jldw" caption="计量单位"  group="true" datatype="varchar">
+  <where field="drawdate" caption="领料日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="drawdate" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+   <where field="receivedate" caption="收货日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="receivedate" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="drawcode" caption="领料单号" datatype="varchar" opersion="like">
+   <where field="receivecode" caption="收货单号" datatype="varchar" opersion="like">
+   <where field="packagename" caption="包装方案" datatype="varchar" opersion="like">
+  <where field="product" caption="品名规格模糊" datatype="varchar" opersion="like">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+  
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">包装用料情况表</td>
+  </tr>
+
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr> 
+
+  <td align="center"  nowrap="true" field="drawdate"> 领料日期</td>
+  <td align="center"  nowrap="true" field="drawcode">领料单号</td>
+  <td align="center"  nowrap="true"field="receivedate">收货日期</td>
+  <td align="center"  nowrap="true" field="receivecode">收货单号</td>
+   <td align="center"  nowrap="true" field="packagename">包装方案</td>
+  <td align="center"  nowrap="true" field="product">辅料名称</td>
+  <td align="center"  nowrap="true" field="sxz">辅料属性</td>
+  <td align="center"  nowrap="true" field="drawnum">领料数量</td>
+  <td align="center"  nowrap="true" field="sl">用料数量</td>
+   <td align="center"  nowrap="true" field="jldw">计量单位</td>
+    
+ 
+  </tr>
+  <tr  onClick="selectRow();"  > 
+   
+
+
+ 
+  <td  nowrap="true"><value field="drawdate"> </td>
+  <td  nowrap="true"><value field="drawcode"></td>
+  <td  nowrap="true"><value field="receivedate"></td>
+  <td   nowrap="true"><value field="receivecode"></td>
+  <td   nowrap="true"><value field="packagename"></td>
+  <td  nowrap="true"><value field="product"></td>
+  <td   nowrap="true"><value field="sxz"></td>
+  <td   nowrap="true" align="right"> <value field="drawnum" format="0.0000" zeroformat=""></td>
+   <td   nowrap="true" align="right"> <value field="sl" format="0.0000" zeroformat=""></td>
+  <td  nowrap="true"><value field="jldw"></td>
+  </tr>
+  <widths value="7,7,8，7,7,8,7,10,7,7"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >
+initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

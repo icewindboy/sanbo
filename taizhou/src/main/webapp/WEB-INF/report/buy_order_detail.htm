@@ -1,0 +1,130 @@
+<html>
+<title name="合同执行情况表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="buy" object="REP_BUY_ORDER_DETAIL" type="sql">
+  <field name="htbh" caption="合同号" group="true" include="htid" datatype="varchar">
+  <field name="htrq" caption="签订日期" group="true" datatype="date">
+  <field name="dwmc" caption="供货单位" group="true" datatype="varchar">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="jldw" caption="计量单位" group="true" datatype="varchar">
+  <field name="hsdw" caption="换算单位" group="true" datatype="varchar">
+  <field name="gyszyh" caption="供应商资源号" group="true" datatype="varchar">
+  <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="dj" caption="单价" group="true" datatype="number">
+  <field name="je" caption="金额" sum="true" datatype="number">
+  <field name="sjjhl" caption="实际进货量" sum="true" datatype="number">
+  <field name="sjrkl" caption="实际入库量" sum="true" datatype="number">
+  <field name="wjhsl" caption="未进货量" sum="true" datatype="number">
+  <field name="wrksl" caption="未入库量" sum="true" datatype="number">
+  <field name="jhrq" caption="交货日期" group="true" datatype="number">
+  <field name="bz" caption="备注" group="true" datatype="varchar"> 
+  <where field="htrq" caption="合同日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="htrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpbm" caption="编码范围" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="cpbm" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="htbh" caption="合同编码范围" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="htbh" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="pm" caption="品名" datatype="varchar">
+  <where field="gg" caption="规格" datatype="varchar">
+  <where field="sxz" caption="规格属性" datatype="varchar">
+  <where field="dwmc" caption="单位名称" datatype="varchar">
+  <where field="dqmc" opersign="=" caption="地区" datatype="varchar">
+  <where field="areacode" opersign="=" caption="地区号" datatype="varchar">
+  <where field="khlx" caption="客户类型" opersign="=" value="=全部&A=A&C=C" type="radio">
+    <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+ <where field="dwtxid" caption="供应商" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="ProvideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="zt" caption="是否包括已完成" opersign="=" value="=包括&0=不包括" type="radio" span="true">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">合同执行情况表</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.buy$htrq$a} -- {where.buy$htrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="buy" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="htbh">合同号</td>
+	<td align="center" valign="middle" nowrap="true" field="htrq">签订日期</td>
+<td align="center" valign="middle" nowrap="true" field="dwmc">单位名称</td>
+<td align="center" valign="middle" nowrap="true" field="khlx">客户类型</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">计量单位</td>
+    <td align="center" valign="middle" nowrap="true" field="hsdw">换算单位</td>
+	<td align="center" valign="middle" nowrap="true" field="gyszyh">供应商料号</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+    <td align="center" valign="middle" nowrap="true" field="dj">单价</td>
+    <td align="center" valign="middle" nowrap="true" field="je">金额</td>
+	<td align="center" valign="middle" nowrap="true" field="sjjhl">实际进货量</td>
+	<td align="center" valign="middle" nowrap="true" field="sjrkl">实际入库量</td>
+	<td align="center" valign="middle" nowrap="true" field="wjhsl">未进货量</td>
+	<td align="center" valign="middle" nowrap="true" field="wrksl">未入库量</td>
+	<td align="center" valign="middle" nowrap="true" field="jhrq">交货日期</td>
+    <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{htid}')"> 
+    <td nowrap="true"><value field="htbh"></td>
+    <td nowrap="true"><value field="htrq"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+    <td nowrap="true" align="center"><value field="khlx"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="hsdw"></td>
+    <td nowrap="true"><value field="gyszyh"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="dj" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="je" format="{sumformat}"></td>
+	<td nowrap="true" align="right"><value field="sjjhl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="sjrkl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="wjhsl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="wrksl" format="{qtyformat}"></td>
+    <td nowrap="true"><value field="jhrq"></td>
+    <td nowrap="true"><value field="bz"></td>
+  </tr>
+  <widths value="10,8,20,8,10,12,8,15,7,7,10,7,7,7,7,7,7,7,9,12"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+   function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+  if(param=="")
+	 return;
+  openSelectUrl('../buy/buy_order_edit.jsp?operate=2000&code=buy_order&htid='+param, 'buy_order');
+}
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<title name="产品生产成本计算表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="rep_sc_prod_cost" type="sql">
+  <field name="chmc" caption="类别" group="true">
+<field name="cpbm" caption="代码" group="true">
+  <field name="pm" caption="名称" group="true">
+
+  <field name="gg" caption="规格型号" group="true">
+  <field name="jldw" caption="单位" group="true">
+  <field name="jcsl" caption="数量" group="true">
+  <field name="jcdj" caption="单价" group="true">
+
+  <field name="jcje" caption="金额" group="true">
+
+
+  <where field="nf" caption="年份" opersign="=" initvalue="{yyyy}"      datatype="number" need="true">
+  <where field="yf" caption="月份"  opersign="="  datatype="number" initvalue="{mm}" value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月" type="select" need="true">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" script="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">产品生产成本计算表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+  <td align="center" valign="middle" nowrap="true" field="chmc">类别</td>
+ <td align="center" valign="middle" nowrap="true" field="cpbm">代码</td>
+  <td align="center" valign="middle" nowrap="true" field="pm">名称</td>
+
+<td align="center" valign="middle" nowrap="true" field="gg">规格型号</td>
+    <td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+
+    <td align="center" valign="middle" nowrap="true" field="jcsl">数量</td>
+  <td align="center" valign="middle" nowrap="true" field="jcdj">单价</td>
+    <td align="center" valign="middle" nowrap="true" field="jcje">金额</td>
+  </tr>
+  <tr>
+
+    <td nowrap="true"><value field="chmc"></td>
+ <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="jcsl"></td>
+    <td nowrap="true" ><value field="jcdj" ></td>
+    <td nowrap="true" ><value field="jcje" ></td>
+
+  </tr>
+  <widths value="9,15,15,9,7,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

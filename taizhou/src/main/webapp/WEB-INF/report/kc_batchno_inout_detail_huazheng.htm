@@ -1,0 +1,74 @@
+<html>
+<title name="存货批号收发明细账">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="" type="sql">
+  <field name="sfrq" caption="日期" group="true">
+  <field name="djmc" caption="单据类型" group="true">
+  <field name="djh" caption="单据号" group="true">
+  <field name="srsl" caption="收数量" sum="true">
+  <field name="fcsl" caption="发数量" sum="true">
+  <field name="jcsl" caption="结存数量" sum="false">
+  <param name="ksrq" datatype="varchar" value="{ksrq}">
+  <param name="jsrq" datatype="varchar" value="{jsrq}">
+  <param name="storeid" datatype="number" value="{storeid}">
+  <param name="cpid" datatype="number" value="{cpid}">
+  <param name="dmsxid" datatype="number" value="{dmsxid}">
+  <param name="ph" datatype="varchar" value="{ph}">
+  <param name="fgsid" datatype="number" value="{fgsid}"><param name="personid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" style="font-size:15" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货批号收发明细账</td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center" nowrap="true" field="sfrq">日期</td>
+    <td align="center" nowrap="true" field="djmc">单据类型</td>
+    <td align="center" nowrap="true" field="djh">单据号</td>
+    <td align="center" nowrap="true" field="srsl">收数量</td>
+    <td align="center" nowrap="true" field="fcsl">发数量</td>
+    <td align="center" nowrap="true" field="jcsl">结存数量</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow(); detailRep('{id}','{djxz}')">
+    <td nowrap="true"><value field="sfrq"></td>
+    <td nowrap="true"><value field="djmc"></td>
+    <td nowrap="true"><value field="djh"></td>
+    <td nowrap="true" align="right"><value field="srsl" format="{qtyformat}" zeroformat=""></td>
+	  <td nowrap="true" align="right"><value field="fcsl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="jcsl" format="{qtyformat}" zeroformat=""></td>
+  </tr>
+  <widths value="15,15,25,15,15,15">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function detailRep(id, djlx){
+  if(djlx=="" || id =="" || djlx=="0")
+     return;
+  //1=采购入库单, 7=损溢单, 9=其他入库单, 3=自制收货单, 5=外加工入库单, 2=销售出库单, 4=生产领料单, 6=外加工发料单, 8,-1 损溢单
+  if(djlx=="1")
+    openSelectUrl('../store/contract_instore_edit.jsp?operate=2000&id='+id, 'contract_instore_edit');
+  else if(djlx=="3")
+    openSelectUrl('../store/self_gain_edit.jsp?operate=2000&id='+id, 'self_gain_list');
+  else if(djlx=="2")
+    openSelectUrl('../store_huazheng/outputlist_edit.jsp?operate=2000&id='+id, 'outputlist');
+  else if(djlx=="4")
+    openSelectUrl('../store_huazheng/receive_material_edit.jsp?operate=2000&id='+id, 'receive_material_list');
+  else if(djlx=="5")
+    openSelectUrl('../store/process_instore_edit.jsp?operate=2000&id='+id, 'process_instore_list');
+  else if(djlx=="6")
+    openSelectUrl('../store/process_issue_edit.jsp?operate=2000&id='+id, 'process_issue_list');
+  else if(djlx=="-1" || djlx=="8")
+    openSelectUrl('../store/move_store_edit.jsp?operate=2000&id='+id, 'move_store_list');
+  else if(djlx=="7")
+    openSelectUrl('../store/report_destroy_edit.jsp?operate=2000&id='+id, 'report_destroy_list');
+  else if(djlx=="9")
+    openSelectUrl('../quality/other_instore_edit.jsp?operate=2000&id='+id, 'other_instore_check');
+}
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<html>
+<title name="产品工艺明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_TECHNICS_ROUTE" type="sql">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="gylxlxmc" caption="工艺类型" group="true" datatype="varchar">
+  <field name="gymc" caption="工序名称" group="true" datatype="varchar">
+  <field name="desl" caption="定额数量" group="true" datatype="number">
+  <field name="deje" caption="计件价格" group="true" datatype="number">
+  <field name="lbjj" caption="零部件价" group="true" datatype="number">
+  <field name="hsj" caption="回收价" group="true" datatype="number">
+  <field name="gdjg" caption="工段价格" group="true" datatype="number">
+  <field name="scgs" caption="生产工时" group="true" datatype="number">
+  <field name="gdmc" caption="工段名称" group="true" datatype="varchar">
+   <field name="bz" caption="备注" group="true" datatype="varchar">	
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+    <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">		
+  <where field="gylxlxid" caption="工艺路线类型" datatype="number" opersign="=" type="select"  lookup="sc_gylxlx" >
+  <where field="gymcid" caption="工序名称" datatype="number" opersign="=" type="select"  lookup="sc_gymc" >
+  <where field="desl" caption="定额数量" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="">
+  <where field="desl" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="">
+  <where field="deje" caption="计件单价" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="">
+  <where field="deje" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle"  style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">产品工艺明细表</td>
+  </tr>
+</table>
+<table  id="tableview1" dataset="a"  class="table" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+    <td align="center" valign="middle" nowrap="true" field="gylxlxmc">工艺类型</td>
+	<td align="center" valign="middle" nowrap="true" field="gymc">工序名称</td>
+    <td align="center" valign="middle" nowrap="true" field="desl">定额数量</td>
+	<td align="center" valign="middle" nowrap="true" field="deje">计件单价</td>
+    <td align="center" valign="middle" nowrap="true" field="lbjj">零部件价</td>
+    <td align="center" valign="middle" nowrap="true" field="hsj">回收价</td>
+	<td align="center" valign="middle" nowrap="true" field="gdjg">工段价格</td>
+	<td align="center" valign="middle" nowrap="true" field="scgs">生产工时</td>
+    <td align="center" valign="middle" nowrap="true" field="gdmc">工段名称</td>
+    <td align="center" valign="middle" nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr> 
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="gylxlxmc"></td>
+    <td nowrap="true"><value field="gymc"></td>
+    <td nowrap="true" align="right"><value field="desl" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="deje" format="{priceformat}"></td>
+	<td nowrap="true" align="right"><value field="lbjj" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="hsj" format="{priceformat}"></td>
+	<td nowrap="true" align="right"><value field="gdjg" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="scgs" format="{qtyformat}"></td>
+	<td nowrap="true" ><value field="gdmc"></td>
+    <td nowrap="true" ><value field="bz" ></td>
+  </tr>
+  <widths value="11,20,10,5,7,10,7,7,7,7,7,7,7,18"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

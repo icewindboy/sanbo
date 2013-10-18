@@ -1,0 +1,105 @@
+<html>
+<title name="员工档案卡明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT emp.*,decode(emp.isdelete,0,'在职',2,'离职',1,'删除') zt,decode(emp.isDeformity,0,'否',1,'是') sfcj,decode(emp.isShow,null,'不显示',1,'显示') sfxs,decode(emp.sex,1,'男',0,'女') xb,bm.mc FROM emp,bm WHERE bm.deptid=emp.deptid and emp.isDelete in(0,1,2) order by emp.isDelete,emp.deptid,emp.bm)" type="sql">
+  <field name="bm" caption="职工代码" datatype="varchar">
+  <field name="xm" caption="姓名" datatype="varchar">
+
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+  <field name="phone" caption="电话" group="true" datatype="varchar">
+  <field name="email" caption="电子邮件" group="true" datatype="varchar">
+  <field name="lb" caption="类别" group="true" datatype="varchar">
+  <field name="date_born" caption="出生日期" group="true" datatype="date">
+  <field name="zw" caption="职务" group="true" datatype="varchar">
+  <field name="zc" caption="职称" group="true" datatype="varchar">
+  <field name="mz" caption="民族" group="true" datatype="varchar">
+
+  <field name="sfzhm" caption="身份证号码" datatype="varchar">
+  <field name="zzmm" caption="政治面貌" group="true" datatype="varchar">
+  <field name="study" caption="学历" group="true" datatype="varchar">
+  <field name="date_in" caption="进厂时间" group="true" datatype="date">
+  <field name="jg" caption="籍贯" group="true" datatype="varchar">
+  <field name="mobile" caption="手机" group="true" datatype="varchar">
+  <field name="addr" caption="地址" group="true" datatype="varchar">
+ <field name="bz" caption="备注" group="true" datatype="varchar">
+  <field name="xb" caption="性别" group="true" datatype="varchar">
+  <field name="zt" caption="状态" group="true" datatype="varchar">
+  <field name="sfcj" caption="是否残疾" group="true" datatype="varchar">
+  <field name="sfxs" caption="下拉框中显示" group="true" datatype="varchar">
+ 
+  <where field="bm" caption="职工代码" datatype="varchar" opersion="left_like">
+  <where field="xm" caption="姓名" datatype="varchar" opersion="left_like">
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="sex" caption="性别"  opersign="=" value="1=男&0=女&=全部" type="radio"  span="true">
+   <where field="isdelete" caption="状态"  opersign="=" value="2=离职&0=在职&=全部" type="radio"  span="true">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">员工档案卡明细表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+      <td width="7%" align="center" valign="middle" nowrap="true" field="bm">职工代码</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="xm">姓名</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="mc">部门</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="phone">电话</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="email">电子邮件</td>
+	 <td width="7%" align="center" valign="middle" nowrap="true" field="lb">类别</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="date_born">出生日期</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="zw">职务</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="zc">职称</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="mz">民族</td>
+	 <td width="7%" align="center" valign="middle" nowrap="true" field="sfzhm">身份证号码</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="zzmm">政治面貌</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="study">学历</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="date_in">进厂时间</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="jg">籍贯</td>
+
+	<td width="7%" align="center" valign="middle" nowrap="true" field="mobile">手机</td>
+    <td width="18%" align="center" valign="middle" nowrap="true" field="addr">地址</td>
+	<td width="8%" align="center" valign="middle" nowrap="true" field="bz">备注</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="xb">性别</td>
+  <td width="7%" align="center" valign="middle" nowrap="true" field="zt">状态</td>
+	<td width="10%" align="center" valign="middle" nowrap="true" field="sfcj">是否残疾</td>
+    <td width="10%" align="center" valign="middle" nowrap="true" field="sfxs">下拉框中显示</td>
+  
+	
+  </tr>
+  <tr>
+ 	 <td nowrap="true" align="center"><value field="bm"></td>
+    <td nowrap="true" align="center"><value field="xm"></td>
+    <td nowrap="true" align="center"><value field="mc"></td>
+	<td nowrap="true" align="center"><value field="phone"></td>
+    <td nowrap="true" align="center"><value field="email"></td>
+    <td nowrap="true" align="center"><value field="lb"></td>
+    <td nowrap="true" align="center"><value field="date_born"></td>
+    <td nowrap="true" align="center"><value field="zw"></td>
+    <td nowrap="true" align="center"><value field="zc"></td>
+	<td nowrap="true" align="center"><value field="mz"></td>
+    <td nowrap="true" align="center"><value field="sfzhm"></td>
+	<td nowrap="true" align="center"><value field="zzmm"></td>
+    <td nowrap="true" align="center"><value field="study"></td>
+    <td nowrap="true" align="center"><value field="date_in"></td>
+    <td nowrap="true" align="center"><value field="jg"></td>
+    <td nowrap="true" align="center"><value field="mobile"></td>
+    <td nowrap="true" align="center"><value field="addr"></td>
+	<td nowrap="true" align="center"><value field="bz"></td>
+    <td nowrap="true" align="center"><value field="xb"></td>
+	<td nowrap="true" align="center"><value field="zt"></td>
+    <td nowrap="true" align="center"><value field="sfcj"></td>
+	<td nowrap="true" align="center"><value field="sfxs"></td>
+    
+  </tr>
+  <widths value="5,6,6,8,8,5,7,6,5,4,8,4,5,8,8,8,8,8,4,4,8,5">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>
+
+
+

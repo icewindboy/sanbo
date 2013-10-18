@@ -1,0 +1,141 @@
+<html>
+<title name="销售提单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="BILL_SALE_LADDING_EDIT" type="sql">
+  <field name="tdrq" caption="提单日期" datatype="date">
+  <field name="tdbh" caption="提单编号码"   datatype="varchar">
+  <field name="mc" caption="部门"  datatype="varchar">
+  <field name="jsfs" caption="结算方式"  datatype="varchar">
+  <field name="dwmc" caption="购货单位"  datatype="varchar">
+  <field name="khh" caption="开户行"  datatype="varchar">
+  <field name="zh" caption="账号"  datatype="varchar">
+  <field name="dz" caption="供货单位地址"  datatype="varchar">
+  <field name="sh" caption="税号" datatype="number">
+  <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="je" caption="金额"  sum="true" datatype="number">
+
+  <where field="tdid" caption="销售提单ID" datatype="number">
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售提单</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+      <td align="center"  nowrap="true" field="tdrq"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开单日期</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="tdrq"></td>
+   	  <td align="center"  nowrap="true" field="tdbh"   border-left="0" border-right="0" border-top="0" border-bottom="0" >提单编号</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="tdbh"></td>
+   	  <td align="center"  nowrap="true" field="mc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >部门</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="mc"></td>
+   	  <td align="center"  nowrap="true" field="xm" border-bottom="0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >业务员</td>
+   	  <td nowrap="true"  border-bottom="0"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="xm"></td>
+  </tr>
+  <tr>
+   	  <td align="center"  nowrap="true" field="dwmc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >购货单位</td>
+ 	  <td nowrap="true"  colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dwmc"></td>
+   	  <td align="center"  nowrap="true" field="dz"   border-left="0" border-right="0" border-top="0" border-bottom="0" >地址</td>
+ 	  <td nowrap="true"  colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dz"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center"  nowrap="true" field="lxr"   border-left="0" border-right="0" border-top="0" border-bottom="0" >联系人</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="lxr"></td>
+   	  <td align="center"  nowrap="true" field="dh"   border-left="0" border-right="0" border-top="0" border-bottom="0" >电话</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dh"></td>
+   	  <td align="center"  nowrap="true" field="hkts"   border-left="0" border-right="0" border-top="0" border-bottom="0" >回款天数</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="hkts"></td>
+   	  <td align="center"  nowrap="true" field="jsfs"   border-left="0" border-right="0" border-top="0" border-bottom="0" >结算方式</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="jsfs"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center"  nowrap="true" field="ckmc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >仓库</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="ckmc"></td>
+   	  <td align="center"  nowrap="true" field="khlx"   border-left="0" border-right="0" border-top="0" border-bottom="0" >客户类型</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="khlx"></td>
+   	  <td align="center"  nowrap="true" field="hkrq"   border-left="0" border-right="0" border-top="0" border-bottom="0" >回款日期</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="hkrq"></td>
+   	  <td align="center"  nowrap="true" field="sendmode"   border-left="0" border-right="0" border-top="0" border-bottom="0" >发货方式</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="sendmode"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center"  nowrap="true" field="yfdj"   border-left="0" border-right="0" border-top="0" border-bottom="0" >运费单价(元/公斤)</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="yfdj"></td>
+   	  <td align="center"  nowrap="true" field="yf"   border-left="0" border-right="0" border-top="0" border-bottom="0" >运费</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="yf"></td>
+   	  <td align="center"  nowrap="true" field="ddfy"   border-left="0" border-right="0" border-top="0" border-bottom="0" >代垫费用</td>
+ 	  <td nowrap="true"     border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="ddfy"></td>
+   	  <td align="center"  nowrap="true" field="djh"   border-left="0" border-right="0" border-top="0" border-bottom="0" >码单号</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="djh"></td>
+  </tr>
+  <widths value="8,9,8,8,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1" offset="-2">
+  <tr>
+    <td align="center"  nowrap="true" field="htbh">合同号</td>
+  	<td align="center"  nowrap="true" field="cpbm">产品编码</td>
+  	<td align="center"  nowrap="true" field="product">品名 规格</td>
+  	<td align="center"  nowrap="true" field="sxz">规格属性</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+  	<td align="center"  nowrap="true" field="jldw">计量单位</td>
+	<td align="center"  nowrap="true" field="zk">折扣</td>
+  	<td align="center"  nowrap="true" field="dj">单价</td>
+  	<td align="center"  nowrap="true" field="jje">净金额</td>
+  	<td align="center"  nowrap="true" field="bz">备注</td>
+  	<td align="center"  nowrap="true" field="stsl">出库数量</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+    <td nowrap="true" border_bottom="0"><value field="htbh"></td>
+  	<td nowrap="true" border_bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border_bottom="0"><value field="product"></td>
+  	<td nowrap="true" border_bottom="0"><value field="sxz"></td>
+  	<td nowrap="true" border_bottom="0"><value field="sl"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" border_bottom="0" ><value field="zk"></td>
+  	<td nowrap="true" border_bottom="0"><value field="dj"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" border_bottom="0"><value field="bz"></td>
+	<td nowrap="true" border_bottom="0"><value field="stsl"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8,8,8,8,8,8">
+</table>
+
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0">合计</td>
+	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" ><value field="sl"   sum="true" datatype="number"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jje"    sum="true" datatype="number"></td>
+	<td nowrap="true" border_bottom="0"></td>
+	<td nowrap="true" border_bottom="0"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8,8,8,8,8,8">
+</table>
+
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+      <td align="center"  nowrap="true" field="sfdjdh"  border-left="0" border-right="0" border-top="0" border-bottom="0" >经手人</td>
+ 	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="czy"></td>
+   	  <td align="center"  nowrap="true" field="spr"  border-left="0" border-right="0" border-top="0" border-bottom="0"  >审核</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="spr"></td>
+   	  <td align="center"  nowrap="true" field="czy"   border-left="0" border-right="0" border-top="0" border-bottom="0" >制单人</td>
+   	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="czy"></td>
+  </tr>	
+  <widths value="8,9,8,8,8,8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

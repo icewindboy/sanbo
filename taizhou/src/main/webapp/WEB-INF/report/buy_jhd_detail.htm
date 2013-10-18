@@ -1,0 +1,119 @@
+<html>
+<title name="采购进货单明细账">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_BUY_JHD_DETAIL" type="sql">
+  <field name="jhrq" caption="日期" group="true" datatype="date" >
+  <field name="jhdbm" caption="进货单号" group="true" include="jhdid" datatype="varchar">
+  <field name="dwmc" caption="供应商" group="true" datatype="varchar">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="jldw" caption="计量单位" group="true" datatype="varchar">
+  <field name="hsdw" caption="换算单位" group="true" datatype="varchar">
+  <field name="gyszyh" caption="供应商料号" group="true" datatype="varchar">
+    <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="dj" caption="单价" group="true" datatype="number">
+  <field name="je" caption="金额" sum="true" datatype="number">
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+  <field name="xm" caption="业务员" group="true" datatype="varchar">
+  <field name="htbh" caption="采购合同号" group="true" datatype="varchar">
+  <where field="jhrq" caption="合同日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jhrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="khlx" caption="客户类型" opersign="=" value="=全部&A=A&C=C" type="radio">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+   <where field="dmsxid" caption="规格属性" datatype="number" opersign="=" type="lookup" span="true" 
+  nameonchange="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}propertyNameSelect(this,fixedQueryform.A$CPID.value,'@')"
+ onclick="if(fixedQueryform.A$CPID.value==''){alert('请选择产品');return;}PropertySelect('fixedQueryform','@','fieldVar=dmsxid&fieldVar=sxz',fixedQueryform.A$CPID.value)">
+ <where field="dwtxid" caption="供应商" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="ProvideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="zt" caption="包括未记帐进货单据"  opersign="=" value="=包括&1=不包括" type="radio" span="true">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">采购进货单明细帐</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$jhrq$a} -- {where.a$jhrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="jhrq">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="jhdbm">进货单号</td>
+    <td align="center" valign="middle" nowrap="true" field="dwmc">供应商</td>
+    <td align="center" valign="middle" nowrap="true" field="khlx">客户类型</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+    <td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+    <td align="center" valign="middle" nowrap="true" field="jldw">计量单位</td>
+    <td align="center" valign="middle" nowrap="true" field="hsdw">换算单位</td>
+    <td align="center" valign="middle" nowrap="true" field="gyszyh">供应商料号</td>
+	<td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+	<td align="center" valign="middle" nowrap="true" field="dj">单价</td>
+    <td align="center" valign="middle" nowrap="true" field="je">金额</td>
+	<td align="center" valign="middle" nowrap="true" field="mc">部门</td>
+    <td align="center" valign="middle" nowrap="true" field="xm">业务员</td>
+	<td align="center" valign="middle" nowrap="true" field="htbh">采购合同号</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{jhdid}')"> 
+    <td nowrap="true"><value field="jhrq"></td>
+    <td nowrap="true"><value field="jhdbm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+    <td nowrap="true" align="center"><value field="khlx"></td>
+	<td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="sxz"></td>
+	<td nowrap="true"><value field="jldw"></td>
+	<td nowrap="true"><value field="hsdw"></td>
+    <td nowrap="true"><value field="gyszyh"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="dj" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="je" format="{sumformat}"></td>
+    <td nowrap="true"><value field="mc"></td>
+	<td nowrap="true"><value field="xm"></td>
+	<td nowrap="true"><value field="htbh"></td>
+  </tr>
+  <widths value="10,10,18,8,11,6,15,7,5,5,11,8,8,8,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+ function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+   function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+if(param=="")
+	 return;
+  openSelectUrl('../buy/buy_ordergoods_edit.jsp?operate=2000&code=buy_ordergoods&jhdid='+param, 'buy_ordergoods');
+}
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+<title name="货物发出明细账">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="29.7" width="42" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="REP_XS_PROD_SEND" type="sql">
+  <field name="areacode" caption="地区号" group="true" datatype="number">
+  <field name="dqmc" caption="地区名称" group="true" datatype="varchar">
+  <field name="dwdm" caption="客户代码" group="true" datatype="number">
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+  <field name="rq" caption="日期" group="true" datatype="date">
+  <field name="tdbh" caption="单据号" group="true" include="tdid"  datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true"  datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="stsl" caption="数量"  sum="true" datatype="number">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="dj" caption="单价" group="true"  datatype="number">
+  <field name="ssje" caption="金额"  sum="true" datatype="number">
+  
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="areacode" caption="地区号" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="" datatype="varchar">
+  <where field="areacode" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="" datatype="varchar">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+   <where field="pm" caption="品名" datatype="varchar" opersign="like">
+   <where field="gg" caption="规格" datatype="varchar" opersign="like">
+   <where field="xm" caption="业务员" datatype="varchar" opersign="like">
+   <where field="dqmc" caption="地区名称" datatype="varchar" opersign="like">
+   <where field="tdbh" caption="单据号" datatype="varchar" opersign="like">
+
+  <where field="stsl" caption="显示选项" value="0.0001=不显示实发数量为0的单位&-1=全部" type="radio"  opersign="&gt;" initvalue="0.0001" span="true">
+  <where field="lx" caption="是否开票"  opersign="=" value="1=全部&2=已开票&3=未开票" initvalue="1" type="radio" span="true">
+  <where field="djlx" caption="单据类型"  opersign="=" value="=全部&1=提货单&-1=退货单" type="radio" span="true">
+  <where field="khlx" caption="客户类型"  opersign="=" value="=全部&A=A&C=C" type="radio" span="true">
+
+  <where field="zt" caption="类别"  opersign="in" value="0=未审&1=已审&9=审批中&8=完成" type="multi" span="true"> 
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">货物发出明细账</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="areacode">地区号</td>
+	<td align="center"  nowrap="true" field="dqmc">地区名称</td>
+    <td align="center"  nowrap="true" field="dwdm">客户代码</td>
+    <td align="center"  nowrap="true" field="dwmc">客户名称</td>
+	<td align="center"  nowrap="true" field="khlx">客户类型</td>
+    <td align="center"  nowrap="true" field="rq">日期</td>
+	<td align="center"  nowrap="true" field="tdbh">单据号</td>
+	<td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="pm">品名</td>
+    <td align="center"  nowrap="true" field="gg">规格</td>
+	<td align="center"  nowrap="true" field="sxz">规格属性</td>
+	<td align="center"  nowrap="true" field="stsl">实发数量</td>
+	<td align="center"  nowrap="true" field="jldw">单位</td>
+	<td align="center"  nowrap="true" field="dj"  >单价</td>
+	<td align="center"  nowrap="true" field="ssje">金额</td>
+   </tr>
+  <tr  onClick="selectRow();"  onDblClick="selectRow();detailRep('{tdid}')"> 
+    <td nowrap="true"><value field="areacode"></td>
+    <td nowrap="true"><value field="dqmc"></td>
+	<td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="khlx"></td>
+    <td nowrap="true"><value field="rq"></td>
+	<td nowrap="true"><value field="tdbh"></td>
+	<td nowrap="true"><value field="cpbm"></td>
+	<td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+	<td nowrap="true" ><value field="sxz" ></td>
+	<td nowrap="true" align="right"><value field="stsl" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true" align="right"><value field="dj" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="ssje" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="7,7,11,20,11,7,11,7,7,6,7,7,7"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+if(param=='')
+return;
+if(param==null)
+return;
+  openSelectUrl('../sale/lading_bill_edit.jsp?operate=645355666&code=xs_td_detail&id='+param, 'lading_bill');
+}
+</SCRIPT>
+</body>
+</html>

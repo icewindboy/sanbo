@@ -1,0 +1,127 @@
+<html>
+<title name="存货收发明细账">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_STORE_REP.STORE_DETAIL(?,'@','@','@','@','@','@','@')" type="procedure">
+  <field name="rq" caption="日期" group="true" datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="product" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="jldw" caption="计量单位" group="true" datatype="varchar">
+  <field name="hsdw" caption="换算单位" group="true" datatype="varchar">
+  <field name="djlx" caption="单据类型" group="true" datatype="varchar">
+  <field name="djh" caption="单据号" group="true" datatype="varchar">
+  <field name="zy" caption="摘要" group="true" datatype="varchar">
+  <field name="srsl" caption="收入数量" group="true" datatype="number">
+   <field name="srhssl" caption="收入换算数量" group="true" datatype="number">
+  <field name="fcsl" caption="发出数量" group="true" datatype="number">
+   <field name="fchssl" caption="发出换算数量" group="true" datatype="number">
+  <field name="jcsl" caption="结存数量" group="true" datatype="number">
+   <field name="jchssl" caption="结存换算数量" group="true" datatype="number">
+
+  <where field="rq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" need="true" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" need="false" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+
+  <where field="pm" caption="品名模糊" datatype="varchar">
+  <where field="zt" caption="包括未记帐单据"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货收发明细账</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="rq"  >日期</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm" >产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="product" >品名</td>
+	<td align="center" valign="middle" nowrap="true" field="gg" >规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw" >计量单位</td>
+	<td align="center" valign="middle" nowrap="true" field="hsdw" >换算单位</td>
+    <td align="center" valign="middle" nowrap="true" field="djlx" >单据类型</td>
+    <td align="center" valign="middle" nowrap="true" field="djh" >单据号</td>
+    <td align="center" valign="middle" nowrap="true" field="zy">摘要</td>
+    <td align="center" valign="middle" nowrap="true" field="srsl">收入数量</td>
+	<td align="center" valign="middle" nowrap="true" field="srhssl">收入换算数量</td>
+    <td align="center" valign="middle" nowrap="true" field="fcsl" >发出数量</td>
+	<td align="center" valign="middle" nowrap="true" field="fchssl">发出换算数量</td>
+	<td align="center" valign="middle" nowrap="true" field="jcsl">结存数量</td>
+	<td align="center" valign="middle" nowrap="true" field="jchssl">结存换算数量</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{id}','{djlx}')">
+    <td nowrap="true"><value field="rq"></td>
+   <td nowrap="true"><value field="cpbm"></td>
+   <td nowrap="true"><value field="product"></td>
+   <td nowrap="true"><value field="gg"></td>
+   <td nowrap="true"><value field="jldw"></td>
+   <td nowrap="true"><value field="hsdw"></td>
+    <td nowrap="true"><value field="djlx"></td>
+    <td nowrap="true"><value field="djh"></td>
+    <td nowrap="true"><value field="zy"></td>
+    <td nowrap="true" align="right"><value field="srsl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="srhssl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="fcsl" format="{qtyformat}"></td>
+	<td nowrap="true" align="right"><value field="fchssl" format="{qtyformat}"></td>
+<td nowrap="true" align="right"><value field="jcsl" format="{qtyformat}"></td>
+<td nowrap="true" align="right"><value field="jchssl" format="{qtyformat}"></td>
+
+  </tr>
+  <widths value="11,18,10,10,7,7,7,11,7,7,7,7,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(id,djlx){
+if(djlx=="" || id =="" || djlx=="期初余额" )
+     return;
+if(djlx=="采购入库单")
+  openSelectUrl('../store_shengyu/contract_instore_edit.jsp?operate=2000&code=contract_instore_edit&id='+id, 'contract_instore_edit');
+else if(djlx=="自制收货单")
+  openSelectUrl('../store_shengyu/self_gain_edit.jsp?operate=2000&code=self_gain_list&id='+id, 'self_gain_list');
+else if(djlx=="销售出库单")
+  openSelectUrl('../store_shengyu/outputlist_edit.jsp?operate=2000&code=outputlist&id='+id, 'outputlist');
+else if(djlx=="生产领料单")
+  openSelectUrl('../store_shengyu/receive_material_edit.jsp?operate=2000&code=receive_material_list&id='+id, 'receive_material_list');
+else if(djlx=="外加工入库单")
+  openSelectUrl('../store_shengyu/process_instore_edit.jsp?operate=2000&code=process_instore_list&id='+id, 'process_instore_list');
+else if(djlx=="外加工发料单")
+  openSelectUrl('../store_shengyu/process_issue_edit.jsp?operate=2000&code=process_issue_list&id='+id, 'process_issue_list');
+else if(djlx=="移库单")
+  openSelectUrl('../store_shengyu/move_store_edit.jsp?operate=2000&code=move_store_list&id='+id, 'move_store_list');
+else if(djlx=="损益单")
+  openSelectUrl('../store_shengyu/report_destroy_edit.jsp?operate=2000&code=report_destroy_list&id='+id, 'report_destroy_list');
+else if(djlx=="其它入库单")
+  openSelectUrl('../store/other_instore_edit.jsp?operate=2000&id='+id, 'other_instore_edit');
+else if(djlx=="销售换货单")
+  openSelectUrl('../sale_shengyu/exchange_edit.jsp?operate=2000&id='+id, 'exchange');
+else if(djlx=="销售发货单")
+  openSelectUrl('../sale_shengyu/directsell_edit.jsp?operate=2000&id='+id, 'directsell');
+else if(djlx=="同价调拨单")
+  openSelectUrl('../sale_shengyu/instep_edit.jsp?operate=2000&id='+id, 'instep');
+else if(djlx=="坯布外加工单")
+  openSelectUrl('../buy_shengyu/cloth_outprocess_edit.jsp?operate=2000&id='+id, 'cloth_outprocess');
+
+}
+</SCRIPT>
+</body>
+</html>

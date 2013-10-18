@@ -1,0 +1,49 @@
+<html>
+<title name="超储存货列表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_KC_OVER_STOCKS" type="sql">
+  <field name="cpbm" caption="存货代码" group="true" datatype="varchar">
+  <field name="pm" caption="存货名称" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="jldw" caption="单位" group="true" datatype="varchar">
+  <field name="maxsl" caption="最高存储量" group="true" datatype="number">
+  <field name="kcsl" caption="帐存数量" sum="true" datatype="number">
+  <field name="ce" caption="差额" sum="true" datatype="number">
+  <where field="cpbm" caption="存货代码" datatype="varchar" opersign="left_like">
+  <where field="pm" caption="存货名称" datatype="varchar">
+  <where field="gg" caption="规格" datatype="varchar">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">超储存货列表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+	<td align="center" valign="middle" nowrap="true" field="cpbm">存货代码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">存货名称</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+    <td align="center" valign="middle" nowrap="true" field="maxsl">最高存储量</td>
+	<td align="center" valign="middle" nowrap="true" field="kcsl">帐存数量</td>
+    <td align="center" valign="middle" nowrap="true" field="ce">差额</td>
+
+  </tr>
+  <tr>
+ 	<td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true" align="right"><value field="maxsl" format="#0.0000"></td>
+    <td nowrap="true" align="right"><value field="kcsl" format="#0.0000"></td>
+	<td nowrap="true" align="right"><value field="ce" format="#0.0000"></td>
+  </tr>
+  <widths value="8,9,5,4,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

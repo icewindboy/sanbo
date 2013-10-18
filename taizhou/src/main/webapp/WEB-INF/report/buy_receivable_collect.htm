@@ -1,0 +1,64 @@
+<html>
+<title name="应付帐款汇总表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_BUY_REP.BUY_BALANCE(?,'@','@','@','@','@','@','@','@','@')" type="procedure">
+  
+  <field name="dwdm" caption="单位代码" group="true" datatype="varchar">
+  <field name="dwmc" caption="单位名称" group="true" datatype="varchar">
+  <field name="khlx" caption="客户类型" group="true" datatype="varchar">
+  <field name="qcye" caption="期初余额" sum="true" datatype="number">
+  <field name="xf" caption="应付" sum="true" datatype="number">
+  <field name="yf" caption="已付" sum="true" datatype="number">
+  <field name="qmye" caption="期末余额" sum="true" datatype="number">
+
+  <where field="rq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="dqdm" caption="地区号" datatype="varchar" opersign="=">
+  <where field="dwdm" caption="单位代码" datatype="varchar" opersign="=">
+  <where field="dwmc" caption="单位名称" datatype="varchar" opersign="=">
+  <where field="khlx" caption="客户类型" opersign="=" value="=全部&A=A&C=C" type="radio">
+    <where field="djxz" caption="数据来源"  opersign="=" value="=发票&1=进货单" type="radio" span="true" initvalue='1'>
+	<where field="zt" caption="包括未记帐"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">应付帐款汇总表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="dwdm">单位代码</td>
+	<td align="center" valign="middle" nowrap="true" field="dwmc">单位名称</td>
+	<td align="center" valign="middle" nowrap="true" field="khlx">客户类型</td>
+	<td align="center" valign="middle" nowrap="true" field="qcye">期初余额</td>
+        <td align="center" valign="middle" nowrap="true" field="xf">应付</td>
+	<td align="center" valign="middle" nowrap="true" field="yf">已付</td>
+	<td align="center" valign="middle" nowrap="true" field="qmye">期末余额</td>
+
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{dwtxid}','{fgsid}','{where.a$zt}')"> 
+	<td nowrap="true"><value field="dwdm"></td>
+	<td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="khlx"></td>
+	<td nowrap="true" align="right"><value field="qcye" format="{priceformat}"></td>
+	<td nowrap="true" align="right"><value field="xf" format="{priceformat}"></td>
+        <td nowrap="true" align="right"><value field="yf" format="{priceformat}"></td>
+        <td nowrap="true" align="right"><value field="qmye" format="{priceformat}"></td>
+  </tr>
+  <widths value="9,18,7,8,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function detailRep(param,fgsid,zt){
+if(param=="")
+return;
+openSelectUrl('showdetail.jsp?operate=showdetail&code=buy_receivable_detail&a$rq$a='+ksrq+'&a$rq$b='+jsrq+'&a$fgsid='+fgsid+'&a$djxz='+djxz+'&a$dwtxid='+param+'&a$zt='+zt+'&a$jzt='+zt, 'buy_receivable_detail');
+}
+</SCRIPT>
+</body>
+</html>

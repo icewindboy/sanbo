@@ -1,0 +1,117 @@
+<html>
+<title name="往来单位信息报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT a.dwdm,a.dwmc,b.mc,c.dqh,c.dqmc,d.mc bmmc,e.xm,a.zjm,a.addr,a.tel,a.cz,a.email,a.http,a.zp,a.lxr,a.nsrdjh,a.frdb,a.khh,a.zh,a.gxsd,a.zxdj,a.syz,a.hy,f.ywlx FROM  dwtx a,country b, dwdq c,bm d, emp e,dwtx_lx f WHERE a.cdm=b.cdm AND a.dqh=c.dqh AND a.deptid=d.deptid AND a.personid=e.personid AND a.dwtxid=f.dwtxlxid)" type="sql">
+  
+  <field name="dwdm" caption="单位编号" datatype="varchar">
+  <field name="dwmc" caption="单位名称" datatype="varchar">
+  <field name="mc" caption="国家" datatype="varchar">
+  <field name="dqh" caption="区号" datatype="varchar">
+  <field name="dqmc" caption="地区" datatype="varchar">
+  <field name="bmmc" caption="所属部门" datatype="varchar">
+  <field name="xm" caption="所属业务员" datatype="varchar">
+  <field name="zjm" caption="助记码" datatype="varchar">
+  <field name="addr" caption="地址" datatype="varchar">
+  <field name="tel" caption="电话" datatype="varchar">
+  <field name="cz" caption="传真" datatype="varchar">
+  <field name="email" caption="电子邮件" datatype="varchar">
+  <field name="http" caption="网址" datatype="varchar">
+  <field name="zp" caption="邮编" datatype="varchar">
+  <field name="lxr" caption="联系人" datatype="varchar">
+  <field name="nsrdjh" caption="税号" datatype="varchar">
+  <field name="frdb" caption="法人代表" datatype="varchar">
+  <field name="khh" caption="开户行" datatype="varchar">
+  <field name="zh" caption="帐号" datatype="varchar">
+  <field name="gxsd" caption="关系深度" datatype="varchar">
+  <field name="zxdj" caption="资信等级" datatype="varchar">
+  <field name="syz" caption="所有制" datatype="varchar">
+  <field name="hy" caption="行业" datatype="varchar">
+  <field name="ywlx" caption="业务类型" datatype="varchar">
+
+  <where field="dwdm" caption="单位编号" datatype="varchar"opersion="left_like">
+  <where field="dwmc" caption="单位名称" datatype="varchar"opersion="left_like">
+  <where field="dqh" caption="区号" datatype="varchar" opersion="left_like">
+  <where field="dqmc" caption="地区" datatype="varchar" opersion="left_like">
+  <where field="xm" caption="所属业务员" datatype="varchar"opersion="left_like">
+  <where field="addr" caption="地址" datatype="varchar"opersion="left_like">
+  <where field="tel" caption="电话" datatype="varchar" opersion="left_like">
+  <where field="cz" caption="传真" datatype="varchar" opersion="left_like">
+  <where field="email" caption="电子邮件" datatype="varchar"opersion="left_like">
+  <where field="lxr" caption="联系人" datatype="varchar" opersion="left_like">
+  <where field="zjm" caption="助记码" datatype="varchar" opersion="left_like">
+  <where field="ywlx" caption="业务类型" value="=全部&1=供货单位&2=经销商&3=最终客户&4=费用单位&5=服务单位&6=内部往来" opersign="=" type="radio" span="true">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">往来单位信息报表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="dwdm">单位编号</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="dwmc">单位名称</td>
+    <td width="4%" align="center" valign="middle" nowrap="true" field="mc">国家</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="dqh">区号</td>
+    <td width="5%" align="center" valign="middle" nowrap="true" field="dqmc">地区</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="bmmc">所属部门</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="xm">所属业务员</td>
+    <td width="5%" align="center" valign="middle" nowrap="true" field="zjm">助记码</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="addr">地址</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="tel">电话</td>
+    <td width="6%" align="center" valign="middle" nowrap="true" field="cz">传真</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="email">电子邮件</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="http">网址</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="zp">邮编</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="lxr">联系人</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="nsrdjh">税号</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="frdb">法人代表</td>
+	<td width="5%" align="center" valign="middle" nowrap="true" field="khh">开户行</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="zh">帐号</td>
+	<td width="3%" align="center" valign="middle" nowrap="true" field="gxsd">关系深度</td>
+	<td width="3%" align="center" valign="middle" nowrap="true" field="zxdj">资信等级</td>
+    <td width="4%" align="center" valign="middle" nowrap="true" field="syz">所有制</td>
+	<td width="4%" align="center" valign="middle" nowrap="true" field="hy">行业</td>
+    <td width="4%" align="center" valign="middle" nowrap="true" field="ywlx">业务类型</td>
+	
+  </tr>
+  <tr>
+ 	
+  
+    <td nowrap="true" align="center" ><value field field="dwdm"></td>
+	<td nowrap="true" align="center"  ><value field field="dwmc"></td>
+    <td nowrap="true" align="center"><value field field="mc"></td>
+	<td nowrap="true" align="center"><value field field="dqh"></td>
+    <td nowrap="true" align="center" ><value field field="dqmc"></td>
+	<td nowrap="true" align="center" ><value field field="bmmc"></td>
+	<td nowrap="true" align="center"><value field field="xm"></td>
+    <td nowrap="true" align="center" ><value field field="zjm"></td>
+	<td nowrap="true" align="center"><value field field="addr"></td>
+	<td nowrap="true" align="center" ><value field field="tel"></td>
+    <td nowrap="true" align="center" ><value field field="cz"></td>
+	<td nowrap="true" align="center"><value field field="email"></td>
+    <td nowrap="true" align="center" ><value field field="http"></td>
+	<td nowrap="true" align="center" ><value field field="zp"></td>
+	<td nowrap="true" align="center" ><value field field="lxr"></td>
+    <td nowrap="true" align="center"><value field field="nsrdjh"></td>
+	<td nowrap="true" align="center" ><value field field="frdb"></td>
+	<td nowrap="true" align="center" ><value field field="khh"></td>
+    <td nowrap="true" align="center"><value field field="zh"></td>
+	<td nowrap="true" align="center" ><value field field="gxsd"></td>
+	<td nowrap="true" align="center" ><value field field="zxdj"></td>
+    <td nowrap="true" align="center" ><value field field="syz"></td>
+	<td nowrap="true" align="center" ><value field field="hy"></td>
+    <td nowrap="true" align="center"><value field field="ywlx"></td>
+	
+  </tr>
+  <widths value="5,5,4,5,5,5,5,5,5,5,6,7,7,5,5,7,5,5,7,3,3,4,4,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>
+
+
+

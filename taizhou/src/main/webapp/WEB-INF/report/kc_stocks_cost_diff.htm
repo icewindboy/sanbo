@@ -1,0 +1,95 @@
+<html>
+<title name="存货成本差异表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_KC_STOCKS_COST_DIFF" type="sql">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="syje" caption="期初实际" sum="true" datatype="number">
+  <field name="qcjh" caption="期初计划" sum="true" datatype="number">
+  <field name="qcci" caption="期初差异" sum="true" datatype="number">
+  <field name="sje" caption="本期收入实际" sum="true" datatype="number">
+  <field name="bqsrjh" caption="本期收入计划" sum="true" datatype="number">
+  <field name="bqsrci" caption="本期收入差异" sum="true" datatype="number">
+  <field name="bqcyl" caption="差异率" sum="true" datatype="number">
+
+
+  <field name="fje" caption="本期发出实际" sum="true" datatype="number">
+  <field name="bqfcjh" caption="本期发出计划" sum="true" datatype="number">
+  <field name="bqfcci" caption="本期发出差异" sum="true" datatype="number">
+
+  <field name="jcje" caption="期末结存实际" sum="true" datatype="number">
+  <field name="qmjcjh" caption="期末结存计划" sum="true" datatype="number">
+  <field name="qmjcci" caption="期末结存差异" sum="true" datatype="number">
+  <where field="nf" caption="年份" opersign="=" initvalue="{yyyy}" need="true" datatype="number">
+  <where field="yf" caption="月份"  opersign="="  initvalue="{mm}" datatype="number"  value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月" type="select" need="true">
+  <where field="diffKinds" caption="计划价 - 成本价" datatype="number" opersign="=" type="radio" value="=全部&1=大于&-1=小于&0=等于">
+  
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货成本差异表</td>
+  </tr>
+  
+    <tr>
+    <td align="center" valign="middle" style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$nf} - {where.a$yf}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="2">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="cpbm" rowspan="2">产品编码</td>
+    <td align="center" valign="middle" nowrap="true" field="pm" rowspan="2">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="syje,qcjh,qcci" colspan="3">期初余额</td>
+    <td align="center" valign="middle" nowrap="true" field="sje,bqsrjh,bqsrci" colspan="3">本期收入</td>
+    <td align="center" valign="middle" nowrap="true" field="bqcyl" rowspan="2">差异率</td>
+    <td align="center" valign="middle" nowrap="true" field="fje,bqfcjh,bqfcci" colspan="3">本期发出</td>
+    <td align="center" valign="middle" nowrap="true" field="jcje,qmjcjh,qmjcci" colspan="3">期末结存</td>
+  </tr>
+  <tr>
+    <td nowrap="true" align="right" field="syje">实际</td>
+    <td nowrap="true" align="right" field="qcjh">计划</td>
+    <td nowrap="true" align="right" field="qcci">差异</td>
+
+    <td nowrap="true" align="right" field="sje">实际</td>
+    <td nowrap="true" align="right" field="bqsrjh">计划</td>
+    <td nowrap="true" align="right" field="bqsrci">差异</td>
+
+    <td nowrap="true" align="right" field="fje">实际</td>
+    <td nowrap="true" align="right" field="bqfcjh">计划</td>
+    <td nowrap="true" align="right" field="bqfcci">差异</td>
+
+    <td nowrap="true" align="right" field="jcje">实际</td>
+    <td nowrap="true" align="right" field="qmjcjh">计划</td>
+    <td nowrap="true" align="right" field="qmjcci">差异</td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="cpbm"><value field="cpbm"></td>
+    <td align="center" valign="middle" nowrap="true"><value field="pm"></td>
+
+    <td nowrap="true" align="right"><value field="syje" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="qcjh" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="qcci" format="{sumformat}"></td>
+
+    <td nowrap="true" align="right"><value field="sje" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="bqsrjh" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="bqsrci" format="{sumformat}"></td>
+
+    <td nowrap="true" align="right"><value field="bqcyl" format="{sumformat}"></td>
+
+    <td nowrap="true" align="right"><value field="fje" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="bqfcjh" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="bqfcci" format="{sumformat}"></td>
+
+    <td nowrap="true" align="right"><value field="jcje" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="qmjcjh" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="qmjcci" format="{sumformat}"></td>
+  </tr>
+  <widths value="6,5,6,6,6,4,4,4,4,4,4,4,4,4,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

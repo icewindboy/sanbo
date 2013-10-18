@@ -1,0 +1,82 @@
+<html>
+<title name="配料明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_BOM_DETAIL" type="sql">
+  <field name="cpbm" caption="父件编码" group="true" datatype="varchar">
+  <field name="pm" caption="父件品名" group="true" datatype="varchar">
+  <field name="gg" caption="父件规格" group="true" datatype="varchar">
+  <field name="jldw" caption="父件单位" group="true" datatype="varchar">
+  <field name="zjcpbm" caption="子件编码" group="true" datatype="varchar">
+  <field name="zjpm" caption="子件品名" group="true" datatype="varchar">
+  <field name="zjgg" caption="子件规格" group="true" datatype="varchar">
+  <field name="zjjldw" caption="子件单位" group="true" datatype="varchar">
+  <field name="sl" caption="数量" group="true" datatype="number">
+  <field name="shl" caption="损耗率" group="true" datatype="number">	
+  <where field="cpbm" caption="父件编码" datatype="varchar">
+  <where field="zjcpbm" caption="子件件编码" datatype="varchar">
+  <where field="kc__cpid" caption="父件品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">
+  
+   <where field="cpid" caption="子件品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="sunproductCodeSelect(this,'@')" nameonchange="sunproductNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">		
+  <where field="sl" caption="子件数量" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="">
+  <where field="sl" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="">
+  <where field="shl" caption="子件损耗率" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="">
+  <where field="shl" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">配料单明细表</td>
+  </tr>
+</table>
+<table  id="tableview1" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" class="table" type="dynamic" fillnull="true" header="1">
+  <tr> 
+    <td align="center" valign="middle" nowrap="true" field="cpbm">父件编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">父件品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">父件规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">父件单位</td>
+    <td align="center" valign="middle" nowrap="true" field="zjcpbm">子件编码</td>
+	<td align="center" valign="middle" nowrap="true" field="zjpm">子件品名</td>
+    <td align="center" valign="middle" nowrap="true" field="zjgg">子件规格</td>
+	<td align="center" valign="middle" nowrap="true" field="zjjldw">子件单位</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+    <td align="center" valign="middle" nowrap="true" field="shl">损耗率</td>
+  </tr>
+  <tr onClick="selectRow();"> 
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="zjcpbm"></td>
+    <td nowrap="true"><value field="zjpm"></td>
+	<td nowrap="true"><value field="zjgg"></td>
+    <td nowrap="true"><value field="zjjldw"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="shl" format="{qtyformat}">%</td>
+  </tr>
+  <widths value="11,18,9,7,11,18,9,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+  function sunproductCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function sunproductNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+</SCRIPT>
+</body>
+</html>

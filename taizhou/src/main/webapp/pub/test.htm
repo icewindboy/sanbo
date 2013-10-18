@@ -1,0 +1,48 @@
+<html>
+<head>
+<title></title>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../scripts/public.css" type="text/css">
+</head>
+<script language="javascript" src="../scripts/validate.js"></script>
+<BODY oncontextmenu="window.event.returnValue=true">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<form name="form1" action="http://192.168.0.208/erp/sale/sale_order_edit.jsp" method="POST" onsubmit="return false;" onKeyDown="return onInputKeyboard();"  >
+  <table WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0><tr>
+    <td align="center" height="5"></td>
+  </tr></table>
+  <INPUT TYPE="HIDDEN" NAME="operate" value="">
+  <INPUT TYPE="HIDDEN" NAME="rownum" value="">
+  <input type="HIDDEN" name="wzdjid" value="">
+  <table BORDER="0" CELLPADDING="1" CELLSPACING="0" align="center" width="760">
+    <tr valign="top"> 
+      <td> <table class="editformbox" CELLSPACING=1 CELLPADDING=0 width="100%">
+          <tr> 
+            <td> <table CELLSPACING="1" CELLPADDING="1" BORDER="0" width="100%" bgcolor="#f0f0f0">
+                <tr> 
+                  <td width="120" class="td"><input name="btnback" type="button" class="button" onClick="associateSelect(document.all['prod'], 'bean.emp', 'wbid', 'deptid', '363', '')" value="select"></td>
+                  <td  noWrap class="tdTitle">外币类别</td>
+                  <td  noWrap class="td"> <DIV ID='d2_wbid' class=edbox style='width:5;width:110' onClick=ToggleSelect('wbid')> 
+                      <table border=0 cellspacing=0 cellpadding=0>
+                        <tr> 
+                          <td nowrap width='100%'><INPUT CLASS='ednone' NAME='v_wbid' style='width:100%' onKeyDown="return SelectKeyDown('wbid');" onKeyUp='SelectKeyUp(this.value);' onChange="SelectChange('wbid');" value=''></td>
+                          <td nowrap><IMG SRC='../images/down_arrow.gif' style='cursor:hand;' border=0></td>
+                        </tr>
+                      </table>
+                      <INPUT TYPE=HIDDEN NAME='wbid' link='v_wbid' value=''>
+                    </DIV>
+                    <script language='javascript'>o_wbid=new TSelectObject('wbid','wbid','v_wbid','d1_wbid','d2_wbid',false,"if(form1.wbid.value!='')sumitForm(190011,-1)",true);RegisterSelect(o_wbid);SetDestSelectObject(o_wbid);AddSelectItem('','');
+
+                      AddSelectItem('41','美元');AddSelectItem('61','人民币'); </script> 
+                  </td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+</BODY>
+</Html>

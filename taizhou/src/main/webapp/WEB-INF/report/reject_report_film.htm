@@ -1,0 +1,91 @@
+<html>
+<title name="镀铝膜不合格品余额累计"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="vw_reject_report_film" type="sql">
+  <field name="productcheckno" caption="检验报告单号"   datatype="varchar">
+  <field name="cpbm" caption="产品编码"  datatype="varchar">
+  <field name="pm" caption="品名"  datatype="varchar">
+  <field name="gg" caption="规格"  datatype="varchar">
+  <field name="sxz" caption="规格属性"  datatype="varchar">
+  <field name="buycheckdate" caption="抽样日期"   datatype="date">
+  <field name="personid_0" caption="检验员"   datatype="varchar">
+  <field name="standardid_0" caption="检验依据"   datatype="varchar">
+  <field name="check_num" caption="检验数量"  datatype="number">
+  <field name="reject_num" caption="不合格数" datatype="number">
+<where field="buycheckdate" caption="抽样日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+<where field="buycheckdate" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+<where field="cpid" caption="产品名称" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">	
+<where field="personid" caption="检验员" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+ <param name="filialeid" datatype="number" value="{fgsid}"> 
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr>
+	<td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">镀铝膜不合格品余额累计表</td>
+  </tr>
+   <tr> 
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" >{where.a$buycheckdate$a}--{where.a$buycheckdate$b}</td>
+  </tr>
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1"  class="table">
+  <tr>     
+    <td nowrap="true" align="center" field="productcheckno">检验报告单号</td>    
+    <td nowrap="true" align="center" field="cpbm">产品编码</td>   
+    <td nowrap="true" align="center" field="pm">品名</td>
+    <td nowrap="true" align="center" field="gg">规格</td>
+    <td nowrap="true" align="center" field="sxz">规格属性</td>	  
+    <td nowrap="true" align="center" field="buycheckdate">抽样日期</td>
+    <td nowrap="true" align="center" field="personid_0">检验员</td>      
+    <td nowrap="true" align="center" field="standardid_0">检验依据</td>
+    <td nowrap="true" align="center" field="check_num">抽样数量</td>
+    <td nowrap="true" align="center" field="reject_num">不合格数</td>
+    </tr>
+	<tr>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="productcheckno"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="cpbm"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="pm"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="gg"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="sxz"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="buycheckdate"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="personid_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="standardid_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="check_num"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="reject_num"></td>
+     </tr>
+	 <widths value="8,6,12,4,27,8,6,6,6,6">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyNameSelect(obj,cpid, srcVar)
+{
+  PropertyNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dmsxid&fieldVar=sxz', cpid, obj.value);
+}
+ function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+   function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param){
+if(param=="")
+	 return;
+  openSelectUrl('../buy/buy_ordergoods_edit.jsp?operate=2000&code=buy_ordergoods&jhdid='+param, 'buy_ordergoods');
+}
+</SCRIPT>
+</body>
+</html>

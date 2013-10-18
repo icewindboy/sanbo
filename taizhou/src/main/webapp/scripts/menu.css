@@ -1,0 +1,72 @@
+.menuBar {
+  BACKGROUND-COLOR: #efefef;
+  BORDER-BOTTOM: #104a7b 1px outset;
+  BORDER-LEFT: #FFFFFF 1px outset;
+  BORDER-RIGHT: #104a7b 1px outset;
+  BORDER-TOP: #ffffff 1px outset;
+  DISPLAY: none;
+  FILTER: Alpha(Opacity='95');
+  HEIGHT: 10px; PADDING-BOTTOM: 1px;
+  WIDTH: 77px;
+  LEFT:447px;
+  TOP:20px;
+  PADDING-LEFT: 1px; PADDING-RIGHT: 1px; PADDING-TOP: 1px;
+  POSITION: absolute;
+  CURSOR: hand
+}
+.menuSperator {
+  BORDER-BOTTOM: #ffffff 1px inset;
+  BORDER-LEFT: #ffffff 1px inset;
+  BORDER-RIGHT: #ffffff 1px inset;
+  BORDER-TOP: #ffffff 1px inset;
+  WIDTH: 95%
+}
+.menuItemOver {
+  BACKGROUND-COLOR: #88a8c0;
+  COLOR: #ffffff;
+  FONT-SIZE: 12px;
+  CURSOR: hand
+}
+.menuItemOut {
+  BACKGROUND-COLOR: #efefef;
+  COLOR: #000000;
+  FONT-SIZE: 12px;
+  CURSOR: hand
+}
+/*background-color:#0d73bd; background-color:#205aa7;*/
+.treeMenuNormal {
+  background-color:#0d73bd; border:1px solid #104a7b; COLOR:#f0f0e0; text-align:center;
+  border-bottom:none; padding-left:0px; padding-right:5px; padding-top:3px; padding-bottom:2px;
+  font-size:12px; font-weight:bold; CURSOR: hand
+}
+.treeMenuItem {
+  background-color:#BCD7F4; COLOR: #000000; CURSOR: hand;
+  font-size:10pt; padding:0px; padding-top:1px; padding-bottom:1px; valign:middle;
+}
+/*outlook bar*/
+.menuTabBar {
+  background-color:0d73bd; COLOR:#f0f0e0; text-align:center;
+  border:1px solid #ADAAFF; border-right:1px solid #0d3311; border-bottom:1px solid #0d3311
+  padding-left:0px; padding-right:0px; padding-top:4px; padding-bottom:2px;
+  font-size:12px; font-weight:bold; CURSOR: hand;
+  WIDTH: 100%
+}
+.menulayer {
+  background-color:#BCD7F4; COLOR: #000000; layer-background-color: #000000;
+	CLIP: rect(0px 4000px 3000px 0px); HEIGHT: 3000px; LEFT: 0px; POSITION: absolute; TOP: 0px;
+}
+.iconlayer {
+  background-color:#BCD7F4; COLOR: #000000; layer-background-color: #808080;
+	CLIP: rect(0px 4000px 3000px 0px); HEIGHT: 3000px; LEFT: 0px; POSITION: absolute; TOP: 22px;
+}
+.barlayer {
+	BACKGROUND-COLOR: #808080; layer-background-color: #808080;
+  CLIP: rect(0px 4000px 22px 0px); HEIGHT: 22px; LEFT: 0px; POSITION: absolute; TOP: 0px;
+	Z-INDEX: 1;
+}
+.uplayer {
+	BACKGROUND-COLOR: #808080; CLIP: rect(0px 16px 16px 0px); HEIGHT: 16px; LEFT: -20px; POSITION: absolute; TOP: 26px; WIDTH: 16px; layer-background-color: #808080
+}
+.downlayer {
+	BACKGROUND-COLOR: #808080; CLIP: rect(0px 16px 16px 0px); HEIGHT: 16px; LEFT: -20px; POSITION: absolute; TOP: 42px; WIDTH: 16px; layer-background-color: #808080
+}

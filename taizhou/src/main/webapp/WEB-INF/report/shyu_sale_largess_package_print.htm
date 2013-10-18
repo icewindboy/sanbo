@@ -1,0 +1,75 @@
+<html>
+<title name="销售提单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet"   height="22" width="28"   magin-left="0" magin-right="1" magin-top="1" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="11">
+<dataset name="a" object="(SELECT a.tdid,a.tdbh,a.kdrq,b.xsj,a.jhfhrq,a.fgsid,b.sl,b.bz,c.jldw,c.cpbm,(c.pm||' '||c.gg||' '||c.hh||' '||c.ks||' '||c.abc)product,d.dwmc,d.addr,e.mc FROM xs_td a,xs_tdhw b,kc_dm c,dwtx d,bm e WHERE a.tdid=b.tdid AND b.cpid=c.cpid AND a.dwtxid=d.dwtxid AND a.deptid=e.deptid  AND a.djlx=3 order by c.cpbm)" type="sql">
+  <param name="tdid" datatype="number" value="{tdid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" dataset="a" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="15" font-bold="1">  浙     江    盛    宇     被     服    有     限     公    司 </td>
+  </tr>
+  <tr>
+     <td align="center" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1">打 包 单</td>
+  </tr>
+<widths value="10,10">
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+      <td align="left"  nowrap="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >科别:<value field="mc"></td>
+ 	  <td nowrap="true" align="left"   border-left="0" border-right="0" border-top="0" border-bottom="0" >开单日期:<value field="kdrq"></td>
+   	  <td nowrap="true" align="left"    border-left="0" border-right="0" border-top="0" border-bottom="0" >提单号:<value field="tdbh"></td>
+	  <td nowrap="true" align="right"   border-left="0" border-right="0" border-top="0" border-bottom="0" >计划发货日期:<value field="jhfhrq"></td>
+ </tr>
+  <tr>
+	  <td align="left"  nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" >客户:<value field="dwmc"></td>
+	  <td align="left"  nowrap="true"  colspan="3"    border-left="0" border-right="0" border-top="0" border-bottom="0" >地址:<value field="addr"></td>
+ </tr>
+<widths value="5,8,10,10">
+</table>
+<table id="tableview2" class="table" dataset="a" font-size="11" width="100%" maxrow="28" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1" offset="-2">
+  <tr>
+  	<td align="center"  nowrap="true" field="cpbm">产品代码</td>
+  	<td align="center"  nowrap="true" field="product">品名规格（花号/款式）</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+	<td align="center"  nowrap="true" field="jldw">单位</td>
+	<td align="center"  nowrap="true" field="xsj">零售价</td>
+	<td align="center"  nowrap="true" field="">实发数量</td>
+	<td align="center"  nowrap="true" field="">装箱号</td>
+	<td align="center"  nowrap="true" field="bz">备注</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true"  border-top="0"  border-bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true"  border-top="0"  border-bottom="0"><value field="product"></td>
+  	<td nowrap="true" align="right"   border-top="0"  border-bottom="0"><value field="sl"></td>
+	<td nowrap="true"   border-top="0"  border-bottom="0"><value field="jldw"></td>
+	<td nowrap="true"  align="right"   border-top="0"  border-bottom="0"><value field="xsj"></td>
+	<td nowrap="true"   border-top="0"  border-bottom="0"><value field=""></td>
+	<td nowrap="true"   border-top="0"  border-bottom="0"><value field=""></td>
+	<td nowrap="true"   border-top="0"  border-bottom="0"><value field="bz"></td>
+
+  </tr>
+    <widths value="8,22,4,4,4,4,6,9">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true"    >合计：</td>
+	<td nowrap="true"    ></td>
+	<td nowrap="true"    align="right"><value field="sl" sum="true" ></td>
+	<td nowrap="true"    ></td>
+	<td nowrap="true"    ></td>
+	<td nowrap="true"    ></td>
+	<td nowrap="true"    ></td>
+	<td nowrap="true"    ></td>
+  </tr>
+    <widths value="8,22,4,4,4,4,6,9">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

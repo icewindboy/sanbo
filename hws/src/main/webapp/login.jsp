@@ -127,12 +127,7 @@ function strlen(str)
                   <td width="47%" class="tdTitle"><div align="right">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div></td>
                   <td width="53%"><input type="password" name="password" size="14" value="" maxlength="32">
                   </td>
-                </tr>
-                <tr nowrap>
-                  <td width="47%" class="tdTitle"><div align="right">验 证 码：</div></td>
-                  <td width="53%"><input type="text" id="code" size="14"  name="code"  maxlength="4"/><img src="<%=request.getContextPath() %>/servlet/VerifyCaptchaServlet" width="95" height="20" />
-                  </td>
-                </tr>                
+                </tr>              
                 <tr>
                   <td width="47%"></td>
                   <td width="53%"><INPUT type="submit" name="login" class="button" value=" 登录 " onclick="operateClick()"></td>

@@ -1,0 +1,115 @@
+<html>
+<title name="辅料验收报告单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_ZL_ADMINICLECHECK_BILL" type="sql">
+  
+  <field name="cpid" caption="产品id"   datatype="number">
+  <field name="dmsxid" caption="物质规格属性id"  datatype="number">
+  <field name="dwtxid" caption="往来单位id"  datatype="number">
+  <field name="adminiclecheckNo" caption="单据号"  datatype="varchar">
+  <field name="goods_date" caption="来货日期"  datatype="date">
+  <field name="tot_num" caption="总数量" sum="true"  datatype="number">
+  <field name="facies" caption="外观" datatype="varchar">
+  <field name="sample_number" caption="抽样数" sum="true" datatype="number">
+  <field name="tryout_date" caption="试用日期"   datatype="date">
+  <field name="mc_0" caption="试用部门" datatype="varchar">
+  <field name="check_verdict_0" caption="试用结论" datatype="number">
+  <field name="state" caption="状态"   datatype="number">
+  <field name="approverid" caption="审批人" datatype="number">
+  <field name="state_desc" caption="状态描述"   datatype="varchar">
+  <field name="use_circs" caption="使用情况"   datatype="varchar">
+  <field name="remark" caption="备注"   datatype="varchar">
+  <field name="createdate" caption="制单日期"   datatype="date">
+  <field name="creatorid" caption="制单人id"   datatype="number">
+  <field name="creator" caption="制单人"   datatype="varchar">
+  <field name="cpbm_0" caption="产品编码" datatype="varchar">
+  <field name="pm_0" caption="品名" datatype="varchar">
+  <field name="gg_0" caption="规格" datatype="varchar">
+  <field name="dwdm_0" caption="单位代码" datatype="varchar">
+  <field name="dwmc_0" caption="单位名称" datatype="varchar">
+  <field name="sxz" caption="规格属性" datatype="varchar">
+  <field name="xm_0" caption="姓名" datatype="varchar"><!--审批人-->
+  <where field="adminiclecheckID" caption="辅料验收报告单ID" datatype="number">
+  <param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="984" border="0" cellspacing="0" cellpadding="0" type="static">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="982">辅料验收报告单</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="983" border="0" cellspacing="0" cellpadding="0" type="static" fillnull="false" header="3" height="113" >
+  <tr>
+      <td align="center"  nowrap="" field="adminiclecheckNo"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="146" >单据号:</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="50" height="18" ><value field="adminiclecheckNo"></td>
+ 	  
+   	  
+    <td align="center"  nowrap="" field="dwdm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="162" >供应商:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="65" height="18" ><value field="dwdm_0"></td>
+   	  
+ 	  <td nowrap="true" colspan="2" border-left="0" border-right="0" border-top="0" border-bottom="0" width="57" height="18" ><value field="dwmc_0"></td>
+ 	  
+   	  <td align="center"  nowrap="" field="goods_date"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="161" >来货日期:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="165" height="18" ><value field="goods_date"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center"  nowrap="" field="cpbm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="146" >产品名称:</td>
+ 	  <td nowrap="true"    border-left="0" border-right="0" border-top="0" border-bottom="0" width="50" height="18" ><value field="cpbm_0"></td>
+   	  <td nowrap="true"  colspan="2"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="65" height="18" ><value field="pm_0">   <value field="gg_0"></td>   	  
+      <td align="center"  nowrap="" field="sxz" border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="161" >规格属性:</td>
+   	  <td nowrap="true" colspan="3"  border-left="0" border-right="0" border-top="0" border-bottom="0" height="18" width="387" ><value field="sxz"></td>
+  </tr>
+  <tr>     	  
+   	  <td align="center"  nowrap="" field="tot_num" border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="146" >总数量:</td>
+   	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" width="50" height="18" ><value field="tot_num"></td>   	  
+   	  <td align="center"  nowrap="" field="facies" border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="162" >外观:</td>
+   	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" width="65" height="18" ><value field="facies"></td>
+
+   	  <td align="center"  nowrap="" field="sample_number" border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="161" >抽样数:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="57" height="18" ><value field="sample_number"></td>
+   	  
+   	  <td align="center"  nowrap="" field="tryout_date"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="161" >试用日期:</td>
+   	  
+ 	  <td nowrap="true"    border-left="0" border-right="0" border-top="0" border-bottom="0" width="165" height="18" ><value field="tryout_date"></td>
+  </tr>
+  <tr>	  
+    <td align="center"  field="mc_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >试用部门:</td>
+    <td nowrap    border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="mc_0"></td>
+    <td align="center" nowrap  field="check_verdict_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >试用结论:</td>
+    <td colspan="5" nowrap multirow="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="check_verdict_0"></td>
+ </tr>
+ </table>
+ <table id="tableview2" class="table" dataset="a" width="983" border="0" cellspacing="0" cellpadding="2"   header="0" offset="-2">
+ <tr>
+   <td nowrap="false" align="center">使用情况:</td>
+   <td nowrap="false" colspan="7"  align="left"><value field="use_circs" ></td>
+ </tr>
+  <widths value="6,8,8,8,8,8,8,8">
+ </table>
+ <table id="tableview3" class="table" dataset="a" width="900" border="0" cellspacing="0" cellpadding="2"   header="0" offset="-2">
+ <tr>
+    <td nowrap="false"  align="center">备注:</td>
+	<td nowrap="false"   colspan="7"  align="left"><value field="remark" ></td>	  
+  </tr>
+   <widths value="6,8,8,8,8,8,8,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="900" border="0" cellspacing="0" cellpadding="2"  header="0" offset="-2">
+  <tr>
+      <td align="center"  nowrap="" field="xm_0"  border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="146" >审批人:</td>
+ 	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" width="50" height="18"  ><value field="xm_0"></td>
+   	  <td align="center"  nowrap="" field="createdate"  border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="162"  >制单日期:</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="65" height="18" ><value field="createdate"></td>
+   	  <td align="center"  nowrap="" field="creator"   border-left="0" border-right="0" border-top="0" border-bottom="0"  height="18" width="161" >制单人:</td>
+   	  <td nowrap="true"  colspan="3" border-left="0" border-right="0" border-top="0" border-bottom="0" width="57" height="18"  ><value field="creator"></td>
+  </tr>	
+  <widths value="8,8,8,8,8,14,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+initDefaultTableRow('tableview4',0);
+</SCRIPT>
+</body>
+
+</html>

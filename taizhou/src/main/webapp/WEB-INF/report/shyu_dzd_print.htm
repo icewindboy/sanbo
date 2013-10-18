@@ -1,0 +1,114 @@
+<html>
+<title name="销售对帐单"/>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="20">
+<page type="templet" height="19.4" width="21.5" magin-left="0" magin-right="0.1" magin-top="1" magin-bottom="1" footer-center="第 &P 页，共 &N 页"   footer-right="存根（白色） 客户（红色） 财务（绿色）"  font-size="11">
+<table  id="tableview1" width="100%" border="0" dataset="ds" cellspacing="0" cellpadding="0" type="static">
+<tr>
+    <td align="center" colspan="6"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="16" font-bold="1" >浙 江 盛 宇 被 服 有 限 公 司</td>
+</tr>
+<tr>
+    <td align="center" colspan="6"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1" >销售对帐单</td>
+</tr>
+<tr>
+  <td nowrap align="center" colspan="4"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1" ><value field="nf">年<value field="yf">月<value field="startday">日至<value field="yf">月<value field="endday">日</td>
+  <td nowrap class="td" align="left" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1" ><value field="yf">月份</td>
+</tr>
+<tr >
+   <td nowrap align="left" class="td" colspan="6"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1">客户：<value field="dwmc">    地址：<value field="addr">  电话：<value field="tel">  传真：<value field="cz"></td>
+</tr>
+<widths value="10,10,10,10,10,5">
+</table>
+<table id="tableview2" class="table" dataset="list" font-size="8" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="2" offset="-2">
+ <tr>
+    <td colspan="3" align="center"  nowrap="true">本月销售</td>
+    <td colspan="3" align="center"  nowrap="true">本月收款</td>
+    <td colspan="3" align="center"  nowrap="true">本月退货</td>
+    <td colspan="3" align="center"  nowrap="true">其他应收款</td>
+  </tr>
+  <tr >
+    <td   align="center"   field="xsdei">日</td>
+    <td   align="center"  nowrap="true" field="xsdjh">单据号</td>
+    <td   align="center"  nowrap="true" field="jje">金额</td>
+    <td   align="center"  nowrap="true" field="jsdei">日</td>
+    <td   align="center"  nowrap="true" field="jsfs">收款方式</td>
+    <td   align="center"  nowrap="true" field="jsje">金额</td>
+    <td   align="center"  nowrap="true" field="thdei">日</td>
+    <td   align="center"  nowrap="true" field="thdjh">单据号</td>
+    <td   align="center"  nowrap="true" field="thjje">金额</td>
+    <td   align="center"  nowrap="true" field="qtdei">日</td>
+    <td   align="center"  nowrap="true" field="qtdjh">单据号</td>
+    <td   align="center"  nowrap="true" field="xsyf">金额</td>
+  </tr>
+  <tr>
+    <td nowrap="true"><value field="xsdei"></td>
+    <td nowrap="true" border_bottom="0"><value field="xsdjh"></td>
+    <td nowrap="true" align="right" border_bottom="0"><value  format="#,##0.00"  field="jje"></td>
+    <td nowrap="true" border_bottom="0"><value field="jsdei"></td>
+    <td nowrap="true" border_bottom="0"><value field="jsfs"></td>
+    <td nowrap="true" align="right"  border_bottom="0"><value  format="#,##0.00"  field="jsje"></td>
+    <td nowrap="true" border_bottom="0"><value field="thdei"></td>
+    <td nowrap="true" border_bottom="0"><value field="thdjh"></td>
+    <td nowrap="true" align="right"  border_bottom="0"><value  format="#,##0.00"  field="thjje"></td>
+    <td nowrap="true" border_bottom="0"><value field="qtdei"></td>
+    <td nowrap="true" border_bottom="0"><value field="qtdjh"></td>
+    <td nowrap="true" align="right"  border_bottom="0"><value  format="#,##0.00"  field="fy"></td>
+  </tr>
+  <widths value="5,20,20,5,20,20,5,20,20,5,20,20">
+</table>
+<table id="tableview3" class="table" dataset="list" width="100%" border="0" cellspacing="0" cellpadding="2" type="subtotal" header="0" offset="-2">
+  <tr >
+    <td colspan="2"  nowrap="true" border_bottom="0">小计</td>
+    <td  nowrap="true" align="right"  border_bottom="0"><value    sum="true" datatype="number"  format="#,##0.00" zeroformat="" field="jje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value    sum="true" datatype="number"  format="#,##0.00" zeroformat="" field="jsje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value    sum="true" datatype="number"  format="#,##0.00" zeroformat="" field="thjje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value    sum="true" datatype="number"  format="#,##0.00" zeroformat="" field="fy"></td>
+  </tr>
+  <widths value="5,20,20,5,20,20,5,20,20,5,20,20">
+</table>
+<table id="tableview4" class="table" dataset="ds" width="100%" border="0" cellspacing="0" cellpadding="2" type="total" header="0" offset="-2">
+  <tr >
+    <td  nowrap="true" colspan="2"     border_bottom="0">合计</td>
+    <td  nowrap="true" align="right"  border_bottom="0"><value  format="#,##0.00"    sum="true" datatype="number" field="zjje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value  format="#,##0.00"    sum="true" datatype="number" field="zjsje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value  format="#,##0.00"   sum="true" datatype="number" field="zthje"></td>
+    <td  nowrap="true" colspan="3" align="right"  border_bottom="0"><value format="#,##0.00"    sum="true" datatype="number" field="zfy"></td>
+  </tr>
+  <tr >
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">前月结欠款:</td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value  format="#,##0.00"  field="qcje">元</td>
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">本月共收款:</td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value  format="#,##0.00"  field="zjsje">元</td>
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">本月总销售:</td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value  format="#,##0.00"  field="zjje">元</td>
+  </tr>
+  <tr >
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">本月总退货:</td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value  format="#,##0.00"  field="zthje">元</td>
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">本月合计其他应收款:</td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value  format="#,##0.00"  field="zfy">元</td>
+    <td colspan="2"  align="right"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+    <td colspan="2"  align="left"    nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"></td>
+  </tr>
+  <tr >
+    <td colspan="4"  align="right" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">前月及本月合计结欠(大写):</td>
+    <td colspan="4"  align="left"  nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value chineseformat="1"  format="#,##0.00"   sum="true" datatype="number" field="zqk"></td>
+    <td colspan="4"  align="left"   nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0">￥:<value  format="#,##0.00"  field="zqk">元</td>
+  </tr>
+  <tr >
+    <td colspan="12"  align="right" border-left="0" border-right="0" border-top="0" border-bottom="0"  >以上欠款金额经核对准确无误，请签字（客户名称）:_____________________________________________________</td>
+  </tr>
+  <tr>
+    <td colspan="12" noWrap  align="left" border-left="0" border-right="0" border-top="0" border-bottom="0" >备注</td>
+  </tr>
+  <tr>
+    <td  align="left" colspan="12"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field=""></td>
+  </tr>
+  <tr>
+    <td  align="left" colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0">主管：</td>
+    <td  align="left" colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0">会计：</td>
+    <td  align="left" colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" >制表：<value field="czy"></td>
+    <td  align="left" colspan="3"   border-left="0" border-right="0" border-top="0" border-bottom="0" >日期:<value field="czrq"></td>
+  </tr>
+  <widths value="5,20,20,5,20,20,5,20,20,5,20,20">
+</table>
+</html>

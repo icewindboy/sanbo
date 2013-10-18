@@ -1,0 +1,229 @@
+<%@ page contentType="text/html;charset=UTF-8"%><%@ include file="../pub/init.jsp"%>
+<%@ page import="engine.dataset.*, engine.project.Operate ,java.util.*"%><%!
+  private String srcFrm=null;           //传递的原form的名称
+  private String multiIdInput = null;   //多选的ID组合串
+%><%
+  engine.erp.sale.ImportInvoice ImportInvoiceBean = engine.erp.sale.ImportInvoice.getInstance(request);
+  String retu = ImportInvoiceBean.doService(request, response);
+  engine.project.LookUp corpBean = engine.project.LookupBeanFacade.getInstance(request,engine.project.SysConstant.BEAN_CORP);
+  engine.project.LookUp prodBean = engine.project.LookupBeanFacade.getInstance(request,engine.project.SysConstant.BEAN_PRODUCT);
+  engine.project.LookUp deptBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_DEPT);
+  engine.project.LookUp personBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_PERSON);
+  if(retu.indexOf("location.href=")>-1)
+  {
+    out.print(retu);
+    return;
+  }
+  String operate = request.getParameter("operate");
+  if(operate !=null && operate.equals(String.valueOf(Operate.INIT)))
+  {
+    srcFrm = request.getParameter("srcFrm");
+    multiIdInput = request.getParameter("srcVar");
+  }
+  String curUrl = request.getRequestURL().toString();
+  EngineDataSet list = ImportInvoiceBean.getOneTable();
+  String bjfs = loginBean.getSystemParam("BUY_PRICLE_METHOD");//得到登陆用户报价方式的系统参数
+  boolean isHsbj = bjfs.equals("1");//如果等于1就以换算单位报价
+  ArrayList opkey = new ArrayList(); opkey.add("1"); opkey.add("2");
+  ArrayList opval = new ArrayList(); opval.add("增值税"); opval.add("企业普票");
+  ArrayList[] lists  = new ArrayList[]{opkey, opval};
+%>
+<html>
+<head>
+<title></title>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../scripts/public.css" type="text/css">
+</head>
+<script language="javascript" src="../scripts/validate.js"></script>
+
+<script language="javascript">
+function sumitForm(oper){
+  lockScreenToWait("处理中, 请稍候！");
+  form1.operate.value = oper;
+  form1.submit();
+}
+function selectProduct(row)
+{
+  var multiId = '';
+
+  for(var i=0;i<form1.elements.length;i++)
+  {
+    var e = form1.elements[i];
+    //alert("name:"+e.name+",type:"+e.type + ",checked:"+e.checked);
+    if(e.type == "checkbox" && e.name!='checkform' && e.checked == true)
+      multiId += e.value+',';
+  }
+  if(multiId.length > 0){
+    multiId += '-1';
+  <%if(multiIdInput != null){
+      String mutiId = "window.opener."+srcFrm+"."+multiIdInput;
+      out.print(mutiId+".value=multiId;");
+      out.print(mutiId+".onchange();");
+    }%>
+  }
+  window.close();
+}
+function checkRadio(row){
+  if(form1.sel.length+''=='undefined')
+    form1.sel.checked = !form1.sel.checked;
+  else
+    form1.sel[row].checked = !form1.sel[row].checked;
+}
+</script>
+<BODY oncontextmenu="window.event.returnValue=true">
+<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0 CLASS="headbar"><TR>
+    <TD NOWRAP align="center">货物提单</TD>
+  </TR></TABLE>
+<form name="form1" method="post" action="<%=curUrl%>" onsubmit="return false;" onKeyDown="return onInputKeyboard();" >
+  <INPUT TYPE="HIDDEN" NAME="operate" VALUE="">
+  <INPUT TYPE="HIDDEN" NAME="rownum" VALUE="">
+  <table id="tbcontrol" width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+    <tr>
+      <td height="21" nowrap class="td">
+     <%
+       String key = "97";
+       pageContext.setAttribute(key, list);
+       int iPage = loginBean.getPageSize();
+       String pageSize = ""+iPage;
+      %>
+      <pc:dbNavigator dataSet="<%=key%>" pageSize="<%=pageSize%>"/>
+     </td>
+      <td class="td" align="right">
+      <%if(list.getRowCount()>0){%>
+        <input name="button1" type="button" class="button" onClick="selectProduct();" value=" 选用 " onKeyDown="return getNextElement();">
+      <%}%>
+        <input name="search2" type="button" class="button" onClick="showFixedQuery()" value=" 查询 " onKeyDown="return getNextElement();">
+        <input  type="button" class="button" onClick="window.close();" value=" 返回 " onKeyDown="return getNextElement();"></td>
+    </tr>
+  </table>
+  <table id="tableview1" width="95%" border="0" cellspacing="1" cellpadding="1" class="table" align="center">
+    <tr class="tableTitle">
+      <td class="td" nowrap valign="middle" width=20><input type='checkbox' name='checkform' onclick='checkAll(form1,this);'></td>
+      <td nowrap>提单编号</td>
+      <td nowrap>提单日期</td>
+      <td nowrap>结算方式</td>
+      <td nowrap>购货单位</td>
+      <td nowrap>业务员</td>
+      <td nowrap>部门</td>
+    </tr>
+    <%
+      //prodBean.regData(list,"cpid");
+      deptBean.regData(list,"deptid");
+      corpBean.regData(list,"dwtxid");
+      personBean.regData(list,"personid");
+      int count = list.getRowCount();
+      list.first();
+      int i=0;
+      for(; i<count; i++)   {
+    %>
+    <tr>
+      <td nowrap align="center" class="td"><input type="checkbox" name="sel" value='<%=list.getValue("tdid")%>' onKeyDown="return getNextElement();"></td>
+      <td nowrap onClick="checkRadio(<%=i%>)" id="tdbh_<%=i%>" class="td"><%=list.getValue("tdbh")%></td>
+      <td nowrap onClick="checkRadio(<%=i%>)" id="tdrq_<%=i%>" class="td"><%=list.getValue("tdrq")%></td>
+      <td nowrap align="center" id="jsfsid_<%=i%>" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("tdrq")%></td>
+      <td nowrap align="center" id="dwtxId_<%=i%>" class="td" onClick="checkRadio(<%=i%>)"><%=corpBean.getLookupName(list.getValue("dwtxId"))%></td>
+      <td nowrap align="center" id="personid_<%=i%>" class="td" onClick="checkRadio(<%=i%>)"><%=personBean.getLookupName(list.getValue("personid"))%></td>
+      <td nowrap align="center" id="deptid_<%=i%>" class="td" onClick="checkRadio(<%=i%>)"><%=deptBean.getLookupName(list.getValue("deptid"))%></td>
+    </tr>
+    <%  list.next();
+      }
+      for(; i < iPage; i++){
+    %>
+    <tr>
+      <td class="td"></td>
+      <td nowrap class="td">&nbsp;</td>
+      <td class="td"></td>
+      <td class="td"></td>
+      <td class="td"></td>
+      <td class="td"></td>
+      <td class="td"></td>
+    </tr>
+    <%}%>
+  </table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+//------------------------------以下与查询相关
+function sumitFixedQuery(oper)
+{
+  //执行查询,提交表单
+  lockScreenToWait("处理中, 请稍候！");
+  fixedQueryform.operate.value = oper;
+  fixedQueryform.submit();
+}
+function showFixedQuery(){
+  //点击查询按钮打开查询对话框
+   showFrame('fixedQuery', true, "", true);//显示层
+}
+</SCRIPT>
+</form>
+<form name="fixedQueryform" method="post" action="<%=curUrl%>" onsubmit="return false;" onKeyDown="return onInputKeyboard();" >
+  <INPUT TYPE="HIDDEN" NAME="operate" VALUE="">
+  <div class="queryPop" id="fixedQuery" name="fixedQuery">
+  <div class="queryTitleBox" align="right"><A onClick="hideFrame('fixedQuery')" href="#"><img src="../images/closewin.gif" border=0></A></div>
+    <TABLE cellspacing=3 cellpadding=0 border=0>
+      <TR>
+        <TD> <TABLE cellspacing=3 cellpadding=0 border=0>
+            <TR>
+              <TD nowrap class="td">提单编号</TD>
+              <TD nowrap class="td"><INPUT class="edbox" style="WIDTH:160" id="tdbh" name="tdbh" value='<%=ImportInvoiceBean.getFixedQueryValue("tdbh")%>' maxlength='10' onKeyDown="return getNextElement();"></TD>
+              <TD class="td" nowrap>购货单位</TD>
+              <TD nowrap class="td"><input type="hidden" name="dwtxid" value='<%=ImportInvoiceBean.getFixedQueryValue("dwtxid")%>'>
+                <input type="text" name="buyerName" value='<%=ImportInvoiceBean.getFixedQueryValue("buyerName")%>' style="width:130" class="edline" readonly>
+                <img style='cursor:hand' src='../images/view.gif' border=0 onClick="CustSingleSelect('fixedQueryform','srcVar=dwtxid&srcVar=buyerName','fieldVar=dwtxid&fieldVar=dwmc',fixedQueryform.dwtxid.value)"><img style='cursor:hand' src='../images/delete.gif' BORDER=0 ONCLICK="dwtxid.value='';buyerName.value='';">
+              </TD>
+            </TR>
+            <TR>
+              <TD nowrap class="td">提单日期</TD>
+              <TD nowrap class="td"><INPUT class="edbox" style="WIDTH: 130px" name="tdrq$a" value='<%=ImportInvoiceBean.getFixedQueryValue("tdrq$a")%>' maxlength='10' onChange="checkDate(this)" onKeyDown="return getNextElement();">
+                <A href="#"><IMG title=选择日期 onClick="selectDate(tdrq$a);" height=20 src="../images/seldate.gif" width=20 align=absMiddle border=0></A></TD>
+              <TD align="center" nowrap class="td">--</TD>
+              <TD class="td" nowrap><INPUT class="edbox" style="WIDTH: 130px" name="tdrq$b" value='<%=ImportInvoiceBean.getFixedQueryValue("tdrq$b")%>' maxlength='10' onChange="checkDate(this)" onKeyDown="return getNextElement();">
+                <A href="#"><IMG title=选择日期 onClick="selectDate(tdrq$b);" height=20 src="../images/seldate.gif" width=20 align=absMiddle border=0></A></TD>
+            </TR>
+            <TR>
+              <TD nowrap class="td">出库日期</TD>
+              <TD nowrap class="td"><INPUT class="edbox" style="WIDTH: 130px" name="ckrq$a" value='<%=ImportInvoiceBean.getFixedQueryValue("ckrq$a")%>' maxlength='10' onChange="checkDate(this)" onKeyDown="return getNextElement();">
+                <A href="#"><IMG title=选择日期 onClick="selectDate(ckrq$a);" height=20 src="../images/seldate.gif" width=20 align=absMiddle border=0></A></TD>
+              <TD align="center" nowrap class="td">--</TD>
+              <TD class="td" nowrap><INPUT class="edbox" style="WIDTH: 130px" name="ckrq$b" value='<%=ImportInvoiceBean.getFixedQueryValue("ckrq$b")%>' maxlength='10' onChange="checkDate(this)" onKeyDown="return getNextElement();">
+                <A href="#"><IMG title=选择日期 onClick="selectDate(ckrq$b);" height=20 src="../images/seldate.gif" width=20 align=absMiddle border=0></A></TD>
+            </TR>
+            <TR>
+              <TD class="td" nowrap>部门</TD>
+              <TD nowrap class="td"><pc:select name="deptid" addNull="1" style="width:160">
+              <%=deptBean.getList(ImportInvoiceBean.getFixedQueryValue("deptid"))%></pc:select>
+              </TD>
+             </TR>
+            <TR>
+              <TD class="td" nowrap>状态</TD>
+              <TD colspan="3" nowrap class="td">
+                <%String zt = ImportInvoiceBean.getFixedQueryValue("zt");%>
+                <input type="radio" name="zt" value=""<%=zt.equals("")?" checked" :""%>>
+                全部
+                <input type="radio" name="zt" value="0"<%=zt.equals("0")?" checked" :""%>>
+                初始化
+                <input type="radio" name="zt" value="1"<%=zt.equals("1")?" checked" :""%>>
+                已经审核
+                <input type="radio" name="zt" value="9"<%=zt.equals("9")?" checked" :""%>>
+                出库</TD>
+            </TR>
+            <TR>
+              <TD nowrap colspan=5 height=30 align="center">
+                <% String ss = "sumitFixedQuery("+Operate.FIXED_SEARCH+")";%>
+                <INPUT class="button" onClick="sumitFixedQuery(<%=Operate.FIXED_SEARCH%>)" type="button" value="查询(F)" name="button" onKeyDown="return getNextElement();">
+                <pc:shortcut key="f" script="<%=ss%>" />
+                <INPUT class="button" onClick="hideFrame('fixedQuery')" type="button" value="关闭(X)" name="button2" onKeyDown="return getNextElement();">
+                 <pc:shortcut key="x" script="hideFrame('fixedQuery')" />              </TD>
+            </TR>
+          </TABLE>
+       </TD>
+      </TR>
+    </TABLE>
+  </DIV>
+</form>
+<%out.print(retu);%>
+
+</body>
+</html>

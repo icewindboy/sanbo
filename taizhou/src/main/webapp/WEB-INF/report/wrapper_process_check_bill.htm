@@ -1,0 +1,119 @@
+<html>
+<title name="镀铝纸生产过程检验"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_ZL_PROCESSCHECK_BILL" type="sql">
+  <field name="processcheckno" caption="单据号"   datatype="varchar">
+  <field name="mc_0" caption="检验部门"  datatype="varchar">
+  <field name="cpbm_0" caption="产品编码"  datatype="varchar">
+  <field name="pm_0" caption="品名"  datatype="varchar">
+  <field name="gg_0" caption="规格"  datatype="varchar">
+  <field name="sxz_0" caption="规格属性"  datatype="varchar">
+  <field name="mc_plant_0" caption="车间"  datatype="varchar">
+  <field name="checknum" caption="检验数量"  datatype="number">
+  <field name="rejectnum" caption="不合格数" datatype="number">
+  <field name="check_verdict_0" caption="结论"   datatype="number">
+  <field name="procedurename_0" caption="工序名称"   datatype="number">
+  <field name="serial_num" caption="生产编号" datatype="varchar">
+  <field name="checkitem_0" caption="检验项目"   datatype="varchar">
+  <field name="unit_0" caption="单位" datatype="varchar">
+  <field name="appeal_0" caption="标准要求"   datatype="varchar">
+  <field name="produce_date" caption="生产日期"   datatype="date">
+  <field name="check_date" caption="抽样日期"   datatype="date">
+  <field name="checkresult" caption="检测结果"   datatype="varchar">
+  <field name="check_verdict_1" caption="检验结论"   datatype="number"><!--从表-->
+  <field name="personid_0" caption="检验员"   datatype="varchar">
+  <field name="remark_0" caption="备注0"   datatype="varchar"><!--从表备注-->
+  <field name="remark_1" caption="备注1"   datatype="varchar"><!--主表备注-->
+  <field name="createdate" caption="制单日期"  datatype="date">
+  <field name="creator" caption="制单人"  datatype="varchar">
+  <field name="xm_0" caption="审批人" datatype="varchar"><!--审批人-->
+  <field name="fifialeid" caption="分公司id" datatype="number">
+  <where field="processcheckID" caption="镀铝纸生产过程检验ID" datatype="number">
+  <param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr> 
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="976">镀铝纸生产过程检验</td>
+  </tr>
+</table>
+<table id="tableview1"  width="974"  border="0" align="center" cellpadding="0" cellspacing="0" class="table" dataset="a" type="static" fillnull="false">
+  <tr> 
+    <td align="center"  nowrap="" field="processcheckno"   border-left="0" border-right="0" border-top="0" border-bottom="0">单据号:</td>
+    <td width="22" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="processcheckno"></td>
+    <td width="235" align="center"  nowrap="" field="mc_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >检验部门:</td>
+    <td width="63" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="mc_0"></td>
+    <td width="143" align="center"  nowrap="" field="cpbm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0">产品名称:</td>
+    <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="cpbm_0"></td>
+   	<td nowrap="true"  colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0" width="65" height="18" ><value field="pm_0">   <value field="gg_0"></td> 
+  </tr>
+  <tr> 
+    <td align="center"  nowrap="" field="sxz_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >规格属性:</td>
+    <td colspan="3" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="sxz_0"> </td>
+    <td align="center"  nowrap="" field="checknum" border-left="0" border-right="0" border-top="0" border-bottom="0" >检验数量:</td>
+    <td width="78" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="checknum"></td>
+    <td width="129" align="center"  nowrap="" field="rejectnum" border-left="0" border-right="0" border-top="0" border-bottom="0" >不合格数:</td>
+    <td width="150" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="rejectnum"></td>
+  </tr>
+  <tr> 
+    <td align="center"  field="mc_plant_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >车间:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="mc_plant_0"></td>
+    <td align="center"  field="check_verdict_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >结论:</td>
+    <td colspan="5"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="check_verdict_0"></td>
+  </tr>
+  <widths value="8,8,8,8,8,6,8,8">
+</table>     
+<table width="974"  border="1" align="center" cellpadding="2" cellspacing="0" class="table" id="tableview2"  dataset="a" type="dynamic" fillnull="false" header="1" offset="-2" maxrow="15">
+  <tr> 
+    <td nowrap="true" align="center"  field="procedurename_0">工序名称</td>
+    <td align="center" nowrap="true"  field="serial_num">生产编号 </td>
+    <td align="center" nowrap="true"  field="checkitem_0">检验项目 </td>
+    <td align="center" nowrap="true" field="unit_0">单位 </td>
+    <td align="center" nowrap="true" field="appeal_0">标准要求 </td>
+	<td align="center" nowrap="true" field="produce_date">生产日期 </td>
+    <td align="center" nowrap="true" field="check_date">抽样日期 </td>
+    <td align="center" nowrap="true" field="checkresult">检测结果 </td>
+    <td align="center" nowrap="true" field="check_verdict_1">检验结论 </td>  
+	<td align="center" nowrap="true" field="personid_0">检验员 </td>
+	<td align="center" nowrap="true" field="remark_0">备注 </td>
+  </tr>
+  <tr> 
+    <td nowrap="true" align="center" border_bottom="0"><value field="procedurename_0"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="serial_num"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="checkitem_0"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="unit_0"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="appeal_0"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="produce_date"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="check_date"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="checkresult"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="check_verdict_1"></td>
+	<td nowrap="true" align="center" border_bottom="0"><value field="personid_0"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="remark_0"></td>
+  </tr>
+</table>
+ <table id="tableview3" class="table" dataset="a" width="900" border="0" cellspacing="0" cellpadding="2"   header="0" offset="-2">
+ <tr>
+    <td nowrap="false"  align="center">备注:</td>
+	<td nowrap="false"   colspan="7"  align="left"><value field="remark_1" ></td>	  
+  </tr>
+   <widths value="5.55,8,8,8,8,8,8,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="98%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2"  align="center">
+  <tr>
+    <td  align="center" nowrap="ture" field="xm_0"  border-left="0" border-right="0" border-top="0" border-bottom="0">审批人:</td> 
+    <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="xm_0"></td>
+   	<td align="center" nowrap="" field="createdate"  border-left="0" border-right="0" border-top="0" border-bottom="0">制单日期:</td>
+ 	<td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="createdate"></td>
+   	<td align="center" nowrap="" field="creator"   border-left="0" border-right="0" border-top="0" border-bottom="0">制单人:</td>
+   	<td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="creator"></td>
+   	  
+ </tr>
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+initDefaultTableRow('tableview4',0);
+</SCRIPT>
+</body>
+</html>

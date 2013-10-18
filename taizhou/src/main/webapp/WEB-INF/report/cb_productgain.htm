@@ -1,0 +1,108 @@
+<html>
+<title name="产成品收发存与销售及毛利分类汇总">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="gain" object="(SELECT a.product, b.*, nvl(b.produce_money,0)+nvl(b.begin_money,0)-nvl(b.end_money,0)sale_cost,nvl(b.tot_out_num,0)-nvl(b.sale_num,0)qtcksl,nvl(b.tot_out_money,0)-(nvl(b.produce_money,0)+nvl(b.begin_money,0)-nvl(b.end_money,0))qtckje ,nvl(b.tot_in_num,0)-nvl(b.produce_num,0)qtrksl,nvl(b.tot_in_money,0)-nvl(b.produce_money,0) qtrkje,nvl(b.sale_money,0)-(nvl(b.produce_money,0)+nvl(b.begin_money,0)-nvl(b.end_money,0))xsml,(nvl(b.sale_money,0)-(nvl(b.produce_money,0)+nvl(b.begin_money,0)-nvl(b.end_money,0)))/b.sale_money mll FROM  VW_KC_DM a, cb_prod_stock b WHERE a.cpid = b.cpid AND a.issale=1)" type="sql">
+<field name="product" caption="产品类别" group="true" datatype="varchar">
+<field name="" caption="期初结存" group="true" datatype="number">
+<field name="begin_num" caption="数量" group="true" datatype="number">
+<field name="begin_money" caption="金额" group="true" datatype="number">
+<field name="" caption="本期收入" group="true" datatype="number">
+<field name="" caption="完工交库" group="true" datatype="number">
+<field name="produce_num" caption="数量" group="true" datatype="number">
+<field name="produce_money" caption="金额" group="true" datatype="number">
+<field name="" caption="其他转入" group="true" datatype="number">
+<field name="qtrksl" caption="数量" group="true" datatype="number">
+<field name="qtrkje" caption="金额" group="true" datatype="number">
+<field name="" caption="本期发出" group="true" datatype="number">
+<field name="" caption="销售成本" group="true" datatype="number">
+<field name="sale_num" caption="数量" group="true" datatype="number">
+<field name="sale_cost" caption="金额" group="true" datatype="number">
+<field name="" caption="其他转出" group="true" datatype="number">
+<field name="qtcksl" caption="数量" group="true" datatype="number">
+<field name="qtckje" caption="金额" group="true" datatype="number">
+<field name="" caption="期末结存" group="true" datatype="number">
+<field name="end_num" caption="数量" group="true" datatype="number">
+<field name="end_money" caption="金额" group="true" datatype="number">
+<field name="sale_money" caption="销售收入" group="true" datatype="number">
+<field name="xsml" caption="销售毛利" group="true" datatype="number">
+<field name="mll" caption="毛利率%" group="true" datatype="number">
+
+<where field="year_num" caption="年份" type="select" opersign="=" initvalue="{yyyy}" datatype="number"  value="1990=1990&1991=1991&1992=1992&1993=1993&1994=1994&1995=1995&1996=1996&1997=1997&1998=1998&1999=1999&2000=2000&2001=2001&2002=2002&2003=2003&2004=2004&2005=2005&2006=2006&2007=2007&2008=2008&2009=2009&2010=2010&2011=2011&2012=2012&2013=2013&2014=2014&2015=2015&2016=2016&2017=2017&2018=2018&2019=2019&2020=2020&2021=2021&2022=2022&2023=2023&2024=2024&2025=2025&2026=2026&2027=2027&2028=2028&2029=2029&2030=2030&2031=2031&2032=2032&2033=2033&2034=2034&2035=2035"  need="true">
+<where field="month_num" caption="月份" type="select" opersign="=" initvalue="{mm}" datatype="number"  value="01=1月&02=2月&03=3月&04=4月&05=5月&06=6月&07=7月&08=8月&09=9月&10=10月&11=11月&12=12月"  need="true">
+<where field="cpid" caption="品名规格" datatype="varchar" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"   style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">产成品收发存与销售及毛利分类汇总</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.gain$year_num} -- {where.gain$month_num}</td>
+  </tr>
+</table>
+
+<table id="tableview1" dataset="gain" class="table" width="100%" border="0" cellspacing="0" cellpadding="3" type="dynamic" fillnull="false" header="3">
+ <tr class="tdtitle">
+    <td rowspan="3" align="center" valign="middle"  nowrap="true" field="product">产品类别</td>
+    <td colspan="2" align="center" valign="middle"  nowrap="true" field="begin_num,begin_money">期初结存</td>
+    <td colspan="4" align="center" valign="middle"  nowrap="true" field="produce_num,produce_money,qtrksl,qtrkje">本期收入</td>
+    <td colspan="4" align="center" valign="middle"  nowrap="true" field="sale_num,sale_cost,qtcksl,qtckje">本期发出</td>
+    <td colspan="2" align="center" valign="middle"  nowrap="true" field="end_num,end_money">期末结存</td>
+    <td align="center" valign="middle"  nowrap="true" rowspan="3" field="sale_money">销售收入</td>
+    <td align="center" valign="middle"  nowrap="true" rowspan="3" field="xsml">销售毛利</td>
+    <td align="center" valign="middle"  nowrap="true" rowspan="3" field="mll">毛利率%</td>
+  </tr>
+  <tr class="tdtitle" >
+    <td   nowrap="true" rowspan="2" field="begin_num">数量</td>
+    <td   nowrap="true" rowspan="2" field="begin_money">金额</td>
+    <td   nowrap="true" colspan="2" field="produce_num,produce_money">完工交库</td>
+    <td   nowrap="true" colspan="2" field="qtrksl,qtrkje">其他转入</td>
+    <td   nowrap="true" colspan="2" field="sale_num,sale_cost">销售成本</td>
+    <td   nowrap="true" colspan="2" field="qtcksl,qtckje">其他转出</td>
+    <td   nowrap="true" rowspan="2" field="end_num">数量</td>
+    <td   nowrap="true" rowspan="2" field="end_money">金额</td>
+  </tr>
+  <tr class="tdtitle" >
+    <td   nowrap="true" field="produce_num">数量</td>
+    <td   nowrap="true" field="produce_money">金额</td>
+    <td   nowrap="true" field="qtrksl">数量</td>
+    <td   nowrap="true" field="qtrkje">金额</td>
+    <td   nowrap="true" field="sale_num">数量</td>
+    <td   nowrap="true" field="sale_cost">金额</td>
+    <td   nowrap="true" field="qtcksl">数量</td>
+    <td   nowrap="true" field="qtckje">金额</td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle"  nowrap="true"><value field="product"></td>
+    <td align="right"  nowrap="true"><value field="begin_num"></td>
+    <td align="right"  nowrap="true"><value field="begin_money"></td>
+    <td align="right"  nowrap="true"><value field="produce_num"></td>
+    <td align="right"  nowrap="true"><value field="produce_money"></td>
+    <td align="right"  nowrap="true"><value field="qtrksl"></td>
+    <td align="right"  nowrap="true"><value field="qtrkje"></td>
+    <td align="right"  nowrap="true"><value field="sale_num"></td>
+    <td align="right"  nowrap="true"><value field="sale_cost"></td>
+    <td align="right"  nowrap="true"><value field="qtcksl"></td>
+    <td align="right"  nowrap="true"><value field="qtckje"></td>
+    <td align="right"  nowrap="true"><value field="end_num"></td>
+    <td align="right"  nowrap="true"><value field="end_money"></td>
+    <td align="right"  nowrap="true"><value field="sale_money"></td>
+    <td align="right"  nowrap="true"><value field="xsml"></td>
+    <td align="right"  nowrap="true"><value field="mll"></td>
+  </tr>
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',0);
+function productCodeSelect(obj,srcVars)
+ {
+    SaleProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+    'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+ function productNameSelect(obj,srcVars)
+ {
+   SaleProdNameChange(document.all['prod'], obj.form.name, srcVars,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+ </SCRIPT>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<html>
+<title name="材料采购明细帐"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_KC_BUY_MATERIAL_DETAIL" type="sql">
+  <field name="sfrq" caption="日期" datatype="date">
+  <field name="lbmc" caption="单据类型" datatype="varchar">
+  <field name="sfdjdh" caption="单据号" include="sfdjid" datatype="varchar">
+  <field name="bz" caption="备注" datatype="varchar">
+  <field name="sl" caption="数量" datatype="number">
+  <field name="jhdj" caption="计划单价" datatype="number">
+  <field name="jhje" caption="计划金额" datatype="number">
+  <field name="dj" caption="单价" datatype="number">
+  <field name="je" caption="金额" datatype="number">
+  <field name="ci" caption="差异" datatype="number">
+  <where field="sfrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="sfrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpbm" caption="产品编码" datatype="varchar" opersign="left_like">
+  <where field="zt" caption="记帐单据状态" datatype="number" type="radio" value="1,8=已记帐&0,9=未记账&=全部" opersign="in" initvalue="">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">材料采购明细帐</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="2">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="sfrq" rowspan="2">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="lbmc" rowspan="2">单据类型</td>
+    <td align="center" valign="middle" nowrap="true" field="sfdjdh" rowspan="2">单据号</td>
+    <td align="center" valign="middle" nowrap="true" field="bz" rowspan="2">备注</td>
+    <td align="center" valign="middle" nowrap="true" field="sl" rowspan="2">数量</td>
+    <td align="center" valign="middle" nowrap="true" field="jhdj,jhje" colspan="2">计划</td>
+    <td align="center" valign="middle" nowrap="true" field="dj,je" colspan="2">实际</td>
+    <td align="center" valign="middle" nowrap="true" field="ci" rowspan="2">差异</td>
+  </tr>
+  <tr>
+  	<td nowrap="true" align="right" field="jhdj">单价</td>
+    <td nowrap="true" align="right" field="jhje">金额</td>
+    <td nowrap="true" align="right" field="dj">单价</td>
+    <td nowrap="true" align="right" field="je">金额</td>>
+  </tr>
+  <tr onDblClick="selectRow();detailRep('{sfdjid}')">
+    <td align="center" valign="middle" nowrap="true"><value field="sfrq"></td>
+    <td align="center" valign="middle" nowrap="true"><value field="lbmc"></td>
+    <td nowrap="true" align="lert"><value field="sfdjdh"></td>
+    <td nowrap="true" align="right"><value field="bz"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="jhdj" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="jhje" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="dj" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="je" format="{sumformat}"></td>
+    <td nowrap="true" align="right"><value field="ci" format="{sumformat}"></td>
+  </tr>
+  <widths value="6,5,6,6,6,4,4,4,4,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+function detailRep(id)
+{
+	if( id == "" )
+	{
+		alert('没有id号不能追踪!');
+		return;
+	}
+
+	openSelectUrl('../store/contract_instore_edit.jsp?operate=2000&code=contract_instore_list&id='+id, 'contract_instore_list');
+
+}
+</SCRIPT>
+</body>
+</html>

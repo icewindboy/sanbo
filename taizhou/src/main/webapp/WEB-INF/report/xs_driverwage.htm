@@ -1,0 +1,91 @@
+<html>
+<title name="驾驶员工资表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT g.*,(nvl(g.per_price,0)+nvl(g.khsl,0)*nvl(g.wage_cust,0)+nvl(g.wage_price,0)*nvl(g.weight,0))gz FROM (SELECT a.driver_id,a.dwtxid,a.trans_date,e.dwdm,e.dwmc,f.mc,decode(b.issendcar,1,'送货用车',0,'非送货用车') issend,b.issendcar,a.trans_code,c.driver_name,sum(nvl(b.weight,0))weight,d.area_name,b.per_price,b.wage_price,b.wage_cust,COUNT(*) khsl,b.area_price_id FROM  xs_transport a ,xs_trans_detail b,xs_driver c,xs_area_price d,dwtx e,bm f WHERE a.transport_id=b.transport_id AND a.driver_id=c.driver_id AND b.area_price_id=d.area_price_id AND a.dwtxid=e.dwtxid(+) AND a.deptid=f.deptid(+) GROUP BY a.driver_id,a.dwtxid,a.trans_date,b.area_price_id,f.mc,a.trans_code,c.driver_name,e.dwmc,e.dwdm,d.area_name,b.per_price,b.wage_price,b.wage_cust,b.issendcar)g ORDER BY g.trans_code,g.area_price_id)" type="sql">
+  <field name="trans_code" caption="运单号" group="true" datatype="number">
+  <field name="driver_name" caption="驾驶员姓名" group="true" datatype="varchar">
+  <field name="weight" caption="重量(kg)" sum="true"  datatype="number">
+  <field name="area_name" caption="行驶地区名称" group="true" datatype="varchar">
+  <field name="per_price" caption="每趟工资(元)" group="true" datatype="number">
+  <field name="wage_price" caption="工资价格(元/kg)" group="true" datatype="number"  >
+  <field name="wage_cust" caption="工资客户系数" group="true" datatype="number"  >
+  <field name="khsl" caption="客户数" group="true"  datatype="number">
+    <field name="mc" caption="部门" group="true" datatype="varchar">
+	<field name="dwdm" caption="单位代码" group="true" datatype="varchar">
+   <field name="dwmc" caption="内部单位名称" group="true" datatype="varchar">
+  <field name="issend" caption="是否送货用车" group="true"  datatype="number">
+  <field name="gz" caption="驾驶员工资（元）"  sum="true" datatype="number" >
+
+  <where field="trans_date" caption="运单日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="trans_date" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;="  initvalue="{date}" datatype="date">
+
+  <where field="dwtxid" caption="内部往来单位" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="InsideCodeChange(document.all['prod'], this.form.name, '@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', this.value)"
+  nameonchange="InsideNameChange(document.all['prod'], this.form.name, '@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', this.value)"
+  onclick="InsideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+
+   <where field="trans_code" caption="运单号" datatype="number">
+   <where field="driver_id" caption="驾驶员" need="false" datatype="number" opersign="=" type="select"  lookup="xs_driver" >
+   <where field="area_price_id" caption="行驶地区" need="false" datatype="number" opersign="=" type="select"  lookup="xs_area_price" >
+
+   <where field="weight" caption="重量(kg)" datatype="number">
+
+   <where field="per_price" caption="每趟工资(元)" datatype="number">
+   <where field="wage_price" caption="工资价格(元/kg)" datatype="number">
+   <where field="wage_cust" caption="工资客户系数" datatype="number">
+   <where field="khsl" caption="客户数" datatype="number">
+   <where field="issendcar" caption="是否送货用车"  opersign="=" value="1=送货用车&0=非送货用车&=全部" type="radio"  span="true">
+   <where field="gz" caption="驾驶员工资（元）" datatype="number">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">驾驶员工资表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td align="center"  nowrap="true" field="trans_code">运单号</td>
+	<td align="center"  nowrap="true" field="driver_name">驾驶员姓名</td>
+	<td align="center"  nowrap="true" field="weight">重量</td>
+	<td align="center"  nowrap="true" field="area_name">行驶地区名称</td>
+	<td align="center"  nowrap="true" field="per_price">每趟工资(元)</td>
+	<td align="center"  nowrap="true" field="wage_price">工资价格</td>
+    <td align="center"  nowrap="true" field="wage_cust">工资客户系数</td>
+    <td align="center"  nowrap="true" field="khsl">客户数</td>
+	 <td align="center"  nowrap="true" field="mc">部门</td>
+	 <td align="center"  nowrap="true" field="dwdm">单位代码</td>
+	  <td align="center"  nowrap="true" field="dwmc">内部单位名称</td>
+	<td align="center"  nowrap="true" field="issend">是否送货用车</td>
+	<td align="center"  nowrap="true" field="gz">驾驶员工资（元）</td>
+
+
+  </tr>
+  <tr onClick="selectRow();">
+ 	  <td nowrap="true"><value field="trans_code"></td>
+    <td nowrap="true"><value field="driver_name"></td>
+	<td nowrap="true"><value field="weight"></td>
+    <td nowrap="true"><value field="area_name"></td>
+	<td nowrap="true"><value field="per_price"></td>
+	<td nowrap="true"><value field="wage_price"></td>
+	<td nowrap="true"><value field="wage_cust"></td>
+	<td nowrap="true"><value field="khsl"></td>
+	<td nowrap="true"><value field="mc"></td>
+	<td nowrap="true"><value field="dwdm"></td>
+	<td nowrap="true"><value field="dwmc"></td>
+    <td nowrap="true"><value field="issend"></td>
+     <td nowrap="true" ><value field="gz"  format="#,##0.00" ></td>
+
+  </tr>
+ <widths value="11,7,7,7,7,7,7,7,7,7,10,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>
+
+
+

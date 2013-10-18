@@ -1,0 +1,55 @@
+<html>
+<title name="职工变动情况表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="rep_rl_change_person" type="select">
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+  <field name="xm" caption="姓名" datatype="varchar">
+  <field name="lb" caption="类别" datatype="varchar">
+  <field name="zw" caption="职务" datatype="varchar">
+  <field name="date_in" caption="进厂日期" datatype="date">
+
+
+
+
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="bm" caption="职工编号" datatype="varchar" opersion="left_like">
+  <where field="bdlxid" caption="变动类型" datatype="number" opersion="left_like" type="select"
+  value="1=职工离职&2=部门调动&3=类别变动&4=职务变迁&5=职员复职">
+  <where field="xm" caption="姓名" datatype="varchar">
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">职工变动情况表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="mc">部门</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="xm">姓名</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="lb">类别</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="zw">职务</td>
+    <td width="13%" align="center" valign="middle" nowrap="true" field="date_in">进厂日期</td>
+
+
+  </tr>
+  <tr>
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="lb"></td>
+    <td nowrap="true"><value field="zw"></td>
+    <td nowrap="true" align="center"><value field="date_in"></td>
+
+
+
+
+  </tr>
+  <widths value="8,4,5,4,6,6,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

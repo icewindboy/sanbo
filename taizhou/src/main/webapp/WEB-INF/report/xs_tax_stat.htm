@@ -1,0 +1,42 @@
+<html>
+<title name="销项税统计表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="xstax" object="REP_XS_TAX_STAT" type="sql">
+  <field name="mon" caption="月份" group="true">
+  <field name="xsje" caption="销售金额" group="true" sum="true" datatype="number">
+  <field name="sje" caption="销售税金" group="true" sum="true" datatype="number">
+  <field name="jshj" caption="价税合计" group="true" sum="true" datatype="number">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销项税统计表</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="xstax" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    <td align="center"  nowrap="true" field="mon">月份</td>
+	<td align="center"  nowrap="true" field="xsje">销售金额</td>
+    <td align="center"  nowrap="true" field="sje">销售税金</td>
+    <td align="center"  nowrap="true" field="jshj">价税合计</td>
+  </tr>
+  <tr  onClick="selectRow();" > 
+    <td nowrap="true"><value field="mon"></td>
+    <td nowrap="true" align="right"><value field="xsje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="sje" format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="jshj" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="11,11,11,11"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function detailRep(param){
+if(param=='')
+return;
+if(param==null)
+return;
+  openSelectUrl('showdetail.jsp?operate=showdetail&code=kc_stocks&fgsid='+param, 'kc_stocks');
+}
+</SCRIPT>
+</body>
+</html>

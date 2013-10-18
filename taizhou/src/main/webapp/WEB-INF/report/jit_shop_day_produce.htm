@@ -1,0 +1,81 @@
+<html>
+<title name="车间生产日报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="( SELECT a.deptid, a.piecewage_id, a.piece_date rq, c.cpbm,c.pm,c.gg,e.sxz, d.xm, b.work_proc gx, b.piece_num sl, b.piece_price de, b.piece_wage jjgz,c.scydw FROM sc_piecewage a, sc_piecewage_emp b, vw_kc_dm c, emp d,kc_dmsx e WHERE a.piecewage_id = b.piecewage_id AND a.cpid = c.cpid(+) AND a.dmsxid = e.dmsxid(+) AND b.personid = d.personid(+) )" type="sql">
+  <field name="rq" caption="日期" group="true"  datatype="date">
+  <field name="xm" caption="员工" group="true" datatype="varchar">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="sxz" caption="规格属性" group="true" datatype="varchar">
+  <field name="gx" caption="工序名称" group="true" datatype="varchar">
+  <field name="sl" caption="数量"  datatype="number">
+  <field name="scydw" caption="生产单位" group="true" datatype="varchar">
+  <field name="de" caption="计件单价" group="true" datatype="number">
+  <field name="jjgz" caption="计件工资"  datatype="number">
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="deptid" caption="车间"  datatype="number" opersign="=" type="select"  need="true" lookup="bm.iswork" span="true">
+  <where field="cpbm" caption="产品编码" datatype="varchar">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=product')">
+  <where field="personid" caption="员工"  datatype="number" opersign="=" type="select"  lookup="emp" >
+  <where field="gx" caption="工序"  datatype="varchar" opersign="=" type="select"  lookup="sc_gymc" >
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">车间生产日报表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+  <td align="center" valign="middle" nowrap="true" field="rq">日期</td>
+  <td align="center" valign="middle" nowrap="true" field="xm">员工</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="sxz">规格属性</td>
+    <td align="center" valign="middle" nowrap="true" field="gx">工序名称</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+	<td align="center" valign="middle" nowrap="true" field="scydw">生产单位</td>
+	<td align="center" valign="middle" nowrap="true" field="de">计件单价</td>
+    <td align="center" valign="middle" nowrap="true" field="jjgz">计件工资</td>
+  </tr>
+  <tr onDblClick="selectRow();detailRep('{piecewage_id}')">
+    <td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true"><value field="gx"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+	<td nowrap="true"><value field="scydw"></td>
+    <td nowrap="true" align="right"><value field="de" format="{priceformat}"></td>
+    <td nowrap="true" align="right"><value field="jjgz" format="{priceformat}"></td>
+  </tr>
+  <widths value="9,9,11,20,10,15,7,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(param){
+if(param=="" )
+return;
+openSelectUrl('../produce/piect_rate_edit.jsp?operate=2000&code=piece_rate&piecewage_id='+param, 'piece_rate');
+}
+</SCRIPT>
+</body>
+</html>

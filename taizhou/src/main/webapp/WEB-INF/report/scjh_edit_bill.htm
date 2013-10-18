@@ -1,0 +1,122 @@
+<html>
+<title name="生产计划"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.5" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="10">
+<dataset name="a" object="BILL_scjh_edit_bill" type="sql">
+  <where field="scjhid" caption="生产计划ID" datatype="number">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="11" font-bold="1">生产计划</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+          <tr><td align="center"  >码单号</td>
+   	  <td nowrap="true"   ><value field="djh"></td>
+   	  <td align="center" >计划日期:</td>
+   	  <td nowrap="true"  ><value field="jhrq"></td>
+  </tr>
+  <tr>
+   	  <td align="center"  >制定部门</td>
+ 	  <td nowrap="true"   ><value field="mc"></td>
+          <td align="center"   >计划号</td>
+ 	  <td nowrap="true"  ><value field="jhh"></td>
+
+  </tr>
+  <tr>
+   	  <td align="center"   >商    标</td>
+ 	  <td nowrap="true"    ><value field="brandname"></td>
+   	  <td align="center"   >水洗标</td>
+   	  <td nowrap="true"    ><value field="wash"></td>
+  </tr>
+  <tr>
+   	  <td align="center"   >包编布颜色</td>
+   	  <td nowrap="true"    ><value field="pkgcl"></td>
+   	  <td align="center"   >包装要求</td>
+   	  <td nowrap="true"    ><value field="pkgdmd"></td>
+  </tr>
+  <tr>
+   	  <td align="center"   >合同号</td>
+   	  <td nowrap="true"    ><value field="htbh"></td>
+   	  <td align="center"    >交货日期</td>
+   	  <td nowrap="true"    ><value field="jhwcrq"></td>
+  </tr>
+  <tr>
+   	  <td align="center"   >海棉</td>
+   	  <td nowrap="true"    ><value field="hm"></td>
+   	  <td align="center"   >无纺布</td>
+   	  <td nowrap="true"    ><value field="wfb"></td>
+  </tr>
+  <tr>
+   	  <td align="center"   >客户名称</td>
+   	  <td nowrap="true"    ><value field="dwmc"></td>
+   	  <td align="center"    >业务员</td>
+   	  <td nowrap="true"    ><value field="xm"></td>
+  </tr>
+  <tr>
+   	  <td align="center"   >品名 规格</td>
+   	  <td nowrap="true"  colspan="3"   ><value field="product"></td>
+  </tr>
+  <tr>
+               <td   border-left="0" border-right="0" border-top="0" border-bottom="0" rowspan="4"  ></td>
+  </tr>
+
+  <widths value="8,9,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1" offset="-2">
+  <tr>
+>
+  	<td align="center"  nowrap="true" field="sxz">规格属性</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+  	<td align="center"  nowrap="true" field="jldw">单位</td>
+	<td align="center"  nowrap="true" field="cpl">次品率</td>
+	<td align="center"  nowrap="true" field="jgyq">备注</td>
+  </tr>
+
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" border_bottom="0"><value field="sxz"></td>
+  	<td nowrap="true"  align="right" border_bottom="0"><value field="sl"></td>
+  	<td nowrap="true"   align="center" border_bottom="0"><value field="jldw"></td>
+	<td nowrap="true"   align="center" border_bottom="0"><value field="cpl"></td>
+  	<td nowrap="true"  align="right" border_bottom="0"><value field="jgyq"></td>
+  </tr>
+    <widths value="22,5,6,6,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0">合计</td>
+  	<td nowrap="true"  align="right" border_bottom="0" ><value field="sl"   sum="true" datatype="number"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true"  align="right" border_bottom="0"></td>
+	<td nowrap="true"  align="right" border_bottom="0"></td>
+  </tr>
+    <widths value="22,5,6,6,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+<tr>
+             <td nowrap="false"   rowspan="4"  align="center">计划说明</td>
+             <td nowrap="false"   rowspan="4"  colspan="6" align="left"   ><value field="jhsm"></td>
+</tr>
+    <widths value="8,22,5,6,6,8">
+</table>
+<table id="tableview5" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+      <td align="left"  colspan="2" nowrap="true" field="sfdjdh"  border-left="0" border-right="0" border-top="0" border-bottom="0" >登记日期:<value field="zdrq"></td>
+
+   	  <td align="center"  nowrap="true" field="czy"   border-left="0" border-right="0" border-top="0" border-bottom="0" ></td>
+   	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ></td>
+   	  <td align="left"  nowrap="true" field="czy"   border-left="0" border-right="0" border-top="0" border-bottom="0" ></td>
+   	  <td align="left"  nowrap="true" field="czy"   border-left="0" border-right="0" border-top="0" border-bottom="0" >制单人:<value field="zdr"></td>
+
+  </tr>
+
+  <widths value="8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

@@ -1,0 +1,142 @@
+<html>
+<title name="化工原料检验报告单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_ZL_CHEMICAL_BILL" type="sql">
+  <field name="mc_0" caption="检验部门"   datatype="varchar">
+  <field name="personid" caption="人员id"  datatype="number">
+  <field name="jyrxm" caption="检验员"  datatype="varchar">
+  <field name="dwtxid" caption="往来单位id"  datatype="number">
+  <field name="chemicalcheckNo" caption="单据号"  datatype="varchar">
+  <field name="get_date" caption="供货日期"  datatype="date">
+  <field name="check_num" caption="供货数量"  datatype="number">
+  <field name="shareout_date" caption="配料日期" datatype="date">
+  <field name="humidity" caption="湿度"  datatype="varchar">
+  <field name="temperature" caption="温度"   datatype="varchar">
+  <field name="check_date" caption="检验日期"   datatype="date">
+  <field name="state" caption="状态"   datatype="number">
+  <field name="xm" caption="审批人" datatype="number">
+  <field name="state_desc" caption="状态描述"   datatype="varchar">
+  <field name="estimation" caption="判断"   datatype="varchar">
+  <field name="createdate" caption="制单日期"   datatype="date">
+  <field name="creatorid" caption="制单人id"   datatype="number">
+  <field name="creator" caption="制单人"   datatype="varchar">
+  <field name="fifialeid" caption="分公司id" datatype="number">
+  <field name="porduct_name" caption="产品名称" datatype="varchar">
+  <field name="content_request" caption="固含量:技术要求" datatype="varchar">
+  <field name="content_result" caption="固含量:实测结果" datatype="varchar">
+  <field name="adhibit_request" caption="粘度:技术要求" datatype="varchar">
+  <field name="adhibit_result" caption="粘度:实测结果" datatype="varchar">
+  <field name="beginboil_request" caption="沸点初始温度(℃):技术要求" datatype="varchar">
+  <field name="beginboil_result" caption="沸点初始温度(℃):实测结果" datatype="varchar">
+  <field name="endboil_request" caption="沸点终点温度(℃):技术要求" datatype="varchar">
+  <field name="endboil_result" caption="沸点终点温度(℃):实测结果" datatype="varchar">
+ 
+  
+  <field name="dwdm_0" caption="单位代码" datatype="varchar">
+  <field name="dwmc_0" caption="单位名称" datatype="varchar">
+  <field name="xm_0" caption="姓名" datatype="varchar"><!--审批人-->
+  <where field="chemicalcheckID" caption="化工原料检验报告单ID" datatype="number">
+  <param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr>
+     
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="976">化工原料检验报告单</td>
+  </tr>
+</table>
+<table id="tableview1"  width="974"  border="0" align="center" cellpadding="0" cellspacing="0" class="table" dataset="a" type="static" fillnull="false">
+  <tr>
+      <td align="center"  nowrap="" field="chemicalcheckNo"   border-left="0" border-right="0" border-top="0" border-bottom="0">单据号:</td>
+ 	  <td width="22" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="chemicalcheckNo"></td>
+ 	  
+   	  
+    <td width="235" align="center"  nowrap="" field="dwdm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >供应商:</td>
+   	  <td width="63" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dwdm_0"></td>
+ 	  <td width="78" nowrap="true" colspan="2"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="dwmc_0"></td>
+    <td width="129" align="center"  nowrap="" field="get_date"   border-left="0" border-right="0" border-top="0" border-bottom="0">供货日期:</td>
+   	  <td width="150" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="get_date"></td>
+  </tr>
+  <tr>	  
+   	  
+    <td align="center"  nowrap="" field="check_num"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >供货数量:</td>
+   	  
+ 	  <td nowrap="true"    border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="check_num"></td>
+ 	  
+   	  
+    <td align="center"  nowrap="" field="shareout_date"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >配料日期:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="pm"><value field="shareout_date"></td>   	  
+      
+    <td align="center"  nowrap="" field="humidity" border-left="0" border-right="0" border-top="0" border-bottom="0" >温度:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="humidity"></td>
+	   
+    <td align="center"  nowrap="" field="temperature" border-left="0" border-right="0" border-top="0" border-bottom="0" >湿度:</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="temperature"></td>
+  </tr>
+  
+ <tr>	  
+ 	    
+    <td align="center"  field="mc_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >检验部门:</td>
+   	  
+    <td   multirow="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="mc_0"></td>
+     
+    <td align="center"  field="xm"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >检验员:</td>
+   	  
+    <td  border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="jyrxm"></td>
+	 
+    <td align="center"  field="check_date"   border-left="0" border-right="0" border-top="0" border-bottom="0" >检验日期:</td>
+   	  
+    <td  colspan="3"  border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="check_date"></td>  
+ </tr>
+ <tr> 
+    <td align="center" multirow="true" field="estimation"   border-left="0" border-right="0" border-top="0" border-bottom="0" width="154">判断:</td>
+   	<td colspan="7"  multirow="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="estimation"></td> 
+</tr>
+<widths value="8,8,8,8,8,7,8,8">
+</table>    
+<table id="tableview2" width="972" border="1" align="center" cellpadding="2" cellspacing="0" class="table"  dataset="a" type="dynamic" fillnull="false" header="2" offset="-2" maxrow="15">
+  <tr>
+          <td nowrap="true" rowspan="2" align="center" field="porduct_name">产品名称:</td>
+          <td nowrap="true" align="center" colspan="2">固含量</td>
+          <td nowrap="true" align="center" colspan="2">粘度</td>
+          <td nowrap="true" align="center" colspan="2">沸点初始温度（℃）</td>
+          <td nowrap="true" align="center" colspan="2">沸点终点温度(℃)</td>
+        </tr>
+        <tr>
+          <td nowrap="true" align="center" field="content_request">技术要求</td>
+          <td nowrap="true" align="center" field="content_result">实测结果</td>
+          <td nowrap="true" align="center" field="adhibit_request">技术要求</td>
+          <td nowrap="true" align="center" field="adhibit_result">实测结果</td>
+          <td nowrap="true" align="center" field="beginboil_request">技术要求</td>
+          <td nowrap="true" align="center" field="beginboil_result">实测结果</td>
+          <td nowrap="true" align="center" field="endboil_request">技术要求</td>
+          <td nowrap="true" align="center" field="endboil_result">实测结果</td>
+        </tr>
+        <tr >
+          <td nowrap="true" align="center" border_bottom="0"><value field="porduct_name"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="content_request"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="content_result"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="adhibit_request"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="adhibit_result"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="beginboil_request"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="beginboil_result"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="endboil_request"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="endboil_result"></td>
+        </tr>
+       </table>
+<table id="tableview3" class="table" dataset="a" width="98%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2"  align="center">
+  <tr>
+    <td  align="center" nowrap="ture" field="xm_0"  border-left="0" border-right="0" border-top="0" border-bottom="0">审批人:</td>
+    <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="xm_0"></td>
+   	<td align="center"  nowrap="" field="createdate"  border-left="0" border-right="0" border-top="0" border-bottom="0">制单日期:</td>
+ 	<td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="createdate"></td>
+   	<td align="center"  nowrap="" field="creator"   border-left="0" border-right="0" border-top="0" border-bottom="0">制单人:</td>
+   	<td nowrap="true"  colspan="3" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="creator"></td>	  
+ </tr>
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+</SCRIPT>
+</body>
+</html>

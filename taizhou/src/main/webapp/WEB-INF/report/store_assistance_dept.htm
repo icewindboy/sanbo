@@ -1,0 +1,79 @@
+<html>
+<title name="仓库辅助材料领用明细"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="" type="sql">
+  <field name="sfrq" caption="日期" group="true" datatype="date">
+  <field name="sfdjdh" caption="摘要" group="true"  datatype="varchar">
+  <field name="qcsl" caption="数量" sum="true"  datatype="number">
+  <field name="qcje" caption="金额" sum="true"  datatype="number">
+
+  <field name="bqrsl" caption="数量" sum="true"  datatype="number">
+  <field name="bqrje" caption="金额" sum="true"  datatype="number">
+
+  <field name="bqfsl" caption="数量" sum="true"  datatype="number">
+  <field name="bqfje" caption="金额" sum="true"  datatype="number">
+
+  <field name="bqjcsl" caption="数量"  datatype="number">
+  <field name="bqjcje" caption="金额" s datatype="number">
+
+  <where field="sfrq" caption="日期" linktable="" need="true"  need="true" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="sfrq" caption="--" linktable=""need="true"  need="true" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <where field="cpid" caption="品名规格" datatype="number"  need="true" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">
+  <where field="storeid" caption="仓库" datatype="number" need="true" opersign="=" type="select"  lookup="kc_ck" >
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" colspan="2" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">仓库辅助材料领用明细</td>
+  </tr>
+
+    <tr>
+	<td align="left" valign="middle" style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">物资:{where.A$CPID$_code}--{where.A$CPID$_name}</td>
+    <td align="center" valign="middle" style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$sfrq$a} - {where.a$sfrq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="2">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="sfrq" rowspan="2">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="sfdjdh" rowspan="2">摘要</td>
+    <td align="center" valign="middle" nowrap="true" field="qcsl,qcje" colspan="2">期初数</td>
+    <td align="center" valign="middle" nowrap="true" field="bqrsl,bqrje" colspan="2">本期入库</td>
+    <td align="center" valign="middle" nowrap="true" field="bqfsl,bqfje" colspan="2">本期出库</td>
+    <td align="center" valign="middle" nowrap="true" field="bqjcsl,bqjcje" colspan="2">本期结存</td>
+  </tr>
+  <tr>
+    <td nowrap="true" align="right" field="qcsl">数量</td>
+    <td nowrap="true" align="right" field="qcje">金额</td>
+    <td nowrap="true" align="right" field="bqrsl">数量</td>
+    <td nowrap="true" align="right" field="bqrje">金额</td>
+    <td nowrap="true" align="right" field="bqfsl">数量</td>
+    <td nowrap="true" align="right" field="bqfje">金额</td>
+    <td nowrap="true" align="right" field="bqjcsl">数量</td>
+    <td nowrap="true" align="right" field="bqjcje">金额</td>
+  </tr>
+  <tr>
+    <td nowrap="true"><value field="sfrq"></td>
+	<td nowrap="true"><value field="sfdjdh"></td>
+
+	<td nowrap="true" align="right"><value field="qcsl"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="qcje"  format="#,##0.0000" zeroformat=""></td>
+
+    <td nowrap="true" align="right"><value field="bqrsl"  format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="bqrje"  format="#,##0.0000" zeroformat=""></td>
+
+    <td nowrap="true" align="right"><value field="bqfsl"  format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="bqfje"  format="#,##0.0000" zeroformat=""></td>
+
+    <td nowrap="true" align="right"><value field="bqjcsl"  format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="bqjcje" format="#,##0.0000" zeroformat=""></td>
+  </tr>
+  <widths value="6,5,6,6,6,4,4,4,4,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

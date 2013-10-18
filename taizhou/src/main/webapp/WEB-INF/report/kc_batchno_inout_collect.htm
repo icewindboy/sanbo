@@ -1,0 +1,91 @@
+<html>
+<title name="存货批号收发汇总表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="iproperty" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" width="21" height="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9"
+      queryform="queryform1" querytable="querytable1">
+<dataset name="a" object="" type="sql">
+  <field name="cpbm" caption="存货代码" group="true">
+  <field name="product" caption="品名规格" group="true">
+  <field name="sxz" caption="规格属性" group="true">
+  <field name="jldw" caption="单位" group="true">
+  <field name="hsdw" caption="换算单位" group="true">
+  <field name="ckmc" caption="仓库" group="true">
+  <field name="ph" caption="批号" group="true">
+  <field name="qcsl" caption="期初数量" sum="true" datatype="number">
+  <field name="qchssl" caption="期初换算数量" sum="true" datatype="number">
+  <field name="srsl" caption="收数量" sum="true" datatype="number">
+  <field name="srhssl" caption="收换算数量" sum="true" datatype="number">
+  <field name="fcsl" caption="发数量" sum="true" datatype="number">
+  <field name="fchssl" caption="发换算数量" sum="true" datatype="number">
+  <field name="jcsl" caption="结存数量" sum="true" datatype="number">
+  <field name="jchssl" caption="结存换算数量" sum="true" datatype="number">
+  <where field="ksrq" caption="日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >
+  <where field="chlbid" caption="存货类别" datatype="number" opersign="=" type="select" lookup="kc_chlb">
+  <where field="wzlbid" caption="物资大类" datatype="number" opersign="=" type="select" lookup="kc_dmlb" onselect="propertyShow();">
+  <%--where field="cpbm" caption="存货编码" datatype="varchar" opersign="left_like"--%>
+  <where field="ph" caption="批号" datatype="varchar" opersign="left_like">
+  <where field="bc" caption="班次" datatype="varchar" opersign="=">
+  <%--where field="zt" caption="包括未记帐" opersign="=" value="1=包括&0=不包括" initvalue="1" type="radio" span="false"--%>
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" valign="middle" style="font-size:15" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">存货批号收发汇总表</td>
+  </tr>
+  <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table dataset="a" id="tableview1" class="table"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center" nowrap="true" field="cpbm">存货代码</td>
+		<td align="center" nowrap="true" field="product">品名规格</td>
+		<td align="center" nowrap="true" field="sxz">规格属性</td>
+		<td align="center" nowrap="true" field="jldw">单位</td>
+		<td align="center" nowrap="true" field="hsdw">换算单位</td>
+    	<td align="center" nowrap="true" field="ckmc">仓库</td>
+    	<td align="center" nowrap="true" field="ph">批号</td>
+		<td align="center" nowrap="true" field="qcsl">期初数量</td>
+		<td align="center" nowrap="true" field="qchssl">期初换算数量</td>
+		<td align="center" nowrap="true" field="srsl">收数量</td>
+		<td align="center" nowrap="true" field="srhssl">收换算数量</td>
+		<td align="center" nowrap="true" field="fcsl">发数量</td>
+		<td align="center" nowrap="true" field="fchssl">发换算数量</td>
+		<td align="center" nowrap="true" field="jcsl">结存数量</td>
+		<td align="center" nowrap="true" field="jchssl">结存换算数量</td>
+  </tr>
+  <tr onClick="selectRow();" onDblClick="selectRow(); detailRep('{fgsid}','{storeid}','{cpid}','{dmsxid}','{ph}','{where.a$ksrq}','{where.a$jsrq}')">
+	<td nowrap="true"><value field="cpbm"></td>
+	<td nowrap="true"><value field="product"></td>
+	<td nowrap="true"><value field="sxz"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="hsdw"></td>
+    <td nowrap="true"><value field="ckmc"></td>
+    <td nowrap="true"><value field="ph"></td>
+    <td nowrap="true" align="right"><value field="qcsl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="qchssl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="srsl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="srhssl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="fcsl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="fchssl" format="{qtyformat}" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="jcsl" format="{qtyformat}" ></td>
+    <td nowrap="true" align="right"><value field="jchssl" format="{qtyformat}" zeroformat=""></td>
+  </tr>
+  <widths value="15,18,18,5,10,12,12,15,15,15,15,15,15,15,15">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function propertyShow()
+{
+  var wzlbid = queryform1.A$WZLBID.value;
+  document.all.iproperty.src = "../pub/propertyshow.jsp?tableid=querytable1&index=4&wzlbid="+wzlbid;
+}
+function detailRep(fgsid, storeid, cpid, dmsxid, ph, ksrq, jsrq){
+  if(cpid=="" || storeid=="" || fgsid=="")
+    return;
+  openSelectUrl('showdetail.jsp?operate=showdetail&code=kc_batchno_inout_detail&a$cpid='+cpid+'&a$ksrq='+ksrq+'&a$jsrq='+jsrq+'&a$storeid='+storeid+'&a$fgsid='+fgsid+'&a$dmsxid='+dmsxid+'&a$ph='+ph, 'kc_batchno_inout_detail');
+}
+</SCRIPT>
+</body>

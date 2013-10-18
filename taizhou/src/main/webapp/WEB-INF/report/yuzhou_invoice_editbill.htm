@@ -1,0 +1,86 @@
+<html>
+<title name="外贸发票"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="BILL_SALE_INVOICE_EDIT" type="sql">
+  <field name="sjhm" caption="发票号码"   datatype="varchar">
+  <field name="fphm" caption="单据号"   datatype="varchar">
+  <field name="dz" caption="地址"  datatype="varchar">
+  <field name="kprq" caption="日期" datatype="date">
+  <field name="dwmc" caption="客户名称"  datatype="varchar">
+  <field name="creditbh" caption="信用证号"  datatype="varchar">
+
+  <param name="xsfpid" datatype="number"   value="{xsfpid}">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">外贸发票</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+   	  <td align="center"  nowrap="true" field="sjhm"   border-left="0" border-right="0" border-top="0" border-bottom="0" >发票号码</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="sjhm"></td>
+   	  <td align="center"  nowrap="true" field="fphm"   border-left="0" border-right="0" border-top="0" border-bottom="0" >单据号</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="fphm"></td>
+  </tr>
+  <tr>
+   	  <td align="center"  nowrap="true" field="dz" border-bottom="0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >地址</td>
+   	  <td nowrap="true"  border-bottom="0"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dz"></td>  
+      <td align="center"  nowrap="true" field="kprq"   border-left="0" border-right="0" border-top="0" border-bottom="0" >日期</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="kprq"></td>
+  </tr>
+  <tr>	  
+   	  <td align="center"  nowrap="true" field="dwmc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >客户名称</td>
+ 	  <td nowrap="true"    border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dwmc"></td>
+   	  <td align="center"  nowrap="true" field="creditbh"   border-left="0" border-right="0" border-top="0" border-bottom="0" >信用证号</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="creditbh"></td>
+  </tr>
+  <widths value="5,10,5,10">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1" offset="-2">
+  <tr> 
+  	<td align="center"  nowrap="true" field="markbh">唛头号码</td>
+  	<td align="center"  nowrap="true" field="">数量与品名</td>
+  	<td align="center"  nowrap="true" field="hsdj">单价</td>
+	<td align="center"  nowrap="true" field="jshj">金额</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" border_bottom="0"><value field="markbh"></td>
+  	<td nowrap="true" align="right" border_bottom="0"><value field="sl"><value field="product"></td>
+  	<td nowrap="true"  align="right" border_bottom="0"><value field="hsdj"></td>
+	<td nowrap="true"  align="right" border_bottom="0"><value field="jshj" format="#,##0.00" zeroformat=""></td>
+  </tr>
+    <widths value="5,10,5,5">
+</table>
+
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0">合计</td>
+  	<td nowrap="true"  align="right" border_bottom="0"><value field="sl"    sum="true" datatype="number"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+	<td nowrap="true"  align="right" border_bottom="0"><value field="jshj"  sum="true" datatype="number"></td>
+  </tr>
+    <widths value="5,10,5,5">
+</table>
+
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+      <td align="center"  nowrap="true" field="sfdjdh"  border-left="0" border-right="0" border-top="0" border-bottom="0" >经手人</td>
+ 	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="czy"></td>
+   	  <td align="center"  nowrap="true" field="sprid"  border-left="0" border-right="0" border-top="0" border-bottom="0"  >审核</td>
+ 	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="sprid"></td>
+   	  <td align="center"  nowrap="true" field="czy"   border-left="0" border-right="0" border-top="0" border-bottom="0" >制单人</td>
+   	  <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="czy"></td>
+  </tr>	
+  <widths value="8,8,8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

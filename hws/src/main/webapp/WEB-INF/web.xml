@@ -41,19 +41,12 @@
     <servlet-name>DisplayChart</servlet-name>
     <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
   </servlet>
-  <servlet>
-    <servlet-name>VerifyCaptchaServlet</servlet-name>
-    <servlet-class>com.sanbo.erp.web.servlet.VerifyCaptchaServlet
-		</servlet-class>
-  </servlet>
+
   <servlet-mapping>
     <servlet-name>DisplayChart</servlet-name>
     <url-pattern>/servlet/DisplayChart</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>VerifyCaptchaServlet</servlet-name>
-    <url-pattern>/servlet/VerifyCaptchaServlet</url-pattern>
-  </servlet-mapping>
+
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>

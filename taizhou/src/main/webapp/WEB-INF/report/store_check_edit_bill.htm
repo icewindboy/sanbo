@@ -1,0 +1,92 @@
+<html>
+<title name="库存盘点单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="9.9" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_STORE_BILL.Store_Check_Edit_Bill(?,'@','@')" type="procedure">
+  <where field="pdid" caption="盘点单ID" datatype="number">
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">库存盘点单</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" border-left="0" border-right="0" border-top="0" border-bottom="0" cellspacing="0" cellpadding="2" type="static" fillnull="false">
+  <tr> 
+    <td align="left" valign="middle" nowrap="true" field="sfdjdh" border-left="0" border-right="0" border-top="0" border-bottom="0">库存盘点单号</td>
+    <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="pdhm"></td>
+    <td align="left" valign="middle" nowrap="true" field="sfrq" border-left="0" border-right="0" border-top="0" border-bottom="0">日期</td>
+    <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="rq"></td>
+    <td align="left" valign="middle" nowrap="true" field="ckmc" border-left="0" border-right="0" border-top="0" border-bottom="0">仓库</td>
+    <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="ckmc"></td>
+    <td align="left" valign="middle" nowrap="true" field="bmmc" border-left="0" border-right="0" border-top="0" border-bottom="0">部门</td>
+    <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="bmmc"></td>
+  </tr>
+  <tr> 
+    <td align="left" valign="middle" nowrap="true" field="dcckmc" border-left="0" border-right="0" border-top="0" border-bottom="0">盘点人</td>
+    <td align="left" valign="middle" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0" colspan="7"><value field="pdr"></td>
+  </tr>
+  <widths value="8,9,8,8,8,8,8,8,8"> 
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1" offset="-2">
+  <tr> 
+  	<td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+  	<td align="center" valign="middle" nowrap="true" field="pm">品名 规格</td>
+  	<td align="center" valign="middle" nowrap="true" field="wzggsx">规格属性</td>
+  	<td align="center" valign="middle" nowrap="true" field="zcsl">数量</td>
+  	<td align="center" valign="middle" nowrap="true" field="scsl">换算数量</td>
+  	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+  	<td align="center" valign="middle" nowrap="true" field="ph">批号</td>
+  	<td align="center" valign="middle" nowrap="true" field="yk">盈亏</td>	
+  	<td align="center" valign="middle" nowrap="true" field="ce">差额</td>
+  </tr>
+  <tr>
+  	<td nowrap="true" border_bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border_bottom="0"><value field="pm"></td>
+  	<td nowrap="true" border_bottom="0"><value field="wzggsx"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="zcsl"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="scsl"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" border_bottom="0"><value field="ph"></td>
+  	<td nowrap="true" border_bottom="0"><value field="yk"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="ce"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8,8,8,8">
+</table>
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" align="center" valign="middle"  border_bottom="0">合计</td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="zcsl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="scsl" sum="true"></td>
+  	<td nowrap="true" border_bottom="0"></td>	
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" align="right"><value field="ce" sum="true"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8,8,8,8,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%"  border="0" cellspacing="0" cellpadding="2" type="static" offset="-2">
+  <tr>
+      <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="jsr">经手人</td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="jsr"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="jzr">记帐</td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="jzr"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  field="xm">审核</td>
+ 	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="xm"></td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0" field="zdr">制单</td>
+   	  <td align="center" valign="middle" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="zdr"></td>
+  </tr>	
+  <widths value="8,8,8,8,8,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+initDefaultTableRow('tableview4',0);
+</SCRIPT>
+</body>
+</html>
+

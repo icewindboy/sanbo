@@ -1,14 +1,30 @@
 package engine.erp.baseinfo;
 
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
-import java.util.*;
+import java.util.Hashtable;
 
-import com.borland.dx.dataset.*;
-import engine.dataset.*;
-import engine.util.*;
-import engine.project.*;
-import engine.util.log.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.jsp.PageContext;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.borland.dx.dataset.Locate;
+import com.borland.dx.dataset.SortDescriptor;
+import com.sanbo.erp.domain.model.Department;
+import com.sanbo.erp.domain.repository.DepartmentDao;
+
+import engine.dataset.EngineDataSet;
+import engine.dataset.EngineDataView;
+import engine.dataset.EngineRow;
+import engine.dataset.RowMap;
+import engine.project.CommonClass;
+import engine.project.LookupBeanFacade;
+import engine.project.SysConstant;
+import engine.util.MessageFormat;
+import engine.util.StringUtils;
 
 
 /**
@@ -521,6 +537,11 @@ public class B_DeptInfo extends CommonClass //implements LookUp
    */
   public void getDeptTree(PageContext pageContext)
   {
+      ApplicationContext context = new ClassPathXmlApplicationContext("/spring/spring-sanbo.xml");
+      //ComboPooledDataSource dataSource = (ComboPooledDataSource)context.getBean("dataSource");
+      DepartmentDao departmentDao = (DepartmentDao)context.getBean("departmentDao");
+      Department department = departmentDao.getDepartmentById(1);
+      	  
     if(!dsDeptInfo.isOpen())
       dsDeptInfo.openDataSet();
     if(!dsRootDept.isOpen())

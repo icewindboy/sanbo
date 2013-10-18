@@ -1,0 +1,73 @@
+<html>
+<title name="生产日报表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="REP_SC_DAY_PRODUCE" type="sql">
+
+  <field name="rq" caption="日期" group="true">
+  <field name="jth" caption="机台号" group="true" datatype="number">
+  <field name="cpbm" caption="产品编码" group="true" datatype="varchar">
+  <field name="pm" caption="品名" group="true" >
+  <field name="gg" caption="规格（克/平方米）" group="true" datatype="varchar"  >
+  <field name="sjgg" caption="实际规格" group="true"  datatype="varchar">
+  <field name="sl" caption="记量数量"  sum="true" datatype="number" >
+  <field name="jldw" caption="计量单位"   datatype="varchar"  >
+  <field name="hssl" caption="换算数量（个）"  sum="true" datatype="number">
+  <field name="scsl" caption="生产数量" sum="true"  datatype="varchar">
+  <field name="scydw" caption="生产单位" group="false"  datatype="varchar">
+  <field name="zs" caption="转数(转)" sum="true"  datatype="varchar">
+
+
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">生产日报表</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table"  dataset="a" name="dwmincen"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr> 
+    
+    <td align="center"  nowrap="true" field="rq">日期</td>
+	<td align="center"  nowrap="true" field="jth">机台号</td>
+	<td align="center"  nowrap="true" field="cpbm">产品编码</td>
+	<td align="center"  nowrap="true" field="pm">品名</td>
+	<td align="center"  nowrap="true" field="gg">规格（克/平方米）</td>
+	<td align="center"  nowrap="true" field="sjgg">实际规格</td>
+    <td align="center"  nowrap="true" field="sl">记量数量</td>
+	<td align="center"  nowrap="true" field="jldw">计量单位</td>
+	<td align="center"  nowrap="true" field="hssl">换算数量（个）</td>
+	<td align="center"  nowrap="true" field="scsl">生产数量</td>
+	<td align="center"  nowrap="true" field="scydw">生产单位</td>
+	<td align="center"  nowrap="true" field="zs">转数(转)</td>
+  </tr>
+  <tr  onClick="selectRow();" > 
+  
+   <td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="jth"></td>
+	<td nowrap="true"><value field="cpbm"></td>
+	<td nowrap="true"><value field="pm"></td>
+	<td nowrap="true"><value field="gg"></td>
+	<td nowrap="true"><value field="sjgg"></td>
+    <td nowrap="true" align="right"><value field="sl"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" ><value field="jldw"  ></td>
+	<td nowrap="true" align="right"><value field="hssl"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="scsl"  format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" ><value field="scydw"  ></td>
+	<td nowrap="true" align="right"><value field="zs"  format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="11,7,7,7,7,7,7,7,7,7,11,11"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE='javascript' >
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>

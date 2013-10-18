@@ -1,0 +1,87 @@
+<html>
+<title name="销售汇总表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="" type="sql">
+
+  <field name="dwdm" caption="客户代码" group="true" datatype="varchar">
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+  <field name="addr" caption="地址" group="true"  datatype="varchar">
+  <field name="mc" caption="部门" group="true"  datatype="varchar">
+
+  <field name="sjfhjje" caption="实际发货" sum="true" datatype="number">
+  <field name="sjthjje" caption="实际退货" sum="true" datatype="number">
+  <field name="sjxsje" caption="实际销售"  sum="true" datatype="number">
+  <field name="sjskje" caption="实际收款"  sum="true" datatype="number">
+  <field name="bqqkje" caption="本旬欠款"  sum="true" datatype="number">
+  <field name="fy" caption="其他应收款"    sum="true" datatype="number">
+  <field name="sqqkje" caption="上旬止结欠"  sum="true" datatype="number">
+  <field name="qmqkje" caption="至本旬止欠款"  sum="true" datatype="number">
+  <field name="" caption="备注" group="true"  datatype="varchar">
+
+
+  <where field="ksrq" caption="出库日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="deptid" caption="部门" need="false" datatype="number" opersign="=" type="select" lookup="bm">
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+  <param name="pid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">销售汇总表 </td>
+  </tr>
+  <tr>
+    <td align="left"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12"> 所属时间:{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+   <td align="center"  nowrap="true" field="dwdm">客户代码</td>
+    <td align="center"  nowrap="true" field="dwmc">客户名称</td>
+	<td align="center"  nowrap="true" field="addr">地址</td>
+	<td align="center"  nowrap="true" field="mc">部门</td>
+    <td align="center"  nowrap="true" field="sjfhjje">实际发货</td>
+    <td align="center"  nowrap="true" field="sjthjje">实际退货</td>
+	<td align="center"  nowrap="true" field="sjxsje">实际销售</td>
+	<td align="center"  nowrap="true" field="sjskje">实际收款</td>
+	<td align="center"  nowrap="true" field="bqqkje">期中欠款</td>
+	<td align="center"  nowrap="true" field="fy">其他应收款</td>
+	<td align="center"  nowrap="true" field="sqqkje">期初欠款</td>
+    <td align="center"  nowrap="true" field="qmqkje">期末欠款</td>
+	<td align="center"  nowrap="true" field="">备注</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+     <td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+	<td nowrap="true"><value field="addr"></td>
+	<td nowrap="true"><value field="mc"></td>
+    <td nowrap="true" align="right"><value field="sjfhjje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="sjthjje" format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="sjxsje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="sjskje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="bqqkje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="fy"     format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="sqqkje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field="qmqkje" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true" align="right"><value field=""></td>
+  </tr>
+  <widths value="8,15,25,10,7,7,7,7,7,7,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+</SCRIPT>
+</body>
+</html>

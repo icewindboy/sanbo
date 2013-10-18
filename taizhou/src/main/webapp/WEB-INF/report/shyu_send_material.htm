@@ -1,0 +1,113 @@
+<html>
+<title name="发货记录单">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="0.2" magin-right="0.1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="11">
+<dataset name="a" object="" type="sql">
+   <field name="tdbh" caption="单据号" group="true" atatype="varchar" include="tdid,djlx">
+  <field name="cpbm" caption="产品代码" group="true" datatype="varchar">
+  <field name="pm" caption="产品名称" group="true" datatype="varchar">
+  <field name="gg" caption="规格" group="true" datatype="varchar">
+  <field name="hh" caption="花号" group="true" datatype="varchar">
+  <field name="jhfhrq" caption="通知发货日期" group="true" datatype="varchar">
+  <field name="kdsl" caption="计划数量" group="true" datatype="varchar">
+  <field name="tdrq" caption="实发日期" group="true" datatype="varchar">
+  <field name="stsl" caption="实发数量" sum="true" datatype="number">
+  <field name="qhsl" caption="缺货数量" sum="true" datatype="number">
+  <field name="qhje" caption="缺货金额" sum="true" datatype="number">
+  <field name="dwdm" caption="客户代码" group="true" datatype="varchar">
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+
+  <where field="ksrq" caption="实际发货日期" linktable="" need="true" linkcolumn="" querycolumn="" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="jsrq" caption="--" linktable=""need="true" linkcolumn="" querycolumn="" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">	
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="tdbh" caption="单据号" datatype="varchar" opersign="like">
+  <where field="djlx" caption="单据类型"  opersign="=" value="=全部&1=提货单&-1=退货单&2=广告促销单&11=同价调拔单&12=同价调回单&13=促销调拨单" type="radio" span="true">
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+  <param name="pid" datatype="number" value="{personid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">浙江盛宇被服有限公司发货记录单</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$ksrq} -- {where.a$jsrq}</td>
+  </tr>
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr> 
+    <td align="center"  nowrap="true" field="tdbh">单据号</td>
+    <td align="center"  nowrap="true" field="cpbm">产品代码</td>
+    <td align="center"  nowrap="true" field="pm">产品名称</td>
+	<td align="center"  nowrap="true" field="gg">规格</td>
+	<td align="center"  nowrap="true" field="hh">花号</td>
+	<td align="center"  nowrap="true" field="jhfhrq">通知发货日期</td>
+	<td align="center"  nowrap="true" field="kdsl">计划数量</td>
+	<td align="center"  nowrap="true" field="tdrq">实发日期</td>
+	<td align="center"  nowrap="true" field="stsl">实发数量</td>
+	<td align="center"  nowrap="true" field="qhsl">缺货数量</td>
+	<td align="center"  nowrap="true" field="qhje">缺货金额</td>
+	<td align="center"  nowrap="true" field="dwdm">客户代码</td>
+	<td align="center"  nowrap="true" field="dwmc">客户名称</td>
+  </tr>
+  <tr  onClick="selectRow();" onDblClick="selectRow();detailRep('{tdid}','{djlx}')"  >
+    <td nowrap="true"><value field="tdbh"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+	<td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="hh"></td>
+	<td nowrap="true"><value field="jhfhrq"></td>
+	<td nowrap="true"><value field="kdsl"></td>
+	<td nowrap="true"><value field="tdrq"></td>
+	<td nowrap="true"><value field="stsl"format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="qhsl" format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="qhje"format="#,##0.00" zeroformat=""></td>
+	<td nowrap="true"><value field="dwdm"></td>
+	<td nowrap="true"><value field="dwmc"></td>
+  </tr>
+  <widths value="10,12,18,7,8,13,10,10,10,10,10,10,11"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar, 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,    'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+ function productCodeSelect(obj,srcVars)
+ {
+    SaleProdCodeChange(document.all['prod'], obj.form.name, srcVars, 'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    SaleProdNameChange(document.all['prod'], obj.form.name, srcVars,'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(param,djlx){
+if(param=="")
+return;
+ if(djlx=='-1')
+   openSelectUrl('../sale_shengyu/backsend_edit.jsp?operate=645355666&code=shyu_td_detail&id='+param, 'backsend');
+ else if(djlx=='2')
+  openSelectUrl('../sale_shengyu/sale_promotion_edit.jsp?operate=645355666&code=shyu_td_detail&id='+param, 'sale_promotion');
+ else if(djlx=='4')
+  openSelectUrl('../sale_shengyu/directsell_edit.jsp?operate=645355666&code=shyu_receivable_detail&id='+param, 'directsell');
+ else if(djlx=='5')
+  openSelectUrl('../sale_shengyu/exchange_edit.jsp?operate=645355666&code=shyu_receivable_detail&id='+param, 'exchange');
+ else if(djlx=='11')
+  openSelectUrl('../sale_shengyu/instep_edit.jsp?operate=645355666&code=instep&id='+param, 'instep');
+ else if(djlx=='12')
+  openSelectUrl('../sale_shengyu/instepback_edit.jsp?operate=645355666&code=instepback&id='+param, 'instepback');
+ else if(djlx=='13')
+  openSelectUrl('../sale_shengyu/inpromotion_edit.jsp?operate=645355666&code=inpromotion&id='+param, 'inpromotion');
+ else 
+  openSelectUrl('../sale_shengyu/send_list_edit.jsp?operate=645355666&code=shyu_td_detail&id='+param, 'send_list');
+}
+</SCRIPT>
+</body>
+</html>

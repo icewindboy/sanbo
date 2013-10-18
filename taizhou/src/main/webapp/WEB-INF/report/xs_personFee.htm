@@ -1,0 +1,93 @@
+<html>
+<title name="业务员运费">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="" type="sql">
+
+  <field name="trans_code" caption="运单号" group="true"  datatype="varchar">
+  <field name="driver_name" caption="驾驶员" group="true"  datatype="varchar">
+  <field name="car_no" caption="车牌号" group="true"  datatype="varchar">
+  <field name="xm" caption="业务员" group="true" datatype="varchar">
+  <field name="area_name" caption="地区名称" group="true"  datatype="varchar">
+  
+  <field name="zl" caption="重量(kg)" group="true"  sum="true"  datatype="number" >
+  <field name="yfzl" caption="运费计重(kg)" group="true"    datatype="number" >
+  <field name="issend" caption="是否送货用车" group="true"  datatype="varchar" >
+  <field name="fee_cust" caption="运费客户系数" group="true"  datatype="number" >
+  <field name="fee_price" caption="运费价格(元/kg)" group="true"  datatype="number" >
+  <field name="per_fee" caption="每趟运费(元)" group="true"  datatype="number" >
+  <field name="khs" caption="客户数" group="true"  sum="true"  datatype="number" >
+  <field name="mc" caption="部门" group="true"   datatype="varchar" >
+  <field name="dwmc" caption="内部单位" group="true" group="true" datatype="varchar" >
+  <field name="personmoney" caption="运费(元)" group="true"  sum="true"  datatype="number" >
+
+  <where field="trans_date" caption="运单日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date" need="true">
+  <where field="trans_date" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;="  initvalue="{date}" datatype="date" need="true">
+  <where field="trans_code" caption="运单号"  opersign="like"  datatype="varchar">
+  <where field="driver_id" caption="驾驶员"  datatype="number" opersign="="  type="select" lookup="xs_driver" >
+  <where field="car_id" caption="车牌号"  datatype="number" opersign="="  type="select" lookup="xs_car">
+  <where field="issendcar" caption="是否送货用车" datatype="number" opersion="=" type="select" value="1=送货用车&0=非送货用车">
+  <where field="xm" caption="业务员" datatype="varchar" opersign="like">
+  <where field="area_price_id" caption="行驶地区" need="false" datatype="number" opersign="=" type="select"  lookup="xs_area_price" >
+
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm.list">
+  <where field="dwtxid" caption="内部往来单位" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="InsideCodeChange(document.all['prod'], this.form.name, '@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', this.value)"
+  nameonchange="InsideNameChange(document.all['prod'], this.form.name, '@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', this.value)"
+  onclick="InsideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <!--where field="dwmc" caption="内部单位" datatype="varchar" opersign="like" type="lookup"-->
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">业务员运费表 </td>
+
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12"></td>
+  </tr>
+</table>
+<table id="tableview1"   class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+    <td align="center"  nowrap="true" field="trans_code">运单号</td>
+     <td align="center"  nowrap="true" field="driver_name">驾驶员</td>
+	  <td align="center"  nowrap="true" field="car_no">车牌号</td>
+	  <td align="center"  nowrap="true" field="xm">业务员</td>
+    <td align="center"  nowrap="true" field="area_name">地区名称</td>
+	<td align="center"  nowrap="true" field="zl">重量(kg)</td>
+    <td align="center"  nowrap="true" field="yfzl">运费计重(kg)</td>
+
+    <td align="center"  nowrap="true" field="issend">是否送货用车</td>
+    <td align="center"  nowrap="true" field="fee_cust">运费客户系数</td>
+	  <td align="center"  nowrap="true" field="fee_price">运费价格(元/kg)</td>
+    <td align="center"  nowrap="true" field="per_fee">每趟运费(元)</td>
+    <td align="center"  nowrap="true" field="khs">客户数</td>
+    <td align="center"  nowrap="true" field="mc">部门</td>
+	  <td align="center"  nowrap="true" field="dwmc">内部单位</td>
+	  <td align="center"  nowrap="true"  field="personmoney">运费(元)</td>
+  </tr>
+  <tr  onClick="selectRow();">
+    <td nowrap="true"><value field="trans_code"></td>
+    <td nowrap="true"><value field="driver_name"></td>
+	 <td nowrap="true"><value field="car_no"></td>
+	  <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="area_name"></td>
+     <td nowrap="true" align="right"><value field="zl"></td>
+	  <td nowrap="true" align="right"><value field="yfzl"></td>
+	  <td nowrap="true"><value field="issend"></td>
+	  <td nowrap="true"><value field="fee_cust"></td>
+    <td nowrap="true" align="right"><value field="fee_price"></td>
+	  <td nowrap="true" align="right"><value field="per_fee"></td>
+	  <td nowrap="true" align="right"><value field="khs"></td>
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+	  <td nowrap="true" align="right"><value field="personmoney" format="#,##0.00"> </td>
+  </tr>
+  <widths value="7,7,7,7,7,7,7,7,7,10,10,11,7,7,7">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+
+</SCRIPT>
+</body>
+</html>

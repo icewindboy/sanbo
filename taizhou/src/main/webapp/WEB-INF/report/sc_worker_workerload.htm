@@ -1,0 +1,113 @@
+<html>
+<title name="工人工作量统计表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_SC_WORKLOAD" type="sql">
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">		
+  <where field="deptid" caption="车间" datatype="number" opersign="=" type="select"  lookup="bm.iswork" >
+  <where field="cpbm" caption="产品编码" datatype="varchar" >
+   <where field="cpid" caption="品名规格" datatype="number" opersign="=" type="lookup" span="true" codeonchange="productCodeSelect(this,'@')" nameonchange="productNameSelect(this,'@')" onclick="ProdSingleSelect('fixedQueryform','@','fieldVar=cpid&fieldVar=cpbm&fieldVar=product')">				
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" style="font-size:16" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">工人工作量统计表</td>
+  </tr>
+   <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table dataset="a" id="tableview1" class="table" name="rqxs" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+  <td align="center" valign="middle" nowrap="true" field="rq">日期</td>
+  <td align="center" valign="middle" nowrap="true" field="mc">部门</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+    <td align="center" valign="middle" nowrap="true" field="gxlx">工序名称</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+    <td align="center" valign="middle" nowrap="true" field="jjgz">金额</td>
+  </tr>
+  <tr onDblClick="selectRow();"> 
+    <td nowrap="true"><value field="rq"></td>
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="gxlx"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="jjgz" format="{priceformat}"></td>
+  </tr>
+  <widths value="9,9,11,20,10,5,8,8,8"> 
+</table>
+<table dataset="a" id="tableview2" class="table" name="ygxs" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr> 
+  <td align="center" valign="middle" nowrap="true" field="mc">部门</td>
+  <td align="center" valign="middle" nowrap="true" field="xm">员工</td>
+    <td align="center" valign="middle" nowrap="true" field="cpbm">产品编码</td>
+	<td align="center" valign="middle" nowrap="true" field="pm">品名</td>
+    <td align="center" valign="middle" nowrap="true" field="gg">规格</td>
+	<td align="center" valign="middle" nowrap="true" field="jldw">单位</td>
+    <td align="center" valign="middle" nowrap="true" field="gxlx">工序名称</td>
+    <td align="center" valign="middle" nowrap="true" field="sl">数量</td>
+	<td align="center" valign="middle" nowrap="true" field="jjgz">金额</td>
+  </tr>
+  <tr onDblClick="selectRow();personDetailRep('{bmid}','{id}','{cpbm}', '{gx}')"> 
+    <td nowrap="true"><value field="mc"></td>
+    <td nowrap="true"><value field="xm"></td>
+    <td nowrap="true"><value field="cpbm"></td>
+    <td nowrap="true"><value field="pm"></td>
+    <td nowrap="true"><value field="gg"></td>
+    <td nowrap="true"><value field="jldw"></td>
+    <td nowrap="true"><value field="gxlx"></td>
+    <td nowrap="true" align="right"><value field="sl" format="{qtyformat}"></td>
+    <td nowrap="true" align="right"><value field="jjgz" format="{priceformat}"></td>
+  </tr>
+  <widths value="9,9,11,20,10,5,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+var isShow = false;
+for(i=1; i<=2; i++)
+{
+  table = document.all['tableview'+i];
+  if(table+'' != 'undefined')
+  {
+	if(isShow)
+	  table.style.display ="none";  
+	else
+	{
+	  isShow = true;
+	  initDefaultTableRow('tableview'+i,1);
+	}
+  }
+}
+</SCRIPT>
+<SCRIPT LANGUAGE="javascript">
+function productCodeSelect(obj,srcVars)
+ {
+    ProdCodeChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+ }
+  function productNameSelect(obj,srcVars)
+  {
+    ProdNameChange(document.all['prod'], obj.form.name, srcVars,
+                   'fieldVar=cpid&fieldVar=cpbm&fieldVar=product', obj.value);
+  }
+function detailRep(rq, deptid, cpbm, gx){
+  if(rq=="" && deptid=="" && cpbm=="" && gx=="")
+	 return;
+ openSelectUrl('showdetail.jsp?operate=showdetail&code=sc_shop_day_produce&a$cpbm='+cpbm+'&a$rq$a='+rq+'&a$rq$b='+rq+'&a$deptid='+deptid+'&a$gx='+gx, 'sc_shop_day_produce');
+}
+function personDetailRep(deptid, personid, cpbm, gx){
+ if(personid=="" && deptid=="" && cpbm=="" && gx=="")
+	 return;
+	 openSelectUrl('showdetail.jsp?operate=showdetail&code=sc_shop_day_produce&a$cpbm='+cpbm+'&a$rq$a='+ksrq+'&a$rq$b='+jsrq+'&a$deptid='+deptid+'&a$personid='+personid+'&a$gx='+gx, 'sc_shop_day_produce');
+ }
+</SCRIPT>
+</body>
+</html>

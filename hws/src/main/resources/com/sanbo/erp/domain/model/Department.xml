@@ -3,7 +3,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sanbo.erp.domain.model.DepartmentMapper">
 
-<!-- select t.* from (Select a.*,rownum as rnum from BM a order by a.deptid )t where t.rnum between 10 and 100 -->
 	<resultMap id="departmentMap" type="com.sanbo.erp.domain.model.Department">
 		<id property="deptid" column="deptid" />
 		<result property="parentdeptid" column="parentdeptid" />
@@ -26,10 +25,10 @@
 
 	</resultMap>
 
+
 	<select id="getDepartmentById" parameterType="int" resultMap="departmentMap">
-		select * from (select rownum rowd,c.* from bm c where c.deptid =
-		#{value} )
-		where rowd=1
+		select * from (select rownum rowd,c.* from bm c where c.deptid
+		=#{value} ) where rowd=1
 	</select>
 
 

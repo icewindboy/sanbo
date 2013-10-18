@@ -1,0 +1,139 @@
+<html>
+<title name="原纸进货检验报告单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="VW_ZL_BUYCHECK" type="sql">
+  <field name="productcheckno" caption="检验单号"   datatype="varchar">
+  <field name="sfdjdh_0" caption="入库单号"  datatype="varchar">
+  <field name="dwdm_0" caption="供应商编码"  datatype="varchar">
+  <field name="dwmc_0" caption="供应商名称"  datatype="varchar">
+  <field name="cpbm_0" caption="产品编码"  datatype="varchar">
+  <field name="pm_0" caption="品名"  datatype="varchar">
+  <field name="gg_0" caption="规格"  datatype="varchar">
+  <field name="sxz_0" caption="规格属性"  datatype="varchar">
+  <field name="jldw_0" caption="计量单位"  datatype="varchar">
+  <field name="get_date" caption="到货日期"  datatype="date">
+  <field name="get_num" caption="到货数量"  datatype="number">
+  <field name="buycheckdate" caption="检验日期"  datatype="date">
+  <field name="check_num" caption="检验数量"  datatype="number">
+  <field name="standardname_0" caption="检验依据" datatype="varchar">
+  <field name="mc_0" caption="检验部门"  datatype="varchar">
+  <field name="xm_0" caption="检验员"  datatype="varchar">
+  <field name="check_verdict_0" caption="检验结论"   datatype="number">
+  <field name="checkitem" caption="检验项目"   datatype="varchar">
+  <field name="unit" caption="单位" datatype="varchar">
+  <field name="techrequest" caption="标准要求"   datatype="varchar">
+  <field name="checkresult" caption="检验结果"   datatype="varchar">
+  <field name="check_verdict_1" caption="结论"   datatype="number"><!--技术指标从表结论-->
+  <field name="checkitem_0" caption="检验项目"   datatype="varchar"><!--外观从表检验项目-->
+  <field name="result" caption="结论"   datatype="number">
+  <field name="remark_1" caption="备注1"   datatype="varchar"><!--外观从表备注-->
+  <field name="remark_0" caption="备注0"   datatype="varchar"><!--主表备注-->
+  <field name="createdate" caption="制单日期"  datatype="date">
+  <field name="creator" caption="制单人"  datatype="varchar">
+  <field name="approverid_0" caption="审批人" datatype="varchar"><!--审批人-->
+  <field name="fifialeid" caption="分公司id" datatype="number">
+  <where field="buycheckid" caption="采购入库检验ID" datatype="number">
+  <param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr> 
+    <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="976">原纸进货检验报告单</td>
+  </tr>
+</table>
+<table id="tableview1"  width="974"  border="0" align="center" cellpadding="0" cellspacing="0" class="table" dataset="a" type="static" fillnull="false">
+  <tr> 
+    <td width="184" align="center"  nowrap="" field="productcheckno"   border-left="0" border-right="0" border-top="0" border-bottom="0">检验单号:</td>
+    <td width="85" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="productcheckno"></td>
+    <td width="264" align="center"  nowrap="" field="sfdjdh_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >入库单号:</td>
+    <td width="54" nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="sfdjdh_0"></td>
+    <td  align="center"  nowrap="" field="dwdm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0">供应商代码:</td>
+    <td  nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="dwdm_0"></td>
+    <td  align="center"  nowrap="" field="dwmc_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >供应商名称:</td>
+    <td  nowrap="" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="dwmc_0"></td>
+  </tr>
+  <tr> 
+    <td align="center"  nowrap="" field="cpbm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >产品编码:</td>
+    <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="cpbm_0"> </td>
+    <td align="center" nowrap="true" field="pm_0" border-left="0" border-right="0" border-top="0" border-bottom="0">品名规格: </td>
+    <td nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="pm_0">  <value field="gg_0"></td>
+    <td align="center"  nowrap="" field="sxz_0" border-left="0" border-right="0" border-top="0" border-bottom="0" >规格属性:</td>
+    <td colspan="3" nowrap="true" border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="sxz_0"></td>
+  </tr>
+  <tr> 
+    <td align="center"  field="jldw_0"   border-left="0" border-right="0" border-top="0" border-bottom="0" >单位:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="jldw_0"></td>
+    <td align="center"  field="get_date"   border-left="0" border-right="0" border-top="0" border-bottom="0" >到货日期:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="get_date"></td>
+	<td align="center"  field="get_num"   border-left="0" border-right="0" border-top="0" border-bottom="0" >到货数量:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="get_num"></td>
+    <td width="123" align="center"  field="buycheckdate"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >抽检日期:</td>
+    <td width="114" border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="buycheckdate"></td>
+  </tr>
+  <tr> 
+    <td align="center"  field="check_num"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >抽检数量:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="check_num"></td>
+    <td align="center"  field="standardname_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >检验依据:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="standardname_0"></td>
+	<td align="center"  field="mc_0"   border-left="0" border-right="0" border-top="0" border-bottom="0">检验部门:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="mc_0"></td>
+    <td align="center"  field="xm_0"   border-left="0" border-right="0" border-top="0" border-bottom="0">检验员:</td>
+    <td border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="xm_0"></td>
+  </tr>
+  <tr> 
+    <td align="center"  field="check_verdict_0"   border-left="0" border-right="0" border-top="0" border-bottom="0"  >检验结论:</td>
+    <td colspan="6" border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="check_verdict_0"></td>
+  </tr>
+  <widths value="6,6,8,10,8,8,8,18"> 
+</table>     
+<table width="974"  border="1" align="center" cellpadding="2" cellspacing="0" class="table" id="tableview2"  dataset="a" type="dynamic" fillnull="false" header="2" offset="-2" maxrow="15">
+  <tr>
+    <td align="center" nowrap="true" colspan="5" >技术指标 </td>
+    <td align="center" nowrap="true" colspan="3" >外观</td>
+  </tr>
+  <tr> 
+    <td nowrap="true" align="center"  field="checkitem">检验项目</td>
+    <td align="center" nowrap="true"  field="unit">单位</td>
+    <td align="center" nowrap="true"  field="techrequest">标准要求</td>
+    <td align="center" nowrap="true" field="checkresult">检验结果</td>
+    <td align="center" nowrap="true" field="check_verdict_1">结论</td>
+	<td align="center" nowrap="true" field="checkitem_0">检验项目</td>
+    <td align="center" nowrap="true" field="result">结论</td>
+    <td align="center" nowrap="true" field="remark_1">备注</td>
+  
+  </tr>
+  <tr> 
+    <td nowrap="true" align="center" border_bottom="0"><value field="checkitem"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="unit"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="techrequest"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="checkresult"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field="check_verdict_1"></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field=""></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field=""></td>
+    <td nowrap="true" align="center" border_bottom="0"><value field=""></td>
+  
+  </tr>
+</table>
+
+<table id="tableview3" class="table" dataset="a" width="98%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2"  align="center">
+  <tr>
+  <td align="center" nowrap="ture" field="remark_0"  border-left="0" border-right="0" border-top="0" border-bottom="0"> 备注</td>
+  <td colspan="5" nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="remark_0"></td>
+  </tr>
+  <tr>
+    <td  align="center" nowrap="ture" field="approverid_0"  border-left="0" border-right="0" border-top="0" border-bottom="0">审批人:</td> 
+    <td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"  ><value field="approverid_0"></td>
+   	<td align="center"  nowrap="" field="createdate"  border-left="0" border-right="0" border-top="0" border-bottom="0">制单日期:</td>
+ 	<td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="createdate"></td>
+   	<td align="center" nowrap="" field="creator"   border-left="0" border-right="0" border-top="0" border-bottom="0">制单人:</td>
+   	<td nowrap="true"  border-left="0" border-right="0" border-top="0" border-bottom="0"><value field="creator"></td>
+ </tr>
+  	<widths value="8,8,8,8,8,8"> 
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>

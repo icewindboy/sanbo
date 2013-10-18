@@ -1,0 +1,111 @@
+<html>
+<title name="应付帐款明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="PCK_BUY_REP.IN_RECEIVABLE_DETAIL(?,'@','@','@','@','@','@','@','@','@')" type="procedure">
+
+  <field name="rq" caption="日期" group="true" datatype="date">
+  <field name="zy" caption="摘要" group="true" datatype="varchar">
+  <field name="xf" caption="应付" sum="true" datatype="number">
+  <field name="yf" caption="已付" sum="true" datatype="number">
+  <field name="ye" caption="余额" group="true" datatype="number">
+  <field name="djh" caption="单据号" group="true" datatype="varchar">
+  <field name="jsfs" caption="结算方式" group="true" datatype="varchar">
+  <field name="ywy" caption="业务员" group="true" datatype="varchar">
+  <field name="lx" caption="客户类型" group="true" datatype="varchar">
+
+  <where field="rq" caption="日期" need="true" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" need="true" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="djxz" caption="数据来源" opersign="=" value="=发票&1=进货单" type="radio" span="true" initvalue='1'>
+  <where field="dwtxid" caption="供应商"  need="true" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="ProvideSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">
+  <where field="lx" caption="客户类型"  opersign="=" value="=全部&A=A&C=C" type="radio">
+  <where field="personid" caption="业务员"  datatype="number" opersign="=" type="select"  lookup="emp" span="true">
+  <where field="zt" caption="包括未记帐进货单据"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+  <where field="jzt" caption="包括未记帐结算单据"  opersign="=" value="1=包括&0=不包括" type="radio" span="true" initvalue='1'>
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center" style="font-size:16" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">应付帐款明细表</td>
+  </tr>
+ <tr>
+	 <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a"  width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td align="center" valign="middle" nowrap="true" field="rq">日期</td>
+	<td align="center" valign="middle" nowrap="true" field="zy">摘要</td>
+	<td align="center" valign="middle" nowrap="true" field="xf">应付</td>
+	<td align="center" valign="middle" nowrap="true" field="yf">已付</td>
+        <td align="center" valign="middle" nowrap="true" field="ye">余额</td>
+	<td align="center" valign="middle" nowrap="true" field="djh">单据号</td>
+	<td align="center" valign="middle" nowrap="true" field="jsfs">结算方式</td>
+	<td align="center" valign="middle" nowrap="true" field="ywy">业务员</td>
+	<td align="center" valign="middle" nowrap="true" field="lx">客户类型</td>
+ </tr>
+ <tr onClick="selectRow();" onDblClick="selectRow();detailRep('{id}','{zy}','{lx}')">
+	<td nowrap="true"><value field="rq"></td>
+	<td nowrap="true"><value field="zy"></td>
+	<td nowrap="true" align="right"><value field="xf" format="{priceformat}"></td>
+	<td nowrap="true" align="right"><value field="yf" format="{priceformat}"></td>
+        <td nowrap="true" align="right"><value field="ye" format="{priceformat}"></td>
+	<td nowrap="true"><value field="djh"></td>
+	<td nowrap="true"><value field="jsfs"></td>
+	<td nowrap="true"><value field="ywy"></td>
+	<td nowrap="true"><value field="lx"></td>
+  </tr>
+  <widths value="9,8,7,7,7,8,10,10,10">
+</table>
+<SCRIPT LANGUAGE='javascript' id='where'>var i=0;</SCRIPT>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  ProvideCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  ProvideNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param,zy,lx){
+if(zy=='期初余额')
+return;
+if(param=="")
+return;
+
+else if(zy=='发票'){
+    openSelectUrl('../finance_yuzhou/buy_invoice_edit.jsp?operate=2000&code=buy_invoice_edit&id='+param, 'buy_invoice_edit');
+}
+else if(zy=='采购预付款'){
+openSelectUrl('../finance_yuzhou/advance_payment_edit.jsp?operate=2000&code=advance_payment_edit&id='+param, 'advance_payment_edit');
+
+}
+else if(zy=='进口进货'){
+  openSelectUrl('../income/buy_in_edit.jsp?operate=2000&code=income_in&jhdid='+param, 'income_in');
+}
+else if(zy=='进口退货'){
+  openSelectUrl('../income/buy_out_edit.jsp?operate=2000&code=income_out&jhdid='+param, 'income_out');
+}
+else if(zy=='采购进货'||zy=='采购退货')
+{
+  openSelectUrl('../buy_yuzhou/buy_in_edit.jsp?operate=2000&code=buy_in&jhdid='+param, 'buy_in');
+}
+else if(zy=='结算')  {
+  if(lx==""){
+      openSelectUrl('../income/income_balance_edit.jsp?operate=55555343&code=income_balance_edit&id='+param, 'income_balance');
+     }
+    else
+    {
+    openSelectUrl('../finance_yuzhou/buy_balance_edit.jsp?operate=55555343&code=buy_balance_edit&id='+param, 'buy_balance');
+    }
+}
+
+}
+</SCRIPT>
+</body>
+</html>

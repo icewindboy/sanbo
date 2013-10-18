@@ -1,0 +1,73 @@
+<html>
+<title name="职工残疾情况明细表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="(SELECT c.mc,a.deptid,decode(a.sex,1,'男',0,'女') xb ,a.sex,a.isdelete,decode(a.isdelete,0,'在职',1,'删除',2,'离职') zt,a.bm,b.personid,a.xm,a.sfzhm,b.cjrzh,b.fzjg,b.gzgw,b.azsj,b.cjlb,b.bz FROM  emp a,rl_zgcjqk b,bm c WHERE a.personid = b.personid(+) AND a.isDeformity=1 AND a.deptid=c.deptid order by a.isdelete,a.deptid,a.bm )
+" type="sql">
+  
+  <field name="bm" caption="职工代码" datatype="varchar">
+  <field name="xm" caption="姓名" datatype="varchar">
+  <field name="xb" caption="姓别" datatype="varchar">
+  <field name="mc" caption="部门" group="true" datatype="varchar">
+ <field name="zt" caption="状态" datatype="varchar">
+  <field name="sfzhm" caption="身份证号码" datatype="varchar">
+  <field name="cjrzh" caption="残疾证号码" datatype="varchar">
+  <field name="gzgw" caption="岗位" datatype="varchar">
+  <field name="azsj" caption="安置时间" datatype="date">
+  <field name="cjlb" caption="残疾类别" datatype="varchar">
+   <field name="fzjg" caption="发证机关" datatype="varchar">
+   <field name="bz" caption="备注" datatype="varchar">
+  <where field="bm" caption="职工代码" datatype="varchar" opersion="left_like">
+  <where field="xm" caption="姓名" datatype="varchar" opersion="left_like">
+  <where field="deptid" caption="部门" datatype="number" opersign="=" type="select" lookup="bm">
+  <where field="sex" caption="性别"  opersign="=" value="1=男&0=女&=全部" type="radio"  span="true">
+   <where field="isdelete" caption="状态"  opersign="=" value="2=离职&0=在职&=全部" type="radio"  span="true">
+
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+
+    <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">职工残疾情况明细表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="true" header="1">
+  <tr>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="bm">职工代码</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="xm">姓名</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="xb">姓别</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="mc">部门</td>
+   <td width="7%" align="center" valign="middle" nowrap="true" field="zt">状态</td>
+	<td width="7%" align="center" valign="middle" nowrap="true" field="sfzhm">身份证号码</td>
+    <td width="18%" align="center" valign="middle" nowrap="true" field="cjrzh">残疾证号码</td>
+	<td width="8%" align="center" valign="middle" nowrap="true" field="gzgw">岗位</td>
+    <td width="7%" align="center" valign="middle" nowrap="true" field="azsj">安置时间</td>
+	<td width="10%" align="center" valign="middle" nowrap="true" field="cjlb">残疾类别</td>
+    <td width="10%" align="center" valign="middle" nowrap="true" field="fzjg">发证机关</td>
+    <td width="10%" align="center" valign="middle" nowrap="true" field="bz">备注</td>
+	
+  </tr>
+  <tr>
+ 	<td nowrap="true" align="center"><value field="bm"></td>
+    <td nowrap="true" align="center"><value field="xm"></td>
+	<td nowrap="true" align="center"><value field="xb"></td>
+	 <td nowrap="true" align="center"><value field="mc"></td>
+	 <td nowrap="true" align="center"><value field="zt"></td>
+    <td nowrap="true" align="center"><value field="sfzhm"></td>
+	<td nowrap="true" align="center"><value field="cjrzh"></td>
+    <td nowrap="true" align="center"><value field="gzgw"></td>
+    <td nowrap="true" align="center"><value field="azsj"></td>
+    <td nowrap="true" align="center"><value field="cjlb"></td>
+    <td nowrap="true" align="center"><value field="fzjg"></td>
+    <td nowrap="true" align="center"><value field="bz"></td>
+    
+  </tr>
+  <widths value="6，6，7，7,4,10,7,6,8,8,8,10">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+</SCRIPT>
+</body>
+</html>
+
+
+

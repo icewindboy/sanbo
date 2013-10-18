@@ -1,0 +1,103 @@
+<html>
+<title name="设备保养记录表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="VW_MAINTAIN_RESULT" type="sql"> 
+  <field name="equipment_code_0" caption="设备编码"   datatype="varchar">
+  <field name="equipment_name_0" caption="设备名称"   datatype="varchar">
+  <field name="standard_gg_0" caption="型号规格"   datatype="varchar">
+  <field name="maintain_date" caption="保养日期"   datatype="date">
+  <field name="personid_0" caption="保养人"   datatype="varchar">
+  <field name="pm_0" caption="元件名称"   datatype="varchar">
+  <field name="gg_0" caption="元件规格"   datatype="varchar">
+  <field name="content" caption="保养内容"   datatype="varchar">
+  <field name="run_rate" caption="运转率"   datatype="number">
+  <field name="memo" caption="备注"   datatype="varchar">
+<where field="maintain_date" caption="保养日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+<where field="maintain_date" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+<where field="equipmentid" caption="设备名称" datatype="number" opersign="=" type="lookup" span="true"
+codeonchange="equipmentCodeSelect(this,'@')" nameonchange="equipmentNameSelect(this,'@')" onclick="equipmentSingleSelect('fixedQueryform','@','fieldVar=equipmentid&fieldVar=equipment_code&fieldVar=equipment_name','','','')">
+<where field="personid" caption="保养人" need="false" datatype="number" opersign="=" type="select"  lookup="emp" >
+<param name="filialeid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="976" border="0" cellspacing="0" cellpadding="0" type="static" align="center">
+  <tr>
+    <td align="center"  style="font-size:16"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1" width="976">设备保养记录表</td>
+  </tr>
+  <tr> 
+    <td align="center" border-left="0" border-right="0" border-top="0" border-bottom="0" >{where.a$maintain_date$a}--{where.a$maintain_date$b}</td>
+  </tr>
+</table>
+<table id="tableview1" width="972" border="0" align="center" cellpadding="2" cellspacing="0" class="table"  dataset="a" type="dynamic" fillnull="true" header="1" offset="-2" >
+     <tr>
+          <td nowrap="true" align="center" field="equipment_code_0">设备编码</td>
+          <td nowrap="true" align="center" field="equipment_name_0">设备名称</td>
+          <td nowrap="true" align="center" field="standard_gg_0">型号规格</td>
+          <td nowrap="true" align="center" field="maintain_date">保养日期</td>
+		  <td nowrap="true" align="center" field="personid_0">保养人</td>
+          <td nowrap="true" align="center" field="pm_0">元件名称</td>
+		  <td nowrap="true" align="center" field="gg_0">元件规格</td>
+		  <td nowrap="true" align="center" field="content">保养内容</td>
+		  <td nowrap="true" align="center" field="run_rate">运转率</td>
+		  <td nowrap="true" align="center" field="memo">备注</td>
+        </tr>
+	    <tr>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="equipment_code_0"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="equipment_name_0"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="standard_gg_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="maintain_date"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="personid_0"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="pm_0"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="gg_0"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="content"></td>
+          <td nowrap="true" align="center" border_bottom="0"><value field="run_rate"></td>
+		  <td nowrap="true" align="center" border_bottom="0"><value field="memo"></td>
+     </tr>
+	 <widths value="6,15,12,8,6,15,15,10,10,8">
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+function equipmentSingleSelect(frmName, srcVar,fieldVar,methodName,code,name,notin)
+{
+  var winopt = "location=no scrollbars=yes menubar=no status=no resizable=1 width=930 height=570 top=0 left=0";
+  var winName= "GoodsProdSelector";
+  paraStr = "../equipment/equipment_select.jsp?operate=0&srcFrm="+frmName+"&"+srcVar+"&"+fieldVar+"&code="+code+"&name="+name;
+  if(methodName+'' != 'undefined')
+    paraStr += "&method="+methodName;
+  if(notin+'' != 'undefined')
+    paraStr += "&notin="+notin;
+  newWin =window.open(paraStr,winName,winopt);
+  newWin.focus();
+}
+function equipmentCodeSelect(obj,equipmentid,srcVars)
+{
+  equipmentCodeChange(document.all['prod'], obj.form.name, srcVars,
+                 'fieldVar=equipmentid&fieldVar=equipment_code&fieldVar=equipment_name',equipmentid,obj.value);
+}
+function equipmentNameSelect(obj,equipmentid,srcVars)
+{
+  equipmentNameChange(document.all['prod'], obj.form.name, srcVars,
+                 'fieldVar=equipmentid&fieldVar=equipment_code&fieldVar=equipment_name',equipmentid,obj.value);
+}
+function equipmentCodeChange(iframeObj, frmName,srcVar,fieldVar,code,methodName,notin)
+{
+  paraStr = "../equipment/equipment_select.jsp?operate=53&srcFrm="+frmName+"&"+srcVar+"&"+fieldVar+"&code="+code;
+  if(methodName+'' != 'undefined')
+    paraStr += "&method="+methodName;
+  if(notin+'' != 'undefined')
+    paraStr += "&notin="+notin;
+  iframeObj.src=paraStr;
+}
+function equipmentNameChange(iframeObj, frmName,srcVar,fieldVar,code,methodName,notin)
+{
+  paraStr = "../equipment/equipment_select.jsp?operate=54&srcFrm="+frmName+"&"+srcVar+"&"+fieldVar+"&name="+code;
+  if(methodName+'' != 'undefined')
+    paraStr += "&method="+methodName;
+  if(notin+'' != 'undefined')
+    paraStr += "&notin="+notin;
+  iframeObj.src=paraStr;
+}
+</SCRIPT>
+</body>
+</html>
+

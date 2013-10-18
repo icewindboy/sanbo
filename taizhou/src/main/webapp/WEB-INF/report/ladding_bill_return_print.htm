@@ -1,0 +1,101 @@
+<html>
+<title name="顾客验收回单"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="BILL_SALE_LADDING_EDIT" type="sql">
+  <field name="tdrq" caption="提单日期" datatype="date">
+  <field name="tdbh" caption="提单编号码"   datatype="varchar">
+  <field name="mc" caption="部门"  datatype="varchar">
+  <field name="jsfs" caption="结算方式"  datatype="varchar">
+  <field name="dwmc" caption="购货单位"  datatype="varchar">
+  <field name="khh" caption="开户行"  datatype="varchar">
+  <field name="zh" caption="账号"  datatype="varchar">
+  <field name="dz" caption="供货单位地址"  datatype="varchar">
+  <field name="sh" caption="税号" datatype="number">
+  <field name="sl" caption="数量" sum="true" datatype="number">
+  <field name="je" caption="金额"  sum="true" datatype="number">
+
+  <where field="tdid" caption="销售提单ID" datatype="number">
+
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">温州一新染料化工有限公司</td>
+  </tr>
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">顾客验收回单</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" fillnull="false" header="3">
+  <tr>
+   	  <td align="center"  nowrap="true" field="dwmc"   border-left="0" border-right="0" border-top="0" border-bottom="0" >收货单位</td>
+ 	  <td nowrap="true"  colspan="5"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="dwmc"></td>
+   	  <td align="center"  nowrap="true" field="tdbh"   border-left="0" border-right="0" border-top="0" border-bottom="0" >提单编号</td>
+   	  <td nowrap="true"   border-left="0" border-right="0" border-top="0" border-bottom="0" ><value field="tdbh"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8">
+</table>
+<table id="tableview2" class="table" dataset="a" width="100%" maxrow="15" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1" offset="-2">
+  <tr>
+  	<td align="center"  nowrap="true" field="cpbm">产品编码</td>
+  	<td align="center"  nowrap="true" field="product">品名 规格</td>
+  	<td align="center"  nowrap="true" field="sl">数量</td>
+  	<td align="center"  nowrap="true" field="jldw">单位</td>
+  	<td align="center"  nowrap="true" field="dj">单价</td>
+  	<td align="center"  nowrap="true" field="jje">金额</td>
+  </tr>
+  <tr  onClick="selectRow();" >
+  	<td nowrap="true" border_bottom="0"><value field="cpbm"></td>
+  	<td nowrap="true" border_bottom="0"><value field="product"></td>
+  	<td nowrap="true" border_bottom="0"><value field="sl"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jldw"></td>
+  	<td nowrap="true" border_bottom="0"><value field="dj"></td>
+  	<td nowrap="true" border_bottom="0"><value field="jje" format="#,##0.00" zeroformat=""></td>
+
+  </tr>
+    <widths value="8,9,8,8,8,8">
+</table>
+
+<table id="tableview3" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="summary" header="0" offset="-2">
+  <tr>
+  	<td nowrap="true" border_bottom="0">合计</td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0" ><value field="sl"   sum="true" datatype="number"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+  	<td nowrap="true" border_bottom="0"></td>
+   	<td nowrap="true" border_bottom="0"><value field="jje"    sum="true" datatype="number"></td>
+  </tr>
+    <widths value="8,9,8,8,8,8">
+</table>
+<table id="tableview4" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="static" header="0" offset="-2">
+  <tr>
+     <td align="center"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">验收后：请签名并盖章，速传真（0577-64190666）。谢谢合作！</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="14" font-bold="1">温州一新染料化工有限公司：</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">         贵公司于_______月________日（客）货车号为：_________________，经办人：_____________，</td>
+  </tr>
+    <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">发运的上述色素_______件（_______箱加_______大/小桶），合计___________公斤，已妥善收讫。</td>
+    <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">     此致</td>
+  </tr>
+  <tr>
+     <td align="left"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">   收货单位（盖章）：                                            收货人（签名）：</td>
+  </tr>
+  <tr>
+     <td align="rigth"  border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">_________年______月_______日</td>
+  </tr>
+  <widths value="8,9,8,8,8">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',0);
+initDefaultTableRow('tableview2',0);
+initDefaultTableRow('tableview3',0);
+</SCRIPT>
+</body>
+</html>
+

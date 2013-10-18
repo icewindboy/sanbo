@@ -1,0 +1,40 @@
+<html>
+<title name="货物管理单据"/>
+<page type="precision" height="29.7" width="21" font-size="9"/>
+<%--坐标的原点是从左下脚开始的。y:表示纵坐标,x:表示横坐标--,type的值(head:表头,body:表体,用于打印多条记录的,foot:表尾)--%>
+
+<table type="head" DataSet="headdata">
+<tr> 
+<td y="1" x="2" align="center" align="left" field="cpbm"></td>
+<td y="1" x="2" align="center" align="left" field="pm"></td>
+<td y="1" x="2" align="center" align="left" field="gg"></td>
+<td y="1" x="2" align="center" align="left" field="jldw"></td>
+<td y="1" x="2" align="center" align="left" field="hsdw"></td>
+<td y="1" x="2" align="center" align="left" field="kcsl" multirow="true"></td>
+</tr>
+</table> 
+
+<%--space:行间隙。y,x表体开始的坐标, 每个打印的格子多需要设置横坐标。nowrap:超过最大长度是否自动折行(只对表体有效)。multirow:是否可打印多行。nowrap属性和multirow属性是不能同是共存的--%>
+<table type="body" DataSet="bodydata" y="1" x="2" space="0.5">
+<tr> 
+<td x="3" align="center" align="left" field="cpbm" font-size="9" format="#.00" maxlength="10" nowrap="true"></td>
+<td x="4.5" align="center" align="left" field="pm"></td>
+<td x="6" align="center" align="left" field="gg"></td>
+<td x="8" align="center" align="left" field="jldw"></td>
+<td x="10" align="center" align="left" field="hsdw"></td>
+<td x="13" align="center" align="left" field="kcsl" multirow="true" title="备注"></td>
+</tr>
+</table>
+
+<table type="foot" DataSet="footdata">
+<tr> 
+<td y="1" x="2" align="center" align="left" field="cpbm" multirow="true"></td>
+<td y="1" x="2" align="center" align="left" field="pm"></td>
+<td y="1" x="2" align="center" align="left" field="gg"></td>
+<td y="1" x="2" align="center" align="left" field="jldw"></td>
+<td y="1" x="2" align="center" align="left" field="hsdw"></td>
+<td y="1" x="2" align="center" align="left" field="kcsl"></td>
+</tr>
+</table>
+
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <bean id="placeholderConfig"
+		class="engine.common.InfowarelabPlaceHolder">
+        <property name="configurations">
+            <list>
+                <value>file:${WEB_CONFIG_HOME}/sanbo.properties</value>
+            </list>
+        </property>
+    </bean>
+
+     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+        <property name="driverClassName">
+            <value>${datasource.driverClassName}</value>
+        </property>
+        <property name="url">
+            <value>${datasource.url}</value>
+        </property>
+        <property name="username">
+            <value>${datasource.userName}</value>
+        </property>
+        <property name="password">
+            <value>${datasource.password}</value>
+        </property>
+        <property name="maxActive">
+            <value>${datasource.maxPoolSize}</value>
+        </property>
+        <property name="maxIdle">
+            <value>${datasource.maxPoolSize}</value>
+        </property>
+        <property name="validationQuery">
+            <value>select * from dual</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>true</value>
+        </property>
+    </bean>
+    
+     <!--bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+            <property name="driverClass" value="${datasource.driverClassName}"/>
+            <property name="jdbcUrl"  value="${datasource.url}"/>
+            <property name="user" value="${datasource.userName}"/>
+            <property name="password" value="${datasource.password}"/>
+
+            <property name="minPoolSize" value="${datasource.minPoolSize}"/>
+            <property name="acquireRetryAttempts" value="${datasource.acquireRetryAttempts}"/>
+            <property name="idleConnectionTestPeriod" value="${datasource.idleConnectionTestPeriod}"/>
+            <property name="maxStatements" value="${datasource.maxStatements}"/>
+            <property name="acquireIncrement" value="${datasource.acquireIncrement}"/>
+            <property name="maxIdleTime" value="${datasource.maxIdleTime}"/>
+            <property name="initialPoolSize" value="${datasource.initialPoolSize}"/>
+            <property name="maxPoolSize" value="${datasource.maxPoolSize}"/>
+
+            <property name="preferredTestQuery" value="alter session set nls_sort=SCHINESE_PINYIN_M"/>
+
+            <property name="testConnectionOnCheckin" value="${datasource.testConnectionOnCheckin}"/>
+            <property name="testConnectionOnCheckout" value="true"/>
+    </bean-->
+
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath*:com/sanbo/erp/domain/mybatis/maps/*.xml" />
+	</bean>
+
+	<aop:config>
+		<aop:advisor id="managerTx" advice-ref="txAdvice"
+			pointcut="execution(* com.sanbo.erp..*Dao*.*(..))" order="1" />
+		<aop:advisor id="serviceTx" advice-ref="txAdvice"
+			pointcut="execution(* com.sanbo.erp..*Service*.*(..))"
+			order="1" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="list*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="*" propagation="SUPPORTS"/>
+		</tx:attributes>
+	</tx:advice>
+
+</beans>

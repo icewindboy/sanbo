@@ -1,0 +1,67 @@
+<html>
+<title name="代垫费用统计表">
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<iframe id="prod" src="" width="95%" height=25 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no style="display:none"></iframe>
+<page type="templet" height="21" width="29.7" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="12">
+<dataset name="a" object="REP_XS_PREPAY_STAT" type="sql">
+  <field name="dwdm" caption="客户代码" group="true" datatype="number">
+  <field name="dwmc" caption="客户名称" group="true" datatype="varchar">
+  <field name="tdbh" caption="单据号" group="true" include="id"  datatype="varchar">
+  <field name="ddfy" caption="代垫费用"  sum="true" datatype="number">
+  <field name="yf" caption="运输费"  sum="true" datatype="number">
+
+  <where field="rq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="rq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="dwtxid" caption="客户名称" datatype="number" opersign="=" type="lookup" span="true"
+  codeonchange="corpCodeSelect(this,'@')" nameonchange="corpNameSelect(this,'@')"onclick="CustSingleSelect('fixedQueryform','@','fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc')">>
+  <param name="fgsid" datatype="number" value="{fgsid}">
+  <where field="ddfy" caption="显示选项" value="0.0001=不显示代垫费用为0的单位&-1=全部" type="radio"  opersign="&gt;" initvalue="-1" span="true">
+    <where field="zt" caption="类别"  opersign="in" value="0=未审&1=已审&4=作废&8=完成" type="multi" span="true"> 
+  <where field="lb" caption="数据来源"  opersign="=" value="1=发票&2=提单" type="radio" initvalue="1" span="true">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+    <td align="center"  style="font-size:16"   border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">代垫费用统计表</td>
+  </tr>
+  <tr>
+    <td align="center"  style="font-size:12" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12">{where.a$rq$a} -- {where.a$rq$b}</td>
+  </tr>
+</table>
+<table id="tableview1"  dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1"  class="table">
+  <tr> 
+    <td align="center"  nowrap="true" field="dwdm">客户代码</td>
+    <td align="center"  nowrap="true" field="dwmc">客户名称</td>
+	<td align="center"  nowrap="true" field="tdbh">单据号</td>
+    <td align="center"  nowrap="true" field="ddfy">代垫费用</td>
+    <td align="center"  nowrap="true" field="yf">运输费</td>
+  </tr>
+  <tr  onClick="selectRow();"   onClick="selectRow();" onDblClick="selectRow();detailRep('{id}','{lb}')"> 
+    <td nowrap="true"><value field="dwdm"></td>
+    <td nowrap="true"><value field="dwmc"></td>
+    <td nowrap="true"><value field="tdbh"></td>
+	<td nowrap="true" align="right"><value field="ddfy" format="#,##0.00" zeroformat=""></td>
+    <td nowrap="true" align="right"><value field="yf" format="#,##0.00" zeroformat=""></td>
+  </tr>
+  <widths value="11,18,11,11,11"> 
+</table>
+<SCRIPT LANGUAGE="javascript">initDefaultTableRow('tableview1',1);
+ function corpCodeSelect(obj,srcVar)
+{
+  CustCodeChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function corpNameSelect(obj,srcVar)
+{
+  CustNameChange(document.all['prod'], obj.form.name, srcVar,
+                 'fieldVar=dwtxid&fieldVar=dwdm&fieldVar=dwmc', obj.value);
+}
+function detailRep(param,zy){
+if(param=='')
+return;
+if(param==null)
+return;
+ openSelectUrl('../sale/lading_bill_edit.jsp?operate=645355666&code=xs_prepay_stat&id='+param, 'lading_bill');
+}
+</SCRIPT>
+</body>
+</html>

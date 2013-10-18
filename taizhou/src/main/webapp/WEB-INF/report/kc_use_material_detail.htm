@@ -1,0 +1,71 @@
+<html>
+<title name="材料耗用明细表"></title>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="25">
+<page type="templet" height="29.7" width="21" magin-left="1" magin-right="1" magin-top="0.8" magin-bottom="1" footer-center="第 &P 页，共 &N 页" font-size="9">
+<dataset name="a" object="REP_KC_USE_MATERIAL_DETAIL" type="sql">
+  <field name="ytmc" caption="用途" group="true" datatype="varchar">
+  <field name="sfrq" caption="日期" group="true" datatype="date">
+  <field name="lbmc" caption="单据类型" group="true" datatype="varchar">
+  <field name="sfdjdh" caption="单据号" group="true" include="sfdjid, djxz" datatype="varchar">
+  <field name="ckmc" caption="仓库" group="true" datatype="varchar">
+  <field name="xhsl" caption="数量" sum="true" datatype="varchar">
+  <field name="dj" caption="单价" sum="true" datatype="number">
+  <field name="je" caption="金额" sum="true" datatype="number">
+  <where field="sfrq" caption="日期" linktable="" linkcolumn="" querycolumn="" extendname="a" opersign="&gt;=" initvalue="{yyyy}-{mm}-01" datatype="date">
+  <where field="sfrq" caption="--" linktable="" linkcolumn="" querycolumn="" extendname="b" opersign="&lt;=" initvalue="{date}" datatype="date">
+  <where field="cpbm" caption="产品编码" datatype="varchar" opersign="left_like">
+  <where field="ytid" caption="用途" datatype="varchar" opersign="left_like" type="select" lookup="kc_csdjyt">
+  <where field="storeid" caption="仓库" datatype="number" opersign="=" type="select"  lookup="kc_ck" >	
+  <param name="fgsid" datatype="number" value="{fgsid}">
+</dataset>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" type="static">
+  <tr>
+     <td align="center" valign="middle" border-left="0" border-right="0" border-top="0" border-bottom="0" font-size="12" font-bold="1">材料耗用明细表</td>
+  </tr>
+</table>
+<table id="tableview1" class="table" dataset="a" width="100%" border="0" cellspacing="0" cellpadding="2" type="dynamic" fillnull="false" header="1">
+  <tr>
+	<td align="center" valign="middle" nowrap="true" field="ytmc">用途</td>
+	<td align="center" valign="middle" nowrap="true" field="sfrq">日期</td>
+    <td align="center" valign="middle" nowrap="true" field="lbmc">单据类型</td>
+	<td align="center" valign="middle" nowrap="true" field="sfdjdh">单据号</td>
+    <td align="center" valign="middle" nowrap="true" field="ckmc">仓库</td>
+	<td align="center" valign="middle" nowrap="true" field="xhsl">数量</td>
+    <td align="center" valign="middle" nowrap="true" field="dj">单价</td>
+	<td align="center" valign="middle" nowrap="true" field="je">金额</td>
+  </tr>
+  <tr onDblClick="selectRow();detailRep('{sfdjid}', '{djxz}')">
+ 	<td nowrap="true"><value field="ytmc"></td>
+    <td nowrap="true"><value field="sfrq"></td>
+    <td nowrap="true"><value field="lbmc"></td>
+    <td nowrap="true"><value field="sfdjdh"></td>
+	<td nowrap="true"><value field="ckmc"></td>
+    <td nowrap="true" align="right"><value field="xhsl" format="#0.0000"></td>
+    <td nowrap="true" align="right"><value field="dj" format="#0.0000"></td>
+	<td nowrap="true" align="right"><value field="je" format="#0.0000"></td>
+  </tr>
+  <widths value="6,5,6,6,6,4,4,4">
+</table>
+<SCRIPT LANGUAGE="javascript">
+initDefaultTableRow('tableview1',1);
+function detailRep(id, djxz)
+{
+	if( djxz == "" )
+	{
+		alert('没有单据性质不能追踪!');
+		return;
+	}
+	
+	if ( djxz == "4" )	//4=生产领料单.调用receive_material_edit.jsp
+	{
+  		openSelectUrl('../store/receive_material_edit.jsp?operate=2000&code=receive_material_list&id='+id, 'receive_material_list');
+	}
+	
+	if ( djxz == "6" )	//6=外加工发料单.调用process_issue_edit.jsp
+	{
+  		openSelectUrl('../store/process_issue_edit.jsp.jsp?operate=2000&code=process_issue_list&id='+id, 'process_issue_list');
+	}
+}
+</SCRIPT>
+</body>
+</html>
