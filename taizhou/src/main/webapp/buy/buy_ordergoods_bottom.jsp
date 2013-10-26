@@ -48,6 +48,7 @@
       <td nowrap height='20'>备注</td>
     </tr>
     <%
+    buyOrderBean.regData(list,"hthwid");
     prodBean.regData(list,"cpid");
     list.first();
       int i=0;
