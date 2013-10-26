@@ -145,7 +145,7 @@ function strlen(str)
         </tr>
         <tr>
           <td height="14" colspan="2" align="right" valign="top">
-            <font color="#0000FF">三博科技有限公司&nbsp;&nbsp;版权所有 2005-2015</font>
+            <font color="#0000FF">浙江黄罐集团&nbsp;&nbsp;版权所有 2013-2020</font>
           </td>
         </tr>
       </table>

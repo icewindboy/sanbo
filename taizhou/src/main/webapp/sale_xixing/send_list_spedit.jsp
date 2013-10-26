@@ -214,7 +214,7 @@ function deptchange(){
   engine.project.LookUp propertyBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_SPEC_PROPERTY);//物资规格属性
   engine.project.LookUp sendModeBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_SEND_MODE);//发货方式
   //engine.project.LookUp productStockBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_PRODUCT_STORE_STOCK);//当前库存   根据cpid,storeid,汇总取库量
-  engine.project.LookUp productStockBean2 = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_PRODUCT_STORE_STOCK2);//当前库存 对应规格属性取库存量
+  engine.project.LookUp productStockBean2 = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_PRODUCT_STORE_STOCK);//当前库存 对应规格属性取库存量
   engine.project.LookUp ykslBean = engine.project.LookupBeanFacade.getInstance(request, engine.project.SysConstant.BEAN_TDHW_YKTDSL); //已开提单数量 2004.11.26 wlc
 
   String curUrl = request.getRequestURL().toString();

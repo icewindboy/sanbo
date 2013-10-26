@@ -1,4 +1,3 @@
-<%--物资编码编辑页面--%>
 <%@ page contentType="text/html; charset=UTF-8"%><%@ include file="../pub/init.jsp"%>
 <%@ page import="engine.dataset.*,engine.project.Operate,java.util.ArrayList"%>
 <%!
@@ -59,8 +58,8 @@ function backList()
   String issale = row.get("issale").equals("1") ? "是" : "否";
   String isprops = row.get("isprops").equals("1") ? "是" : "否";
 %>
-<form name="form1" action="<%=curUrl%>" method="POST"  enctype="multipart/form-data" onsubmit="return false;" onKeyDown="return onInputKeyboard();">
-  <INPUT TYPE="HIDDEN" NAME="operate" value="14">
+<form name="form1" action="<%=curUrl%>" method="POST" onsubmit="return false;" onKeyDown="return onInputKeyboard();">
+  <INPUT TYPE="HIDDEN" NAME="operate" value="">
   <table BORDER="0" CELLPADDING="0" CELLSPACING="2" width="400" align="center">
     <tr valign="top">
       <td width="400"><table border=0 CELLSPACING=0 CELLPADDING=0 class="table">
@@ -130,7 +129,21 @@ function backList()
                   <td noWrap class="tdTitle">生产用公式</td>
                   <td noWrap class="td"><input type="text" name="scdwgs" value='<%=row.get("scdwgs")%>' maxlength='<%=ds.getColumn("scdwgs").getPrecision()%>' style="width:160" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>
                 </tr>
-
+                <tr>
+                  <td noWrap class="tdTitle">图号</td>
+                  <td noWrap class="td"> <input type="text" name="th" value='<%=row.get("th")%>' style="width:160" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>
+                  <td noWrap class="tdTitle">ABC分类</td>
+                  <td noWrap class="td">
+                    <%if(!hasABC)out.print("<input type='text' value='"+row.get("abc")+"' style='width:160' class='ednone' readonly>");
+                  else {%>
+                    <pc:select name="abc" addNull="1"style="width:160" value='<%=row.get("abc")%>'>
+                      <pc:option value='A'>A</pc:option>
+                      <pc:option value='B'>B</pc:option>
+                      <pc:option value='C'>C</pc:option>
+                    </pc:select>
+                    <%}%>
+                  </td>
+                </tr>
                 <tr>
                   <td noWrap class="tdTitle">存货性质</td>
                   <td noWrap class="td">
@@ -157,10 +170,10 @@ function backList()
                   </td>
                 </tr>
                 <tr>
-                  <td noWrap class="tdTitle">图</td>
-                  <td noWrap class="td" colspan="3">
-                  <input type="file" name="myfile"><br>
-                   </td>
+                  <td noWrap class="tdTitle">库存下限</td>
+                  <td noWrap class="td"><input type="text" name="minsl" value='<%=row.get("minsl")%>' maxlength='<%=ds.getColumn("minsl").getPrecision()%>' style="width:160" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>
+                  <td noWrap class="tdTitle">库存上限</td>
+                  <td noWrap class="td"><input type="text" name="maxsl" value='<%=row.get("maxsl")%>' maxlength='<%=ds.getColumn("maxsl").getPrecision()%>' style="width:160" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>
                 </tr>
                 <tr>
                   <td noWrap class="tdTitle">生产车间</td>
@@ -223,12 +236,11 @@ function backList()
                   <td noWrap class="tdTitle">是否批号跟踪</td>
                   <td noWrap class="td"><input type="checkbox" name="isbatchno" value="1" <%=row.get("isbatchno").equals("1") ? "checked" : ""%>></td>
                 </tr>
-
+                <tr >
                 <tr>
                   <td noWrap class="tdTitle">备注</td>
                   <td noWrap class="td" colspan="3"><input type="text" name="bz" value='<%=row.get("bz")%>' maxlength='<%=ds.getColumn("bz").getPrecision()%>' style="width:380" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>
-                </tr>
-                <%if(productBean.CUST_ESSEN.equals(productBean.systemCustName)){%>
+                </tr><%if(productBean.CUST_ESSEN.equals(productBean.systemCustName)){%>
                 <tr>
                   <td noWrap class="tdTitle">成交半成品数</td>
                   <td noWrap class="td"><input type="text" name="sjbcps" value='<%=row.get("sjbcps")%>' maxlength='<%=ds.getColumn("sjbcps").getPrecision()%>' style="width:160" class="edbox" onKeyDown="return getNextElement();" <%=readonly%>></td>

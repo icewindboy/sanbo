@@ -599,7 +599,7 @@ public final class EngineDataSet extends StorageDataSet
     switch(dataType)
     {
       case Variant.BIGDECIMAL:
-        value = data.getBigDecimal(ordinal).toString();
+        value = data.getBigDecimal(ordinal).toString().replace(",", "");
         break;
       case Variant.STRING:
         value = data.getString(ordinal);

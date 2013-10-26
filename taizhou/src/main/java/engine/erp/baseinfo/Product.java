@@ -19,7 +19,6 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
 
 import engine.action.BaseAction;
 import engine.action.Operate;
@@ -106,7 +105,7 @@ public class Product extends BaseAction implements Operate {
 	private String prefix = null;// 前缀编码
 	public String systemCustName = null;// 系统的客户名称
 	private String PRODUCT_SQL = null;
-	private MultipartRequest mr = null;
+
 	private File photo = null;
 
 	/**
@@ -205,11 +204,6 @@ public class Product extends BaseAction implements Operate {
 	public String doService(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String opearate = request.getParameter(OPERATE_KEY);
-			boolean isMultipart = ServletFileUpload.isMultipartContent(request);// 检查输入请求是否为multipart表单数据。
-			if (isMultipart == true) {
-				mr = new MultipartRequest(request, "D:\\");
-				opearate = mr.getParameter(OPERATE_KEY);
-			}
 			if (opearate != null && opearate.trim().length() > 0) {
 				RunData data = notifyObactioners(opearate, request, response, null);
 				if (data == null)
@@ -400,22 +394,8 @@ public class Product extends BaseAction implements Operate {
 			// 校验数据
 			HttpServletRequest request = data.getRequest();
 
-			boolean isMultipart = ServletFileUpload.isMultipartContent(request);// 检查输入请求是否为multipart表单数据。
-			if (isMultipart == true) {
-				FileItemFactory factory = new DiskFileItemFactory();// 为该请求创建一个DiskFileItemFactory对象，通过它来解析请求。执行解析后，所有的表单项目都保存在一个List中。
-				ServletFileUpload upload = new ServletFileUpload(factory);
-				photo = mr.getFile("myfile");
-				String of = mr.getOriginalFileName("myfile");
 
-				Enumeration<String> e = mr.getParameterNames();
-				while (e.hasMoreElements()) {
-					String key = e.nextElement();
-					rowInfo.put(key, mr.getParameter(key));
-				}
-			} else {
-				rowInfo.put(request);
-			}
-
+			rowInfo.put(request);
 			String parentCode = rowInfo.get("parentCode");
 			String self_Code = rowInfo.get("self_code");
 			String pm = rowInfo.get("pm");// 品名

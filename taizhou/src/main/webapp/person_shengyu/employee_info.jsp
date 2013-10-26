@@ -198,7 +198,11 @@ function productNameSelect(obj,srcVars)
       <td class="td"></td>
       <td class="td"></td>
       <td class="td"></td>
-      <td class="td"></td>      
+      <td class="td"></td>   
+      <td class="td"></td>
+      <td class="td"></td>
+      <td class="td"></td>
+      <td class="td"></td>             
     </tr>
     <%}%>
   </table>

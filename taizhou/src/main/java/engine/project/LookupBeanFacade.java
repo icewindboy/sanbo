@@ -488,7 +488,7 @@ public class LookupBeanFacade implements LookUp, HttpSessionBindingListener
   {
     EngineRow locateRow = new EngineRow(ds, columnNames);//
     for(int i=0; i<columnValues.length; i++)
-      locateRow.setValue(i, columnValues[i]);
+      locateRow.setValue(i, columnValues[i].replace(",", ""));
     //定位
     if(!ds.locate(locateRow, Locate.FIRST))
     {
@@ -708,7 +708,7 @@ public class LookupBeanFacade implements LookUp, HttpSessionBindingListener
           buf.append(whereValue.getKey()).append(" IN ('" );
         for(int j=0; j<columnValues.length; j++)
         {
-          String value = columnValues[j] == null || columnValues[j].length()==0 ? "-1" : columnValues[j];
+          String value = columnValues[j] == null || columnValues[j].length()==0 ? "-1" : columnValues[j].replace(",", "");
           buf.append(value).append(j== columnValues.length-1 ? "')" : "','");
         }
         //add AND

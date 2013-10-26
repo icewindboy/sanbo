@@ -53,10 +53,18 @@
 
 	<servlet>
 		<servlet-name>VerifyCaptchaServlet</servlet-name>
-		<servlet-class>com.sanbo.erp.web.servlet.VerifyCaptchaServlet
-		</servlet-class>
+		<servlet-class>com.sanbo.erp.web.servlet.VerifyCaptchaServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>sanbo</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:/spring/sanbo-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>DisplayChart</servlet-name>
 		<url-pattern>/servlet/DisplayChart</url-pattern>
@@ -67,14 +75,24 @@
 		<url-pattern>/servlet/VerifyCaptchaServlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>sanbo</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
+	<!--servlet-mapping>
+		<servlet-name>engine</servlet-name>
+		<url-pattern>/*.jsp</url-pattern>
+	</servlet-mapping-->
+
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-	<error-page>
+	<!--error-page>
 		<error-code>404</error-code>
 		<location>/pub/error404_page.jsp</location>
-	</error-page>
+	</error-page-->
 
 	<login-config>
 		<auth-method>BASIC</auth-method>

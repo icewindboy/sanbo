@@ -111,12 +111,10 @@ function checkRadio(row){
       <td class="td" nowrap>单位</td>
       <%--td class="td" nowrap>库存量</td--%>
       <%--td class="td" nowrap>可供量</td--%>
-      <td class="td" nowrap>计划单价</td>
+
       <td class="td" nowrap>销售价</td>
-      <td class="td" nowrap>基准价</td>
-      <td class="td" nowrap>提成率</td>
-      <td class="td" nowrap>回款天数</td>
-      <td class="td" nowrap>回款提成率</td>
+       <td class="td" nowrap>零售价</td>
+
     </tr>
     <%int count = list.getRowCount();
       list.first();
@@ -144,12 +142,9 @@ function checkRadio(row){
       <td nowrap id="jldw_<%=i%>" align="center" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("jldw")%></td>
       <%--td nowrap id="kcsl_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("kcsl")%></td--%>
       <%--td nowrap id="kckgl_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("kckgl")%></td--%>
-      <td nowrap id="jhdj_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("jhdj")%></td>
+
       <td nowrap id="xsj_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("xsj")%></td>
-      <td nowrap id="xsjzj_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("xsjzj")%></td>
-      <td nowrap id="xstcl_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("xstcl")%></td>
-      <td nowrap id="hkts_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("hkts")%></td>
-      <td nowrap id="hktcl_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("hktcl")%></td>
+  <td nowrap id="lsj_<%=i%>" align="right" class="td" onClick="checkRadio(<%=i%>)"><%=list.getValue("lsj")%></td>
     </tr>
     <%  list.next();
       }
@@ -161,13 +156,12 @@ function checkRadio(row){
       <td class="td">&nbsp;</td>
       <td class="td">&nbsp;</td>
 
+  
       <td class="td">&nbsp;</td>
       <td class="td">&nbsp;</td>
       <td class="td">&nbsp;</td>
-      <td class="td">&nbsp;</td>
-      <td class="td">&nbsp;</td>
-      <td class="td">&nbsp;</td>
-      <td class="td">&nbsp;</td>
+
+
     </tr>
     <%}%>
   </table>

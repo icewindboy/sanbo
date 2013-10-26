@@ -80,8 +80,8 @@ public final class B_LadingBill extends BaseAction implements Operate
 
   private EngineDataSet dsSearchTable  = new EngineDataSet();//查询用到的数据集
   private EngineDataSet hthwmxTable      = new EngineDataSet();//合同货物明细
-  public  HtmlTableProducer masterProducer = new HtmlTableProducer(dsMasterTable, "xs_td");
-  public  HtmlTableProducer masterListProducer = new HtmlTableProducer(dsMasterList, "xs_td");
+  public  HtmlTableProducer masterProducer = new HtmlTableProducer(dsMasterTable, "xs_td.1");
+  public  HtmlTableProducer masterListProducer = new HtmlTableProducer(dsMasterList, "xs_td.1");
   public  HtmlTableProducer detailProducer = new HtmlTableProducer(dsDetailTable, "xs_tdhw");
   public  boolean isApprove = false;     //是否在审批状态
   private boolean isMasterAdd = true;    //是否在添加状态

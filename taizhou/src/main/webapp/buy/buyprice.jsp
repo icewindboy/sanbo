@@ -157,7 +157,9 @@
     <tr onDblClick="showInterFrame(<%=Operate.EDIT%>,<%=list.getRow()%>)">
         <td class="td"><input name="image2" class="img" type="image" title="修改" onClick="showInterFrame(<%=Operate.EDIT%>,<%=list.getRow()%>)" src="../images/edit.gif" border="0">
       <%if(loginBean.hasLimits(pageCode, op_delete)){%><input name="image" class="img" type="image" title="删除" onClick="if(confirm('是否删除该记录？')) sumitForm(<%=Operate.DEL%>,<%=list.getRow()%>)" src="../images/del.gif" border="0">
-      <%}%></td>
+      <%}%>
+      <INPUT TYPE="HIDDEN" NAME="cg_bj$cpid" value="<%=list.getValue("cpid")%>">
+      </td>
       <%RowMap prodRow = prodBean.getLookupRow(list.getValue("cpid"));%>
       <td class="td" nowrap><%=prodRow.get("cpbm")%></td>
       <td class="td" nowrap><%=prodRow.get("pm")%></td>
