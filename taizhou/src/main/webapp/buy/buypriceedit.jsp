@@ -91,7 +91,7 @@ function product_change(){
   boolean isProvider=loginBean.hasLimits(pageCode, op_provider);//供应商权限
   boolean isHsbj = bjfs.equals("1");//如果等于1就以换算单位报价
   boolean isEdit = (buyPriceBean.isAdd ? loginBean.hasLimits(pageCode, op_add) : loginBean.hasLimits(pageCode, op_edit))&&isProvider;//在增加的时候又增加操作，否则必须有修改权限
-  boolean isHistory=ds.getValue("sflsbj").equals("1");
+  boolean isHistory=row.get("sflsbj").equals("1");
   String readonly = isEdit && !isHistory? "" : "readonly";
   String tableClass = isEdit&&!isHistory ? "edbox" : "edline";
 

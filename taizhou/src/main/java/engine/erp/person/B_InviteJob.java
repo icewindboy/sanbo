@@ -36,7 +36,7 @@ public final class B_InviteJob extends BaseAction implements Operate
   public  static final String MONTH_CHANGE = "555558888";//所选月份变化
   public  static final String OVER = "88888888888";
   private static final String ZPJH_STRUT_SQL = "SELECT * FROM rl_zpjh WHERE 1<>1 ";//获取表结构的语名
-  private static final String ZPJH_SQL    = "SELECT * FROM vw_invite  WHERE 1=1 ? ?   ";//根据参数查询数据
+  private static final String ZPJH_SQL    = "SELECT * FROM rl_zpjh  WHERE 1=1 ? ?   ";//根据参数查询数据
   private static final String YEAR_SQL="select zpnf nf from rl_zpjh ORDER BY nf DESC";
   private EngineDataSet ds_InviteTable  = new EngineDataSet();//主表
   private long    masterRow = -1;         //保存主表修改操作的行记录指针
